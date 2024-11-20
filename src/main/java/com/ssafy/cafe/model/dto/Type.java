@@ -1,0 +1,22 @@
+package com.ssafy.cafe.model.dto;
+
+public enum Type {
+	FICTION, 
+	COOKING, 
+	SCIENCE, 
+	HEALTH, 
+	HIANDSOC, 
+	TRAVEL, 
+	BUANDEC, 
+	CRANDHOANDFI, 
+	TEANDEN, 
+	RELIGION, 
+	POANDLI, 
+	ARTANDPER, 
+	HOANDHO, 
+	COMPUTER, 
+	HUMAN,
+	SELFHELF,
+	POANDSO,
+	FOREIGN
+}
