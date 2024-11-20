@@ -67,4 +67,16 @@ dependencies {
     //framework ktx dependency 추가
     implementation (libs.androidx.fragment.ktx)
 
+    // FCM 사용 위한 plugins
+    implementation(platform(libs.firebase.bom))
+    implementation (libs.firebase.messaging.ktx)
+
+    // Beacon 사용위한 Dependency 추가
+    //Android beacon Library. https://github.com/AltBeacon/android-beacon-library
+    implementation (libs.android.beacon.library)
+
+    // Glide 사용
+    implementation (libs.glide)
+    annotationProcessor(libs.compiler)
+
 }
