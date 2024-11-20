@@ -1,30 +1,41 @@
 package com.ssafy.cafe.model.dto;
 
 public class Interest {
-	private Integer i_id;
-	private Integer c_id;
-    private Type type;
+	private Integer iId;
+	private Integer cId;
+    private Category category;
     
     
-	public Integer getI_id() {
-		return i_id;
+	public Interest(Integer iId, Integer cId, Category category) {
+		super();
+		this.iId = iId;
+		this.cId = cId;
+		this.category = category;
 	}
-	public void setI_id(Integer i_id) {
-		this.i_id = i_id;
+	
+	public Interest(Integer cId, Category category) {
+		this.cId = cId;
+		this.category = category;
 	}
-	public Integer getC_id() {
-		return c_id;
+	
+	public Integer getIId() {
+		return iId;
 	}
-	public void setC_id(Integer c_id) {
-		this.c_id = c_id;
+	public void setIId(Integer iId) {
+		this.iId = iId;
 	}
-	public Type getType() {
-		return type;
+	public Integer getCId() {
+		return cId;
 	}
-	public void setType(Type type) {
-		this.type = type;
+	public void setCId(Integer cId) {
+		this.cId = cId;
+	}
+	public Category getType() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
 	}
     
 	
-    
 }

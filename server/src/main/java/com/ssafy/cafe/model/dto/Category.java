@@ -1,6 +1,6 @@
 package com.ssafy.cafe.model.dto;
 
-public enum Type {
+public enum Category {
 	FICTION, 
 	COOKING, 
 	SCIENCE, 
