@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="24dp">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_bold"
             android:text="@string/join_toolbar_title"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +39,7 @@
     <TextView
         android:layout_marginTop="16dp"
         android:id="@+id/tv_id"
+        android:layout_marginHorizontal="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/id"
@@ -48,6 +50,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_id"
         android:layout_width="0dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/id"
@@ -61,6 +64,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             android:inputType="text"
+            android:textSize="14sp"
             android:maxLength="20"
             android:maxLines="1" />
 
@@ -68,6 +72,7 @@
 
     <TextView
         android:id="@+id/tv_pwd"
+        android:layout_marginHorizontal="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -79,6 +84,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_pwd"
         android:layout_width="0dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/pwd"
@@ -92,6 +98,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             android:inputType="text"
+            android:textSize="14sp"
             android:maxLength="20"
             android:maxLines="1" />
 
@@ -101,6 +108,7 @@
         android:id="@+id/tv_nick_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="24dp"
         android:text="@string/nick_name"
         android:textSize="14sp"
@@ -110,6 +118,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_nick_name"
         android:layout_width="0dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/nick_name"
@@ -123,6 +132,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             android:inputType="text"
+            android:textSize="14sp"
             android:maxLength="20"
             android:maxLines="1" />
 
@@ -132,6 +142,7 @@
         android:id="@+id/tv_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="24dp"
         android:text="@string/age"
         android:textSize="14sp"
@@ -142,6 +153,7 @@
         android:id="@+id/input_layout_age"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="8dp"
         android:hint="@string/age"
         android:textColorHint="@color/light_text"
@@ -153,7 +165,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:textSize="14sp"
+            android:inputType="number"
             android:maxLength="20"
             android:maxLines="1" />
 
@@ -161,6 +174,7 @@
 
     <TextView
         android:id="@+id/tv_gender"
+        android:layout_marginHorizontal="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -171,29 +185,35 @@
 
     <ImageView
         android:id="@+id/iv_male"
+        android:layout_marginHorizontal="32dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/selector_male"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_male_checked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_gender" />
 
     <ImageView
         android:id="@+id/iv_female"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_marginStart="8dp"
-        android:src="@drawable/selector_female"
+        android:src="@drawable/ic_female"
         app:layout_constraintStart_toEndOf="@id/iv_male"
         app:layout_constraintTop_toTopOf="@id/iv_male" />
 
     <Button
         android:layout_marginBottom="16dp"
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_next"
         android:layout_width="0dp"
+        android:layout_marginHorizontal="32dp"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_background"
-        android:text="@string/login"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
