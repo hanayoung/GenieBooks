@@ -17,7 +17,15 @@
 		    #{age}, 
 		    #{sex})
 	</insert>
-    
+    <insert id="insertInterest" parameterType="Interest">
+		INSERT INTO interest
+		    (c_id,
+		    category)
+		VALUES
+		    (#{cId}, 
+		    #{category})
+	</insert>
+	
 	<select id="selectById" parameterType="string" resultType="Customer">
 		SELECT * FROM customer
 		WHERE id = #{id}
