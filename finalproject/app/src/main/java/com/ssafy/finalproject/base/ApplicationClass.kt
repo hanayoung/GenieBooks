@@ -5,8 +5,11 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ssafy.finalproject.data.local.SharedPreferencesUtil
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "ApplicationClass_싸피"
@@ -14,10 +17,28 @@ class ApplicationClass : Application() {
     companion object {
         // ipconfig를 통해 ip확인하기
         // 핸드폰으로 접속은 같은 인터넷으로 연결 되어있어야함 (유,무선)
-        const val SERVER_URL = "http://192.168.33.33:9987/"
-
+//        const val SERVER_URL = "http://192.168.33.33:9987/rest/"
+        const val SERVER_URL = "http://192.168.32.88:9987/rest/"
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil
         lateinit var retrofit: Retrofit
+
+        private val nullOnEmptyConverterFactory = object : Converter.Factory() {
+            fun converterFactory() = this
+            override fun responseBodyConverter(type: Type, annotations: Array<out Annotation>, retrofit: Retrofit) = object :
+                Converter<ResponseBody, Any?> {
+                val nextResponseBodyConverter = retrofit.nextResponseBodyConverter<Any?>(converterFactory(), type, annotations)
+                override fun convert(value: ResponseBody) = if (value.contentLength() != 0L) {
+                    try{
+                        nextResponseBodyConverter.convert(value)
+                    }catch (e:Exception){
+                        e.printStackTrace()
+                        null
+                    }
+                } else{
+                    null
+                }
+            }
+        }
     }
 
 
@@ -40,6 +61,7 @@ class ApplicationClass : Application() {
         // 앱이 처음 생성되는 순간, retrofit 인스턴스를 생성
         retrofit = Retrofit.Builder()
             .baseUrl(SERVER_URL)
+            .addConverterFactory(nullOnEmptyConverterFactory)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()

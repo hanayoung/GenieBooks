@@ -9,21 +9,27 @@ public class Customer {
 	private String pwd;
 	private Integer age;
 	private Sex sex;
+	private Integer point;
 	private List<Category> category;
 
 	public Customer() {
 	}
 
-	public Customer(String id, String nickname, String pwd, Integer age, Sex sex, List<Category> category) {
+	public Customer(String id, String pwd) {
+		this.id = id;
+		this.pwd = pwd;
+	}
+	public Customer(String id, String nickname, String pwd, Integer age, Sex sex, Integer point, List<Category> category) {
 		this.id = id;
 		this.nickname = nickname;
 		this.pwd = pwd;
 		this.age = age;
 		this.sex = sex;
+		this.point = point;
 		this.category = category;
 	}
 
-	public Customer(Integer cId, String id, String nickname, String pwd, Integer age, Sex sex,
+	public Customer(Integer cId, String id, String nickname, String pwd, Integer age, Sex sex, Integer point,
 			List<Category> category) {
 		super();
 		this.cId = cId;
@@ -32,6 +38,7 @@ public class Customer {
 		this.pwd = pwd;
 		this.age = age;
 		this.sex = sex;
+		this.point = point;
 		this.category = category;
 	}
 
@@ -82,7 +89,15 @@ public class Customer {
 	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
-
+	
+	public Integer getPoint() {
+		return point;
+	}
+	
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
+ 
 	public List<Category> getCategory() {
 		return category;
 	}
@@ -94,7 +109,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", nickname=" + nickname + ", pwd=" + pwd + ", age=" + age + ", sex=" + sex
-				+ ", category= " + getCategory().size() + "]";
+				+ ", category= " + "]";
 	}
 
 }

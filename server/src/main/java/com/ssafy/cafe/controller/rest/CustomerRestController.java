@@ -67,13 +67,17 @@ public class CustomerRestController {
     		+ "</pre>")
     
     public Customer login(@RequestBody Customer customer, HttpServletResponse response) throws UnsupportedEncodingException {
+    	logger.debug("customer :{}", customer);
     	Customer selected = cService.login(customer.getId(), customer.getPwd());
+    	logger.debug("selected 1 :{}",selected);
         if (selected != null) {
           Cookie cookie = new Cookie("loginId", URLEncoder.encode(selected.getId(), "utf-8"));
 //            Cookie cookie = new Cookie("loginId", selected.getId());
             cookie.setMaxAge(60*60*24*30); //30일
             response.addCookie(cookie);
+            logger.debug("selected :{}",selected);
         }
+        logger.debug("selected  2:{}",selected);
         return selected;
     }
     
