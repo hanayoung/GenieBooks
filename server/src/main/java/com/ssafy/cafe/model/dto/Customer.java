@@ -23,7 +23,8 @@ public class Customer {
 		this.category = category;
 	}
 
-	public Customer(Integer cId, String id, String nickname, String pwd, Integer age, Sex sex, List<Category> category) {
+	public Customer(Integer cId, String id, String nickname, String pwd, Integer age, Sex sex,
+			List<Category> category) {
 		super();
 		this.cId = cId;
 		this.id = id;
@@ -92,8 +93,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [cId=" + cId + ", id=" + id + ", nickname=" + nickname + ", pwd=" + pwd + ", age=" + age
-				+ ", sex=" + sex + ", category= "+ getCategory().size()+ "]";
+		return "Customer [id=" + id + ", nickname=" + nickname + ", pwd=" + pwd + ", age=" + age + ", sex=" + sex
+				+ ", category= " + getCategory().size() + "]";
 	}
 
 }
