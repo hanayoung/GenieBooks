@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowSplashScreenBackground" tools:ignore="NewApi">@color/primary</item>
         <!--custom font-family 적용-->
         <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
         <item name="android:buttonStyle">@style/customButtonFontStyle</item>
