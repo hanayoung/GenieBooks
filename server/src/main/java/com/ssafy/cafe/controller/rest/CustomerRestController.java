@@ -33,7 +33,7 @@ public class CustomerRestController {
     
     @PostMapping("/signup")
     @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. "
-    	, description = "<pre> json중에서 id, name, pass만 입력해도 정상동작한다. \n"
+    	, description = "<pre> json중에서 cId는 빼고 입력해도 정상동작한다. \n"
     			+ "아래는 aa12 사용자를 추가하는 샘플코드\n "
     			+ "{\r\n"
     			+ "  \"id\": \"aa12\",\r\n"
