@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.cafe.model.dto.Customer;
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.User;
+import com.ssafy.cafe.model.service.CustomerService;
 import com.ssafy.cafe.model.service.OrderService;
 import com.ssafy.cafe.model.service.StampService;
 import com.ssafy.cafe.model.service.UserService;
@@ -46,7 +48,7 @@ public class UserRestController {
 
     @Autowired
     OrderService oService;
-
+    
     @PostMapping
     @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. "
     	, description = "<pre> json중에서 id, name, pass만 입력해도 정상동작한다. \n"
@@ -72,7 +74,7 @@ public class UserRestController {
             return false;
         }
     }
-
+    
     @GetMapping("/isUsed")
     @Operation(summary = "request parameter로 전달된 id가 이미 사용중인지 반환한다.")
     public Boolean isUsedId(String id) {

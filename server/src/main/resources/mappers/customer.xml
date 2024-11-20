@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.cafe.model.dao.CustomerDao">
+	<insert id="insert" parameterType="Customer">
+		INSERT INTO customer
+		    (nickname,
+		    id, 
+		    pwd,
+		    age,
+		    sex)
+		VALUES
+		    (#{nickname}, 
+		    #{id},
+		    #{pwd}, 
+		    #{age}, 
+		    #{sex})
+	</insert>
+    
+	<select id="selectById" parameterType="string" resultType="Customer">
+		SELECT * FROM customer
+		WHERE id = #{id}
+	</select>
+    	
+</mapper>
