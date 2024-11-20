@@ -8,4 +8,26 @@
     <string name="nick_name">닉네임</string>
     <string name="age">나이</string>
     <string name="gender">성별</string>
+    <string name="join_category_toolbar_title">관심 분야를 선택해주세요</string>
+
+    <!-- 카테고리 -->
+    <string name="category_fiction">소설</string>
+    <string name="category_cooking">요리</string>
+    <string name="category_science">과학</string>
+    <string name="category_health">건강</string>
+    <string name="category_hiandsoc">역사/문화</string>
+    <string name="category_travel">여행</string>
+    <string name="category_buandec">경제/경영</string>
+    <string name="category_crandhoandfi">취미/실용/스포츠</string>
+    <string name="category_teanden">기술/공학</string>
+    <string name="category_religion">종교</string>
+    <string name="category_poandli">시/에세이</string>
+    <string name="category_artandper">예술/대중문화</string>
+    <string name="category_hoandho">가정/육아</string>
+    <string name="category_computer">컴퓨터/IT</string>
+    <string name="category_human">인문</string>
+    <string name="category_selfhelf">자기계발</string>
+    <string name="category_poandso">정치/사회</string>
+    <string name="category_foreign">외국어</string>
+
 </resources>
