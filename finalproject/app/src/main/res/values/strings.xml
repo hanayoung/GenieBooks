@@ -4,4 +4,8 @@
     <string name="pwd">비밀번호</string>
     <string name="login">로그인</string>
     <string name="join">회원가입</string>
+    <string name="join_toolbar_title">회원 정보를 입력해주세요</string>
+    <string name="nick_name">닉네임</string>
+    <string name="age">나이</string>
+    <string name="gender">성별</string>
 </resources>
