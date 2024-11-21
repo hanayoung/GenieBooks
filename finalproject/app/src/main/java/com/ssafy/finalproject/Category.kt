@@ -1,4 +1,4 @@
-package com.ssafy.finalproject.util
+package com.ssafy.finalproject
 
 enum class Category(category: String) {
     FICTION("FICTION"),

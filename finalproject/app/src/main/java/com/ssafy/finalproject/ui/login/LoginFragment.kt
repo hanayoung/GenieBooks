@@ -7,10 +7,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.JsonObject
 import com.ssafy.finalproject.R
-import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.customerService
 import com.ssafy.finalproject.databinding.FragmentLoginBinding
+import com.ssafy.finalproject.util.setOnSingleClickListener
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -52,7 +52,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
             }
         }
 
-        binding.btnJoin.setOnClickListener {
+        binding.btnJoin.setOnSingleClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_joinFragment)
         }
     }

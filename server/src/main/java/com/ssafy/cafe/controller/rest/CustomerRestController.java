@@ -46,6 +46,7 @@ public class CustomerRestController {
     	int result = 0;
     	try {
     		result = cService.join(customer);
+    		logger.debug("result : {}",result);
     	}catch(Exception e) {
     		result = -1;
     	}
