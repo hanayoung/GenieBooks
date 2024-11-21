@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/categoryFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -14,7 +14,11 @@
         android:id="@+id/categoryFragment"
         android:name="com.ssafy.finalproject.ui.category.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_categoryDetailFragment"
+            app:destination="@id/categoryDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.ssafy.finalproject.ui.mypage.MyPageFragment"
@@ -49,7 +53,18 @@
         <action
             android:id="@+id/action_joinCategoryFragment_to_loginFragment"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true"
+            app:popUpToInclusive="false"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryDetailFragment"
+        android:name="com.ssafy.finalproject.ui.categorydetail.CategoryDetailFragment"
+        android:label="CategoryDetailFragment" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="categoryKr"
+            app:argType="string" />
     </fragment>
 </navigation>
