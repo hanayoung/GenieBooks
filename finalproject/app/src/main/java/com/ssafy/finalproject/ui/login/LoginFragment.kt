@@ -41,7 +41,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                                 customerService.login(requestBody)
                             }.onSuccess {
                                 Log.d(TAG, "onViewCreated: success $it")
-                                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                                findNavController().apply {
+                                    navigate(R.id.action_loginFragment_to_homeFragment)
+                                }
                             }.onFailure {
                                 Log.d(TAG, "onViewCreated: fail ${it.message}")
                                 showToast("ID와 비밀번호를 확인해주세요")

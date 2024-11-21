@@ -24,15 +24,21 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public int join(Customer customer) {
-		int result = customerDao.insert(customer);
-		logger.debug("result : {}",result);
-		Customer newCustomer = customerDao.selectById(customer.getId());
-		List<Category> list = customer.getCategory();
-		for (Category category : list) {
-			Interest interest = new Interest(newCustomer.getCId(), category);
-			logger.debug("customer.interest {}", interest);
-			customerDao.insertInterest(interest);
+		int result = 0;
+		Customer check = customerDao.selectById(customer.getId());
+		if(check != null) result = -1;
+		else {
+			result = customerDao.insert(customer);
+			logger.debug("result : {}",result);
+			Customer newCustomer = customerDao.selectById(customer.getId());
+			List<Category> list = customer.getCategory();
+			for (Category category : list) {
+				Interest interest = new Interest(newCustomer.getCId(), category);
+				logger.debug("customer.interest {}", interest);
+				customerDao.insertInterest(interest);
+			}
 		}
+
 		logger.debug("before end result : {}",result);
 		return result;
 
