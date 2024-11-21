@@ -8,6 +8,7 @@ import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.model.dto.Customer
 import com.ssafy.finalproject.databinding.FragmentJoinBinding
+import com.ssafy.finalproject.util.setOnSingleClickListener
 
 class JoinFragment : BaseFragment<FragmentJoinBinding>(
     FragmentJoinBinding::bind,
@@ -16,6 +17,10 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.ivBack.setOnSingleClickListener {
+            findNavController().popBackStack()
+        }
 
         var isMan = true
         // Male 클릭 시 상태 변경
@@ -32,7 +37,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(
             isMan = false
         }
 
-        binding.btnNext.setOnClickListener {
+        binding.btnNext.setOnSingleClickListener {
             binding.inputLayoutId.editText?.let { id ->
                 binding.inputLayoutPwd.editText?.let {  pwd ->
                     binding.inputLayoutNickName.editText?.let { nickname ->

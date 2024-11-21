@@ -20,7 +20,7 @@ class JoinCategoryViewModel: ViewModel() {
             runCatching {
                 customerService.join(customer)
             }.onSuccess {
-                _isJoinSuccess.value = true
+                _isJoinSuccess.value = it
             }.onFailure {
                 Log.d(TAG, "join: ${it.message}")
             }

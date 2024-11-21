@@ -6,23 +6,23 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.ssafy.finalproject.Category
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentJoinCategoryBinding
-import com.ssafy.finalproject.Category
-import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.customerService
-import kotlinx.coroutines.launch
+import com.ssafy.finalproject.util.setOnSingleClickListener
 
 private const val TAG = "JoinCategoryFragment_싸피"
+
 class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
     FragmentJoinCategoryBinding::bind,
     R.layout.fragment_join_category
 ) {
 
     private val viewModel: JoinCategoryViewModel by viewModels<JoinCategoryViewModel>()
+
     // 선택된 카테고리를 저장할 리스트
     private val selectedCategories = arrayListOf<String>()
 
@@ -31,6 +31,10 @@ class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
 
         val args: JoinCategoryFragmentArgs by navArgs()
         val customer = args.customer
+
+        binding.ivBack.setOnSingleClickListener {
+            findNavController().popBackStack()
+        }
 
         // 모든 TextView를 바인딩 객체로 접근
         val categoryViews = listOf(
@@ -63,10 +67,11 @@ class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
 
         registerObserver()
 
-        binding.btnNext.setOnClickListener {
+        binding.btnNext.setOnSingleClickListener {
             if (selectedCategories.isNotEmpty()) {
                 customer.category = selectedCategories
                 viewModel.join(customer)
+                Log.d(TAG, "onViewCreated: $customer")
             } else {
                 showToast("카테고리를 한개 이상 선택해주세요.")
             }
@@ -92,9 +97,12 @@ class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
 
     private fun registerObserver() {
         viewModel.isJoinSuccess.observe(viewLifecycleOwner) {
+            Log.d(TAG, "registerObserver: $it")
             if (it) {
                 showToast("회원 가입에 성공하였습니다.")
                 findNavController().navigate(R.id.action_joinCategoryFragment_to_loginFragment)
+            } else {
+                showToast("회원 가입에 실패하였습니다. 다시 시도해주세요.")
             }
         }
     }
