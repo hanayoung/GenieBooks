@@ -27,8 +27,6 @@ public class CustomerServiceImpl implements CustomerService {
 		int result = customerDao.insert(customer);
 		logger.debug("result : {}",result);
 		Customer newCustomer = customerDao.selectById(customer.getId());
-		logger.debug("customer.inserted {}", customer);
-		logger.debug("customer.new {}", newCustomer);
 		List<Category> list = customer.getCategory();
 		for (Category category : list) {
 			Interest interest = new Interest(newCustomer.getCId(), category);

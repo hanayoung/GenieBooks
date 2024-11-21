@@ -68,7 +68,7 @@ public class GoogleBookServiceImpl implements GoogleBookService {
                 ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
                 logger.debug("response :{}",response);
                 
-                if(response.getBody().getItems() == null) {
+                if(response == null || response.getBody().getItems() == null) {
                     uri = UriComponentsBuilder
                             .fromUriString(Constants.GOOGLE_BOOK_API_URL)
                             .queryParam("q",String.format("ISBN:\"%d\"", isbn))
