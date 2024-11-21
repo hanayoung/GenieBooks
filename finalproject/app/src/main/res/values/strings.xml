@@ -32,4 +32,7 @@
     <string name="category_poandso">정치/사회</string>
     <string name="category_foreign">외국어</string>
 
+    <string name="my_page_nickname">%1$s님</string>
+    <string name="my_page_point">%1$sP</string>
+
 </resources>
