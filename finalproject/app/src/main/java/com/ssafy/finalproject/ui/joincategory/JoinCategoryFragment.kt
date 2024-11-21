@@ -5,10 +5,16 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentJoinCategoryBinding
-import com.ssafy.finalproject.util.Category
+import com.ssafy.finalproject.Category
+import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.customerService
+import kotlinx.coroutines.launch
 
 private const val TAG = "JoinCategoryFragment_싸피"
 class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
@@ -16,11 +22,15 @@ class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
     R.layout.fragment_join_category
 ) {
 
+    private val viewModel: JoinCategoryViewModel by viewModels<JoinCategoryViewModel>()
     // 선택된 카테고리를 저장할 리스트
-    private val selectedCategories = mutableListOf<String>()
+    private val selectedCategories = arrayListOf<String>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args: JoinCategoryFragmentArgs by navArgs()
+        val customer = args.customer
 
         // 모든 TextView를 바인딩 객체로 접근
         val categoryViews = listOf(
@@ -50,6 +60,17 @@ class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
                 handleCategorySelection(textView, category)
             }
         }
+
+        registerObserver()
+
+        binding.btnNext.setOnClickListener {
+            if (selectedCategories.isNotEmpty()) {
+                customer.category = selectedCategories
+                viewModel.join(customer)
+            } else {
+                showToast("카테고리를 한개 이상 선택해주세요.")
+            }
+        }
     }
 
     // 카테고리 선택 처리
@@ -67,5 +88,14 @@ class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
             textView.setTextColor(colorFromResources)
         }
         Log.d(TAG, "handleCategorySelection: $selectedCategories")
+    }
+
+    private fun registerObserver() {
+        viewModel.isJoinSuccess.observe(viewLifecycleOwner) {
+            if (it) {
+                showToast("회원 가입에 성공하였습니다.")
+                findNavController().navigate(R.id.action_joinCategoryFragment_to_loginFragment)
+            }
+        }
     }
 }

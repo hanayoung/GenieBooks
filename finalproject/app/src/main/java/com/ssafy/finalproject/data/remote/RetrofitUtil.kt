@@ -4,6 +4,6 @@ import com.ssafy.finalproject.base.ApplicationClass
 
 class RetrofitUtil {
     companion object{
-        val customerService = ApplicationClass.retrofit.create(CustomerService::class.java)
+        val customerService: CustomerService = ApplicationClass.retrofit.create(CustomerService::class.java)
     }
 }
