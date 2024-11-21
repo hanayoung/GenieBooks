@@ -33,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    viewBinding{
+        enable = true
+    }
 }
 
 dependencies {
@@ -42,7 +46,40 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.viewbinding)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // SplashScreen
+    implementation(libs.androidx.core.splashscreen)
+
+    // Retrofit
+    // https://github.com/square/retrofit
+    implementation (libs.retrofit)
+    // https://github.com/square/okhttp
+    implementation (libs.okhttp)
+    // https://github.com/square/retrofit/tree/master/retrofit-converters/gson
+    implementation (libs.converter.gson)
+    // https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
+    implementation (libs.logging.interceptor)
+
+    // Jetpack Navigation Kotlin
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
+
+    //framework ktx dependency 추가
+    implementation (libs.androidx.fragment.ktx)
+
+    // FCM 사용 위한 plugins
+    implementation(platform(libs.firebase.bom))
+    implementation (libs.firebase.messaging.ktx)
+
+    // Beacon 사용위한 Dependency 추가
+    //Android beacon Library. https://github.com/AltBeacon/android-beacon-library
+    implementation (libs.android.beacon.library)
+
+    // Glide 사용
+    implementation (libs.glide)
+    annotationProcessor(libs.compiler)
 }
