@@ -10,6 +10,7 @@
     <string name="age">나이</string>
     <string name="gender">성별</string>
     <string name="join_category_toolbar_title">관심 분야를 선택해주세요</string>
+    <string name="category_toolbar_title">카테고리</string>
 
     <!-- 카테고리 -->
     <string name="category_fiction">소설</string>

@@ -28,6 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             binding.bnv.visibility = when (destination.id) {
                 R.id.loginFragment -> View.GONE
                 R.id.joinFragment -> View.GONE
+                R.id.joinCategoryFragment -> View.GONE
                 R.id.homeFragment -> View.VISIBLE
                 R.id.categoryFragment -> View.VISIBLE
                 R.id.myPageFragment -> View.VISIBLE

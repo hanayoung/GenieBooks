@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.ssafy.finalproject.ui.login.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -35,4 +35,8 @@
         android:id="@+id/joinFragment"
         android:name="com.ssafy.finalproject.ui.join.JoinFragment"
         android:label="JoinFragment" />
+    <fragment
+        android:id="@+id/joinCategoryFragment"
+        android:name="com.ssafy.finalproject.ui.joincategory.JoinCategoryFragment"
+        android:label="JoinCategoryFragment" />
 </navigation>

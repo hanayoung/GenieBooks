@@ -1,0 +1,22 @@
+package com.ssafy.finalproject.util
+
+enum class Category(category: String) {
+    FICTION("FICTION"),
+    COOKING("COOKING"),
+    SCIENCE("SCIENCE"),
+    HEALTH("HEALTH"),
+    HIANDSOC("HIANDSOC"),
+    TRAVEL("TRAVEL"),
+    BUANDEC("BUANDEC"),
+    CRANDHOANDFI("CRANDHOANDFI"),
+    TEANDEN("TEANDEN"),
+    RELIGION("RELIGION"),
+    POANDLI("POANDLI"),
+    ARTANDPER("ARTANDPER"),
+    HOANDHO("HOANDHO"),
+    COMPUTER("COMPUTER"),
+    HUMAN("HUMAN"),
+    SELFHELP("SELFHELP"),
+    POANDSO("POANDSO"),
+    FOREIGN("FOREIGN");
+}
