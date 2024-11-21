@@ -41,6 +41,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                                 customerService.login(requestBody)
                             }.onSuccess {
                                 Log.d(TAG, "onViewCreated: success $it")
+
                                 findNavController().apply {
                                     navigate(R.id.action_loginFragment_to_homeFragment)
                                 }

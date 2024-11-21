@@ -19,7 +19,7 @@
     <string name="category_selfhelf">자기계발</string>
     <string name="category_poandso">정치/사회</string>
     <string name="category_foreign">외국어</string>
-
+    
     <!-- 앱 -->
     <string name="app_name">FinalProject</string>
 
@@ -35,5 +35,7 @@
     <string name="join_category_toolbar_title">관심 분야를 선택해주세요</string>
     <string name="category_toolbar_title">카테고리</string>
     <string name="join_finish">회원가입 완료</string>
+    <string name="my_page_nickname">%1$s님</string>
+    <string name="my_page_point">%1$sP</string>
 
 </resources>
