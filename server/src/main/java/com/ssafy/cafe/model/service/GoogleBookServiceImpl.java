@@ -4,8 +4,10 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ssafy.cafe.model.dao.GoogleBookDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,8 +22,10 @@ import org.springframework.http.ResponseEntity;
  */
 @Service
 public class GoogleBookServiceImpl implements GoogleBookService {
-	
     private static final Logger logger = LoggerFactory.getLogger(GoogleBookServiceImpl.class);
+
+    @Autowired
+    private GoogleBookDao googleBookDao;
 
 	@Override
 	public List<GoogleBook> selectBooksbyCategory(String category) {
@@ -44,6 +48,36 @@ public class GoogleBookServiceImpl implements GoogleBookService {
         
 	}
 
-    
+    @Override
+    public List<GoogleBook> selectRecommendBooks() {
+        RestTemplate restTemplate = new RestTemplate();
+        // 우선 db에서 isbn 목록을 가져온 후, book 목록을 google books api에 던지기
+        List<Long> isbnList = selectRecommendIsbn();
+        List<GoogleBook> recommendBookList = new ArrayList<>();
+
+        try{
+            for (Long isbn : isbnList) {
+                URI uri = UriComponentsBuilder
+                        .fromUriString(Constants.GOOGLE_BOOK_API_URL)
+                        .queryParam("q","isbn:"+isbn)
+                        .encode()
+                        .build()
+                        .toUri();
+                ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
+                recommendBookList.addAll(response.getBody().getItems());
+            }
+            return recommendBookList;
+        }catch (Exception e) {
+                logger.debug("exception occur : {}",e.getMessage());
+                return recommendBookList;
+        }
+    }
+
+    @Override
+    public List<Long> selectRecommendIsbn() {
+        return googleBookDao.selectAllIsbn();
+    }
+
+
 }
 

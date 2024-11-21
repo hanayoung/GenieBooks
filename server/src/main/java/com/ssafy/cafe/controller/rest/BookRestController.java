@@ -37,26 +37,27 @@ public class BookRestController {
     GoogleBookService gService;
     
     @GetMapping("/search")
-    @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. "
-    	, description = "<pre> json중에서 cId는 빼고 입력해도 정상동작한다. \n"
-    			+ "아래는 aa12 사용자를 추가하는 샘플코드\n "
-    			+ "{\r\n"
-    			+ "  \"id\": \"aa12\",\r\n"
-    			+ "  \"name\": \"aa12\",\r\n"
-    			+ "  \"pass\": \"aa12\",\r\n"
-    			+ "}"
-    			+ "</pre>")
-    public List<GoogleBook> selectBooksbyCategory(String category) {
+    @Operation(summary = "검색한 카테고리에 해당하는 책 목록을 반환한다. 없는 카테고리일 경우 빈 리스트를 반환한다")
+    public List<GoogleBook> selectBooksByCategory(String category) {
     	logger.debug("book.search category : {}", category);
     	try {
     		Category categoryName = Category.fromString(category);
     		logger.debug("category string : {}",categoryName.getName());
     		return gService.selectBooksbyCategory(categoryName.getName());
     	}catch(Exception e) {
-    		return new ArrayList<>();
-    	}
-    	
+			return new ArrayList<>();
+		}
     }
+
+	@GetMapping("/recommend")
+	@Operation(summary = "추천 책 목록을 반환한다. 없는 카테고리일 경우 빈 리스트를 반환한다")
+	public List<GoogleBook> selectRecommendBooks() {
+		try {
+			return gService.selectRecommendBooks();
+		}catch(Exception e) {
+			return new ArrayList<>();
+		}
+	}
 
 
 }

@@ -9,13 +9,11 @@ import com.ssafy.cafe.model.dto.User;
 
 
 public interface GoogleBookService {
-    /**
-     * 사용자 정보를 DB에 저장한다.
-     * 
-     * @param user
-     */
     public List<GoogleBook> selectBooksbyCategory(String category);
 
+    public List<GoogleBook> selectRecommendBooks();
+
+    public List<Long> selectRecommendIsbn();
     
     
 }
