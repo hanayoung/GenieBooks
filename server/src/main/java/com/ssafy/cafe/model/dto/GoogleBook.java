@@ -97,12 +97,9 @@ public class GoogleBook {
 	    private List<IndustryIdentifier> industryIdentifiers;
 	    private List<String> categories;
 	    private ImageLinks imageLinks;
-	    private String language;
-	    private String previewLink;
 	    
 		public VolumeInfo(String title, List<String> authors, String publisher, String publishedDate, String description,
-				List<IndustryIdentifier> industryIdentifiers, List<String> categories, ImageLinks imageLinks,
-				String language, String previewLink) {
+				List<IndustryIdentifier> industryIdentifiers, List<String> categories, ImageLinks imageLinks) {
 			super();
 			this.title = title;
 			this.authors = authors;
@@ -112,8 +109,6 @@ public class GoogleBook {
 			this.industryIdentifiers = industryIdentifiers;
 			this.categories = categories;
 			this.imageLinks = imageLinks;
-			this.language = language;
-			this.previewLink = previewLink;
 		}
 		
 		public VolumeInfo() {}
@@ -166,30 +161,17 @@ public class GoogleBook {
 		public void setImageLinks(ImageLinks imageLinks) {
 			this.imageLinks = imageLinks;
 		}
-		public String getLanguage() {
-			return language;
-		}
-		public void setLanguage(String language) {
-			this.language = language;
-		}
-		public String getPreviewLink() {
-			return previewLink;
-		}
-		public void setPreviewLink(String previewLink) {
-			this.previewLink = previewLink;
-		}
 		
 		@Override
 		public String toString() {
 			return "VolumeInfo [title=" + title + ", authors=" + authors + ", publisher=" + publisher + ", publishedDate="
 					+ publishedDate + ", description=" + description + ", industryIdentifiers=" + industryIdentifiers
-					+ ", categories=" + categories + ", imageLinks=" + imageLinks + ", language=" + language
-					+ ", previewLink=" + previewLink + "]";
+					+ ", categories=" + categories + ", imageLinks=" + imageLinks
+					+ "]";
 		}
 
 		@JsonIgnoreProperties(ignoreUnknown = true)
 		public static class ImageLinks {
-		    private String smallThumbnail;
 		    private String thumbnail;
 		    
 		    
@@ -197,22 +179,10 @@ public class GoogleBook {
 			}
 
 
-			public ImageLinks(String smallThumbnail, String thumbnail) {
+			public ImageLinks(String thumbnail) {
 				super();
-				this.smallThumbnail = smallThumbnail;
 				this.thumbnail = thumbnail;
 			}
-
-
-			public String getSmallThumbnail() {
-				return smallThumbnail;
-			}
-
-
-			public void setSmallThumbnail(String smallThumbnail) {
-				this.smallThumbnail = smallThumbnail;
-			}
-
 
 			public String getThumbnail() {
 				return thumbnail;
@@ -226,7 +196,7 @@ public class GoogleBook {
 
 			@Override
 			public String toString() {
-				return "ImageLinks [smallThumbnail=" + smallThumbnail + ", thumbnail=" + thumbnail + "]";
+				return "ImageLinks [thumbnail=" + thumbnail + "]";
 			}
 		    
 
@@ -271,52 +241,27 @@ public class GoogleBook {
 	
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	public static class SaleInfo {
-	    private String country;
-	    private String saleability;
 	    private ListPrice listPrice;
-	    private ListPrice retailPrice;
 	    
 	    public SaleInfo() {}
 	    
-		public SaleInfo(String country, String saleability, ListPrice listPrice, ListPrice retailPrice) {
+		public SaleInfo(ListPrice listPrice) {
 			super();
-			this.country = country;
-			this.saleability = saleability;
 			this.listPrice = listPrice;
-			this.retailPrice = retailPrice;
 		}
-		
-		
-		public String getCountry() {
-			return country;
-		}
-		public void setCountry(String country) {
-			this.country = country;
-		}
-		public String getSaleability() {
-			return saleability;
-		}
-		public void setSaleability(String saleability) {
-			this.saleability = saleability;
-		}
+
 		public ListPrice getListPrice() {
 			return listPrice;
 		}
 		public void setListPrice(ListPrice listPrice) {
 			this.listPrice = listPrice;
 		}
-		public ListPrice getRetailPrice() {
-			return retailPrice;
-		}
-		public void setRetailPrice(ListPrice retailPrice) {
-			this.retailPrice = retailPrice;
-		}
 		
 		
 		@Override
 		public String toString() {
-			return "SaleInfo [country=" + country + ", saleability=" + saleability + ", listPrice=" + listPrice
-					+ ", retailPrice=" + retailPrice + "]";
+			return "SaleInfo [listPrice=" + listPrice
+					+"]";
 		}
 		
 		@JsonIgnoreProperties(ignoreUnknown = true)
@@ -351,8 +296,6 @@ public class GoogleBook {
 			public String toString() {
 				return "ListPrice [amount=" + amount + ", currencyCode=" + currencyCode + "]";
 			}
-
-		    
 			
 		}
 	}
