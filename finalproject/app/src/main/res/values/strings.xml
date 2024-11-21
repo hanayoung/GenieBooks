@@ -37,5 +37,7 @@
     <string name="join_finish">회원가입 완료</string>
     <string name="my_page_nickname">%1$s님</string>
     <string name="my_page_point">%1$sP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
