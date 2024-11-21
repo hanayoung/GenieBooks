@@ -6,11 +6,14 @@ public class Staff {
     private String nickname;
     private String pwd;
     
+    public Staff() {}
+    
     public Staff(String id, String nickname, String pwd) {
 		this.id = id;
 		this.nickname = nickname;
 		this.pwd = pwd;
     }
+    
 	public Staff(Integer sId, String id, String nickname, String pwd) {
 		super();
 		this.sId = sId;

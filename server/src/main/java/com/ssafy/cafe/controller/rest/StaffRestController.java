@@ -34,15 +34,7 @@ public class StaffRestController {
     StaffService sService;
     
     @PostMapping("/signup")
-    @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. "
-    	, description = "<pre> json중에서 id, name, pass만 입력해도 정상동작한다. \n"
-    			+ "아래는 aa12 사용자를 추가하는 샘플코드\n "
-    			+ "{\r\n"
-    			+ "  \"id\": \"aa12\",\r\n"
-    			+ "  \"name\": \"aa12\",\r\n"
-    			+ "  \"pass\": \"aa12\",\r\n"
-    			+ "}"
-    			+ "</pre>")
+    @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. ")
     public Boolean insert(@RequestBody Staff staff) {
     	logger.debug("staff.insert", staff);
     	int result = 0;
