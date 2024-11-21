@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.databinding.ItemVpBookBinding
-import com.ssafy.finalproject.ui.home.model.GoogleBook
+import com.ssafy.finalproject.data.model.dto.GoogleBook
 
 class BookVPAdapter: ListAdapter<GoogleBook, BookVPAdapter.ViewHolder>(IdComparator) {
     lateinit var itemClickListener: ItemClickListener
@@ -31,7 +31,7 @@ class BookVPAdapter: ListAdapter<GoogleBook, BookVPAdapter.ViewHolder>(IdCompara
     }
 
     inner class ViewHolder(val binding: ItemVpBookBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data:GoogleBook){
+        fun bind(data: GoogleBook){
 
 
             Glide.with(context)
