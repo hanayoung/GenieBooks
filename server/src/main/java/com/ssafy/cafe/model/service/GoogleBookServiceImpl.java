@@ -54,16 +54,32 @@ public class GoogleBookServiceImpl implements GoogleBookService {
         // 우선 db에서 isbn 목록을 가져온 후, book 목록을 google books api에 던지기
         List<Long> isbnList = selectRecommendIsbn();
         List<GoogleBook> recommendBookList = new ArrayList<>();
-
+        logger.debug("isbnList size : {}",isbnList.size());
         try{
             for (Long isbn : isbnList) {
+            	logger.debug("isbn :{}",isbn);
                 URI uri = UriComponentsBuilder
                         .fromUriString(Constants.GOOGLE_BOOK_API_URL)
                         .queryParam("q","isbn:"+isbn)
                         .encode()
                         .build()
                         .toUri();
+                logger.debug("uri : {}",uri);
                 ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
+                logger.debug("response :{}",response);
+                
+                if(response.getBody().getItems() == null) {
+                    uri = UriComponentsBuilder
+                            .fromUriString(Constants.GOOGLE_BOOK_API_URL)
+                            .queryParam("q",String.format("ISBN:\"%d\"", isbn))
+                            .encode()
+                            .build()
+                            .toUri();
+                    
+                    logger.debug("second uri : {}",uri);
+                    response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
+                    logger.debug("response :{}",response.getBody().getItems());
+                }
                 recommendBookList.addAll(response.getBody().getItems());
             }
             return recommendBookList;

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ssafy.finalproject.R
 import com.ssafy.finalproject.databinding.ItemVpBookBinding
 import com.ssafy.finalproject.ui.home.model.GoogleBook
 
@@ -31,6 +32,13 @@ class BookVPAdapter: ListAdapter<GoogleBook, BookVPAdapter.ViewHolder>(IdCompara
 
     inner class ViewHolder(val binding: ItemVpBookBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data:GoogleBook){
+
+
+            Glide.with(context)
+                .load(R.drawable.book_no_img)
+                .centerCrop()
+                .into(binding.img)
+
             data.volumeInfo?.imageLinks?.thumbnail?.let {
                 Glide.with(context)
                     .load(it)

@@ -53,6 +53,7 @@ public class BookRestController {
 	@Operation(summary = "추천 책 목록을 반환한다. 없는 카테고리일 경우 빈 리스트를 반환한다")
 	public List<GoogleBook> selectRecommendBooks() {
 		try {
+			logger.debug("selectRecommendBooks");
 			return gService.selectRecommendBooks();
 		}catch(Exception e) {
 			return new ArrayList<>();

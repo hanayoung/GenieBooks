@@ -11,6 +11,7 @@ import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentHomeBinding
 import com.ssafy.finalproject.ui.home.adapter.BookVPAdapter
 import com.ssafy.finalproject.ui.home.model.GoogleBook
+import com.ssafy.finalproject.util.CommonUtils
 
 private const val TAG = "HomeFragment_싸피"
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
@@ -18,8 +19,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     R.layout.fragment_home
 ) {
     private lateinit var bookVPAdapter: BookVPAdapter
-    private val offsetBetweenPages =
-        resources.getDimensionPixelOffset(R.dimen.offsetBetweenPages).toFloat()
+
     private val viewModel : HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,14 +29,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
         initAdapter()
 
-        viewModel.bookList.observe(viewLifecycleOwner){
+        viewModel.bookList.observe(viewLifecycleOwner){ it ->
             bookVPAdapter.submitList(it)
+
+            it[0].volumeInfo?.let { book ->
+                binding.tvTitle.text = book.title
+                binding.tvAuthor.text = book.authors.joinToString(separator = ", ")
+            }
+
+            it[0].saleInfo?.listPrice?.amount?.let { price ->
+                binding.tvPrice.text = CommonUtils.makeComma(price)
+            }
+
+            it[0].searchInfo?.textSnippet?.let { textSnippet ->
+                binding.tvOverview.text = textSnippet
+            }
+
         }
 
     }
 
     private fun initAdapter() {
         binding.bookVP.apply {
+            val offsetBetweenPages =
+                resources.getDimensionPixelOffset(R.dimen.offsetBetweenPages).toFloat()
             adapter = bookVPAdapter
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 4
@@ -72,6 +88,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     // 책 정보 변경
+
+                    if(viewModel.bookList.value != null) {
+                        viewModel.bookList.value?.get(position)?.volumeInfo?.let { book ->
+                            binding.tvTitle.text = book.title
+                            binding.tvAuthor.text = book.authors.joinToString(separator = ", ")
+                        }
+
+                        viewModel.bookList.value?.get(position)?.saleInfo?.listPrice?.amount?.let { price ->
+                            binding.tvPrice.text = CommonUtils.makeComma(price)
+                        }
+
+                        viewModel.bookList.value?.get(position)?.searchInfo?.textSnippet?.let { textSnippet ->
+                            binding.tvOverview.text = textSnippet
+                        }
+                    }
+
                 }
             })
         }

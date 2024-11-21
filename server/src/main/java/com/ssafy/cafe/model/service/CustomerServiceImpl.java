@@ -16,53 +16,53 @@ import com.ssafy.cafe.model.dto.Interest;
  */
 @Service
 public class CustomerServiceImpl implements CustomerService {
-	
-    private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
-    
-    @Autowired
-    private CustomerDao customerDao;
 
-    @Override
-    public int join(Customer customer) {
-    	int result = customerDao.insert(customer);
-    	Customer newCustomer = customerDao.selectById(customer.getId());
-    	logger.debug("customer.inserted {}", customer);
-    	logger.debug("customer.new {}", newCustomer);
-    	List<Category> list = customer.getCategory();
-    	for (Category category : list) {
-    		Interest interest = new Interest(newCustomer.getCId(),category);
-        	logger.debug("customer.interest {}", interest);
-    		customerDao.insertInterest(interest);
+	private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+
+	@Autowired
+	private CustomerDao customerDao;
+
+	@Override
+	public int join(Customer customer) {
+		int result = customerDao.insert(customer);
+		logger.debug("result : {}",result);
+		Customer newCustomer = customerDao.selectById(customer.getId());
+		logger.debug("customer.inserted {}", customer);
+		logger.debug("customer.new {}", newCustomer);
+		List<Category> list = customer.getCategory();
+		for (Category category : list) {
+			Interest interest = new Interest(newCustomer.getCId(), category);
+			logger.debug("customer.interest {}", interest);
+			customerDao.insertInterest(interest);
 		}
-        return result;
+		logger.debug("before end result : {}",result);
+		return result;
 
-    }
+	}
 
-    @Override
-    public Customer login(String id, String pwd) {
-        Customer customer = customerDao.selectById(id);
-        if (customer != null && customer.getPwd().equals(pwd)) {
-            return customer;
-        } else {
-            return null;
-        }
-    }
+	@Override
+	public Customer login(String id, String pwd) {
+		Customer customer = customerDao.selectById(id);
+		if (customer != null && customer.getPwd().equals(pwd)) {
+			return customer;
+		} else {
+			return null;
+		}
+	}
 
+	@Override
+	public boolean isUsedId(String id) {
+		return customerDao.selectById(id) != null;
+	}
 
-    @Override
-    public boolean isUsedId(String id) {
-        return customerDao.selectById(id) != null;
-    }
-    
-    @Override
-    public Customer selectUser(String id) {
-    	Customer customer = customerDao.selectById(id);
-        if (customer != null) {
-            return customer;
-        } else {
-            return null;
-        }
-    }
-    
+	@Override
+	public Customer selectUser(String id) {
+		Customer customer = customerDao.selectById(id);
+		if (customer != null) {
+			return customer;
+		} else {
+			return null;
+		}
+	}
+
 }
-
