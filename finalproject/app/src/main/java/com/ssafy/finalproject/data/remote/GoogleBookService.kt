@@ -1,6 +1,6 @@
 package com.ssafy.finalproject.data.remote
 
-import com.ssafy.finalproject.ui.home.model.GoogleBook
+import com.ssafy.finalproject.data.model.dto.GoogleBook
 import retrofit2.Response
 import retrofit2.http.GET
 

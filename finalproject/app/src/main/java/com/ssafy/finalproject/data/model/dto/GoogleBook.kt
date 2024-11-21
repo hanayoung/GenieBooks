@@ -1,4 +1,4 @@
-package com.ssafy.finalproject.ui.home.model
+package com.ssafy.finalproject.data.model.dto
 
 import com.google.gson.annotations.SerializedName
 

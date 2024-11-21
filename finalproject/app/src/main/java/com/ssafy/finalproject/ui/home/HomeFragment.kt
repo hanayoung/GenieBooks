@@ -10,7 +10,7 @@ import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentHomeBinding
 import com.ssafy.finalproject.ui.home.adapter.BookVPAdapter
-import com.ssafy.finalproject.ui.home.model.GoogleBook
+import com.ssafy.finalproject.data.model.dto.GoogleBook
 import com.ssafy.finalproject.util.CommonUtils
 
 private const val TAG = "HomeFragment_싸피"

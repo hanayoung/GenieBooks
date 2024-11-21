@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.finalproject.data.remote.RetrofitUtil
-import com.ssafy.finalproject.ui.home.model.GoogleBook
+import com.ssafy.finalproject.data.model.dto.GoogleBook
 import kotlinx.coroutines.launch
 
 private const val TAG = "HomeViewModel"
