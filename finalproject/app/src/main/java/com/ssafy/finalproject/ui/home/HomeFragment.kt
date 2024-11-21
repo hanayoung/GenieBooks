@@ -6,6 +6,9 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.dotlottie.dlplayer.Mode
+import com.lottiefiles.dotlottie.core.model.Config
+import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentHomeBinding
@@ -30,6 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         initAdapter()
 
         viewModel.bookList.observe(viewLifecycleOwner){ it ->
+            binding.loadingAnimation.visibility = View.GONE
             bookVPAdapter.submitList(it)
 
             it[0].volumeInfo?.let { book ->
@@ -46,6 +50,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
 
         }
+
+       val loadingAnimationConfig = Config.Builder()
+           .autoplay(true)
+           .speed(1f)
+           .loop(true)
+           .source(DotLottieSource.Asset("loading_animation.lottie"))
+           .useFrameInterpolation(true)
+           .playMode(Mode.FORWARD)
+           .build()
+
+        binding.loadingAnimation.load(loadingAnimationConfig)
 
     }
 
@@ -90,6 +105,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                     // 책 정보 변경
 
                     if(viewModel.bookList.value != null) {
+                        initializeTextView()
+
                         viewModel.bookList.value?.get(position)?.volumeInfo?.let { book ->
                             binding.tvTitle.text = book.title
                             binding.tvAuthor.text = book.authors.joinToString(separator = ", ")
@@ -113,5 +130,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 // 책 상세화면으로 이동
             }
         }
+    }
+
+    private fun initializeTextView(){
+        binding.tvTitle.text = ""
+        binding.tvPrice.text = ""
+        binding.tvOverview.text = ""
+        binding.tvAuthor.text = ""
     }
 }
