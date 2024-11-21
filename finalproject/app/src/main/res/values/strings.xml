@@ -1,16 +1,4 @@
 <resources>
-    <string name="app_name">FinalProject</string>
-    <string name="id">아이디</string>
-    <string name="pwd">비밀번호</string>
-    <string name="login">로그인</string>
-    <string name="join">회원가입</string>
-    <string name="next">다음</string>
-    <string name="join_toolbar_title">회원 정보를 입력해주세요</string>
-    <string name="nick_name">닉네임</string>
-    <string name="age">나이</string>
-    <string name="gender">성별</string>
-    <string name="join_category_toolbar_title">관심 분야를 선택해주세요</string>
-    <string name="category_toolbar_title">카테고리</string>
 
     <!-- 카테고리 -->
     <string name="category_fiction">소설</string>
@@ -31,5 +19,21 @@
     <string name="category_selfhelf">자기계발</string>
     <string name="category_poandso">정치/사회</string>
     <string name="category_foreign">외국어</string>
+
+    <!-- 앱 -->
+    <string name="app_name">FinalProject</string>
+
+    <string name="id">아이디</string>
+    <string name="pwd">비밀번호</string>
+    <string name="login">로그인</string>
+    <string name="join">회원가입</string>
+    <string name="next">다음</string>
+    <string name="join_toolbar_title">회원 정보를 입력해주세요</string>
+    <string name="nick_name">닉네임</string>
+    <string name="age">나이</string>
+    <string name="gender">성별</string>
+    <string name="join_category_toolbar_title">관심 분야를 선택해주세요</string>
+    <string name="category_toolbar_title">카테고리</string>
+    <string name="join_finish">회원가입 완료</string>
 
 </resources>
