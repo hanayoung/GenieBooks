@@ -9,4 +9,6 @@ interface StaffService {
     @POST("staff/signup")
     suspend fun join(@Body body:Staff): Boolean
 
+    @POST("staff/login")
+    suspend fun login(@Body body: Staff): Staff?
 }
