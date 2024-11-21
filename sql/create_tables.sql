@@ -44,8 +44,8 @@ create table gift(
 	g_date char(50) not null
 ); 
 
--- create table recommend(
--- 	id integer auto_increment primary key,
---     isbn bigint not null
--- );
+create table recommend(
+	id integer auto_increment primary key,
+    isbn bigint not null
+);
 

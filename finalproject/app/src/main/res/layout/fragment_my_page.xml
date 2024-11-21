@@ -182,6 +182,16 @@
             app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         <ImageView
+            android:id="@+id/btn_order_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_next"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <ImageView
             android:id="@+id/imageView10"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
