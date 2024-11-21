@@ -23,7 +23,14 @@
         android:id="@+id/myPageFragment"
         android:name="com.ssafy.finalproject.ui.mypage.fragment.MyPageFragment"
         android:label="fragment_my_page"
-        tools:layout="@layout/fragment_my_page" />
+        tools:layout="@layout/fragment_my_page" >
+        <action
+            android:id="@+id/action_myPageFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_notificationListFragment"
+            app:destination="@id/notificationListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.ssafy.finalproject.ui.login.LoginFragment"
@@ -69,4 +76,14 @@
             android:name="categoryKr"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationListFragment"
+        android:name="com.ssafy.finalproject.ui.mypage.fragment.NotificationListFragment"
+        android:label="fragment_notification_list"
+        tools:layout="@layout/fragment_notification_list" />
+    <fragment
+        android:id="@+id/orderListFragment"
+        android:name="com.ssafy.finalproject.ui.mypage.fragment.OrderListFragment"
+        android:label="fragment_order_list"
+        tools:layout="@layout/fragment_order_list" />
 </navigation>

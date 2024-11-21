@@ -10,9 +10,4 @@ class NotificationListFragment : BaseFragment<FragmentNotificationListBinding>(
     FragmentNotificationListBinding::bind,
     R.layout.fragment_notification_list
 ) {
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 }

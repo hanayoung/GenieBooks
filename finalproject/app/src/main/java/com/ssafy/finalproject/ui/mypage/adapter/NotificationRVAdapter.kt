@@ -52,7 +52,6 @@ class NotificationRVAdapter: ListAdapter<Notification, NotificationRVAdapter.Vie
         return ViewHolder(
             ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
