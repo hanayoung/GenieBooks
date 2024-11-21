@@ -7,7 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.JsonObject
 import com.ssafy.finalproject.R
-import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.customerService
 import com.ssafy.finalproject.databinding.FragmentLoginBinding
