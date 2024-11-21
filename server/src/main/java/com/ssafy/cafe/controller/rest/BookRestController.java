@@ -44,11 +44,7 @@ public class BookRestController {
     	logger.debug("book.search category : {}", category);
     	try {
     		Category categoryName = Category.fromString(category);
-    		logger.debug("category string : {}",categoryName.getName());
-    		logger.debug(Arrays.toString(categoryName.getName().split("\\+")));
     		String[] categoryList = categoryName.getName().split("\\+");
-    		logger.debug(Arrays.toString(categoryName.getName().split("\\+")));
-    		logger.debug("category List in controller: {}",categoryList.length);
     		return gService.selectBooksbyCategory(categoryList);
     	}catch(Exception e) {
     		logger.debug(e.getMessage());

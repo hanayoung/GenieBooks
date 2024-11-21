@@ -1,4 +1,4 @@
-package com.ssafy.finalproject.ui.home
+package com.ssafy.finalproject.ui.home.fragments
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -11,12 +11,12 @@ import com.lottiefiles.dotlottie.core.model.Config
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
-import com.ssafy.finalproject.databinding.FragmentHomeBinding
-import com.ssafy.finalproject.ui.home.adapter.BookVPAdapter
 import com.ssafy.finalproject.data.model.dto.GoogleBook
+import com.ssafy.finalproject.databinding.FragmentHomeBinding
+import com.ssafy.finalproject.ui.home.HomeViewModel
+import com.ssafy.finalproject.ui.home.adapter.BookVPAdapter
 import com.ssafy.finalproject.util.CommonUtils
 
-private const val TAG = "HomeFragment_싸피"
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     FragmentHomeBinding::bind,
     R.layout.fragment_home
