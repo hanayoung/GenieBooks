@@ -9,7 +9,7 @@ import com.ssafy.cafe.model.dto.User;
 
 
 public interface GoogleBookService {
-    public List<GoogleBook> selectBooksbyCategory(String category);
+    public List<GoogleBook> selectBooksbyCategory(String[] categoryList);
 
     public List<GoogleBook> selectRecommendBooks();
 

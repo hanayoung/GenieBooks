@@ -2,7 +2,9 @@ package com.ssafy.cafe.controller.rest;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -43,8 +45,13 @@ public class BookRestController {
     	try {
     		Category categoryName = Category.fromString(category);
     		logger.debug("category string : {}",categoryName.getName());
-    		return gService.selectBooksbyCategory(categoryName.getName());
+    		logger.debug(Arrays.toString(categoryName.getName().split("\\+")));
+    		String[] categoryList = categoryName.getName().split("\\+");
+    		logger.debug(Arrays.toString(categoryName.getName().split("\\+")));
+    		logger.debug("category List in controller: {}",categoryList.length);
+    		return gService.selectBooksbyCategory(categoryList);
     	}catch(Exception e) {
+    		logger.debug(e.getMessage());
 			return new ArrayList<>();
 		}
     }

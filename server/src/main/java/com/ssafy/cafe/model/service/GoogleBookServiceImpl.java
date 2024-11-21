@@ -28,23 +28,29 @@ public class GoogleBookServiceImpl implements GoogleBookService {
     private GoogleBookDao googleBookDao;
 
 	@Override
-	public List<GoogleBook> selectBooksbyCategory(String category) {
+	public List<GoogleBook> selectBooksbyCategory(String[] categoryList) {
 		
 		RestTemplate restTemplate = new RestTemplate();
-			
-        URI uri = UriComponentsBuilder               
-                .fromUriString(Constants.GOOGLE_BOOK_API_URL)
-                .queryParam("q","subject:"+category)
-                .encode()
-                .build()
-                .toUri();
-        try {
-            ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
-            return response.getBody().getItems();
-        }catch(Exception e) {
+		List<GoogleBook> bookList = new ArrayList<>();
+		logger.debug("category List : {}",categoryList.length);
+		try {
+			for(String category : categoryList) {
+		        URI uri = UriComponentsBuilder               
+		                .fromUriString(Constants.GOOGLE_BOOK_API_URL)
+		                .queryParam("q","subject:"+category)
+		                .encode()
+		                .build()
+		                .toUri();
+		        
+		        ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
+		        bookList.addAll(response.getBody().getItems());
+			}
+			return bookList;
+		}catch(Exception e) {
         	logger.debug("exception occur : {}",e.getMessage());
-        	return new ArrayList<>();
+        	return bookList;
         }
+
         
 	}
 
@@ -61,6 +67,7 @@ public class GoogleBookServiceImpl implements GoogleBookService {
                 URI uri = UriComponentsBuilder
                         .fromUriString(Constants.GOOGLE_BOOK_API_URL)
                         .queryParam("q","isbn:"+isbn)
+                        .queryParam("maxResults", 40)
                         .encode()
                         .build()
                         .toUri();
