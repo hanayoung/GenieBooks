@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"
-        android:name="com.ssafy.finalproject.ui.mypage.MyPageFragment"
+        android:name="com.ssafy.finalproject.ui.mypage.fragment.MyPageFragment"
         android:label="fragment_my_page"
         tools:layout="@layout/fragment_my_page" />
     <fragment
