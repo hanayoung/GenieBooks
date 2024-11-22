@@ -38,6 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
 				}
 			}catch (Exception e) {
 				logger.debug("error occur in impl : {}",e.getMessage());
+	            delete(customer.getCId());
 			}
 
 		}

@@ -1,6 +1,11 @@
 package com.ssafy.cafe.controller.rest;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +18,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.cafe.model.dto.Category;
+import com.ssafy.cafe.model.dto.Customer;
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.OrderInfo;
+import com.ssafy.cafe.model.service.CustomerService;
+import com.ssafy.cafe.model.service.CustomerServiceImpl;
 import com.ssafy.cafe.model.service.OrderService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/rest/order")
@@ -28,6 +39,9 @@ public class OrderRestController {
 
     @Autowired
     private OrderService oService;
+    
+    @Autowired
+    private CustomerService cService;
     
     @PostMapping
     @Operation(summary="order 객체를 저장하고 추가된 Order의 id를 반환한다.")
@@ -41,27 +55,57 @@ public class OrderRestController {
         }
     }
 
+    @GetMapping("/test/{orderId}")
+    @Operation(summary="{orderId}에 해당하는 주문의 내역을 목록 형태로 반환한다."
+            + "이 정보는 사용자 정보 화면의 주문 내역 조회에서 사용된다." )
+    public OrderInfo getOrderDetailOriginal(@PathVariable Integer orderId) {
+        return oService.getOrderInfo(orderId);
+    }
+    
+    @GetMapping
+    @Operation(summary="사용자의 모든 주문 내역을 간략한 목록으로 반환한다.")
+    public List<Order> getAllOrders(HttpServletRequest request, String id){
+        String idInCookie = "";
+        Cookie [] cookies = request.getCookies();
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                try {
+                    if("loginId".equals(cookie.getName())){
+                        idInCookie = URLDecoder.decode(cookie.getValue(), "utf-8");
+                        System.out.println("value : "+URLDecoder.decode(cookie.getValue(), "utf-8"));
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        Customer selected = cService.selectUser(id);
+
+        if(!id.equals(idInCookie)) {
+            logger.info("different cookie value : inputValue : {}, inCookie:{}", id, idInCookie);
+            selected = null; // 사용자 정보 삭제.
+        }else {
+            logger.info("valid cookie value : inputValue : {}, inCookie:{}", id, idInCookie);
+        }
+        if (selected == null) {
+            return new ArrayList<>(); // 주문 내역 정보 조회 실패
+        } else {
+            List<Order> orders = oService.getOrderInfoByUser(selected.getCId());
+            logger.debug("orders in controller : {}",orders);
+            return orders;
+        }
+    }
+    
+    
     @GetMapping("/{orderId}")
-    @Operation(summary="{orderId}에 해당하는 주문의 상세 내역을 목록 형태로 반환한다."
+    @Operation(summary="{orderId}에 해당하는 주문의 내역을 목록 형태로 반환한다."
             + "이 정보는 사용자 정보 화면의 주문 내역 조회에서 사용된다." )
     public OrderInfo getOrderDetail(@PathVariable Integer orderId) {
         return oService.getOrderInfo(orderId);
     }
     
-    @GetMapping("/byUser")
-    @Operation(summary="{id}에 해당하는 사용자의 최근 1개월간 주문 내역을 반환한다."
-            + "반환 정보는 1차 주문번호 내림차순, 2차 주문 상세 오름차순으로 정렬된다.",
-            description = "관통프로젝트 6단계(Android)에서 사용됨.")
-    public List<OrderInfo> getLastMonthOrder(String id) {
-        return oService.getLastMonthOrder(id);
-    }
     
 
-//    @GetMapping("/byUserIn6Months")
-//    @Operation(summary="{id}에 해당하는 사용자의 최근 6개월간 주문 내역을 반환한다."
-//            + "반환 정보는 1차 주문번호 내림차순, 2차 주문 상세 오름차순으로 정렬된다.",
-//            description = "관통프로젝트 6단계(Android)에서 사용됨.")
-//    public List<OrderInfo> getLast6MonthOrder(String id) {
-//        return oService.getLast6MonthOrder(id);
-//    }
+    
 }

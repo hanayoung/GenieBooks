@@ -42,21 +42,4 @@ public interface OrderService {
      */
     public OrderInfo getOrderInfo(Integer orderId);
 
-    /**
-     * 사용자가 주문한 최근 1개월의 주문 주문번호 내림차순으로 조회된다.
-     * 주문번호의 상세내용은 detail id의 오름차순으로 조회된다.
-     * 관통 6단계에서 사용된다.
-     * @param id
-     * @return
-     */
-    List<OrderInfo> getLastMonthOrder(String id);
-//
-//    /**
-//     * 사용자가 주문한 최근 6개월의 주문 주문번호 내림차순으로 조회된다.
-//     * 주문번호의 상세내용은 detail id의 오름차순으로 조회된다.
-//     * 관통 6단계에서 사용된다.
-//     * @param id
-//     * @return
-//     */
-//    List<OrderInfo> getLast6MonthOrder(String id);
 }

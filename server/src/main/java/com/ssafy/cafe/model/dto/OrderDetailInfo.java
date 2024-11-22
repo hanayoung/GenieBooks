@@ -1,6 +1,7 @@
 package com.ssafy.cafe.model.dto;
 
 public class OrderDetailInfo {
+	private Integer id;
 	private Long isbn;
 	private Integer orderId;
 	private Integer quantity;
@@ -19,7 +20,7 @@ public class OrderDetailInfo {
         this.quantity = quantity;
     }
 
-	public OrderDetailInfo(Long isbn, Integer orderId, Integer quantity, GoogleBook googleBook, int sumPrice) {
+	public OrderDetailInfo(Integer id, Long isbn, Integer orderId, Integer quantity, GoogleBook googleBook, int sumPrice) {
 		this.isbn = isbn;
 		this.orderId = orderId;
 		this.quantity = quantity;

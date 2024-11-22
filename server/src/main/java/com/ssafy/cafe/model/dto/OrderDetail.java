@@ -1,13 +1,14 @@
 package com.ssafy.cafe.model.dto;
 
 public class OrderDetail {
-
+	private Integer id;
 	private Integer orderId;
 	private Long isbn;
     private Integer quantity;
     
-    public OrderDetail(Long isbn, Integer orderId, Integer quantity) {
+    public OrderDetail(Integer id, Long isbn, Integer orderId, Integer quantity) {
         super();
+        this.id = id;
         this.isbn = isbn;
         this.orderId = orderId;
         this.quantity = quantity;

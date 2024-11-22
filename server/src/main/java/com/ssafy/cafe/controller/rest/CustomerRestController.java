@@ -49,7 +49,6 @@ public class CustomerRestController {
     		logger.debug("result : {}",result);
     	}catch(Exception e) {
             logger.debug("error : {}",e.getMessage());
-            cService.delete(customer.getCId());
     		result = -1;
     	}
     	
@@ -75,7 +74,7 @@ public class CustomerRestController {
     	logger.debug("selected 1 :{}",selected);
         if (selected != null) {
           Cookie cookie = new Cookie("loginId", URLEncoder.encode(selected.getId(), "utf-8"));
-//            Cookie cookie = new Cookie("loginId", selected.getId());
+          	cookie.setPath("/");
             cookie.setMaxAge(60*60*24*30); //30일
             response.addCookie(cookie);
             logger.debug("selected :{}",selected);
