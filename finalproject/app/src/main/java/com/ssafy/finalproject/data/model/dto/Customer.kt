@@ -12,7 +12,14 @@ data class Customer(
     val age: Int,
     val sex: String,
     var category: ArrayList<String>?
-) : Parcelable
+) : Parcelable {
+    var cid : Int = -1
+    var point : Int = 0
+    constructor(_cid: Int, id: String, nickname: String, pwd: String, age: Int, sex: String, category: ArrayList<String>?, _point: Int) : this(id, nickname, pwd, age, sex, category) {
+        cid = _cid
+        point = _point
+    }
+}
 // sex는 WOMAN, MAN
 // category는
 //FICTION

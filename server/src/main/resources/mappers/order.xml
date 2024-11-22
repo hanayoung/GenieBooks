@@ -21,7 +21,7 @@
              , is_done as completed
              , payment
         FROM p_customer where c_id=#{userId}
-        order by o_id desc
+        order by o_id desc;
 	</select>
 
 
@@ -32,9 +32,9 @@
             , o_date as order_time
             , is_done as completed
             , payment
+            , o_id as oid
         from p_customer
-
-        where o_id = #{id};
+        where o_id = #{orderId};
     </select>
     
     <select id="selectOrderInfo" parameterType="int" resultType="OrderInfo">
@@ -44,7 +44,7 @@
              , o_date as order_time
              , is_done as completed
              , payment
-        FROM p_customer where o_id=#{orderId};
+        FROM p_customer where id=#{orderId};
 	</select>
     
 
@@ -55,10 +55,11 @@
             , b.quantity as quantity
         from p_customer c
         join p_book b on c.o_id = b.o_id
+        where c.o_id=#{oid}
     </select>
 
     <resultMap id="OrderResult" type="Order">
-        <collection property="details" javaType="List" column="id" ofType="OrderDetail"
+        <collection property="details" javaType="List" column="oid" ofType="OrderDetail"
          select="getOrderDetail"/>
     </resultMap>
 

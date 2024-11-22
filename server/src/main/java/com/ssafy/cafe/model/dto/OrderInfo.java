@@ -9,6 +9,7 @@ public class OrderInfo {
 	private Date orderTime;
 	private Boolean completed;
 	private Integer payment; // 결제된 최종금액
+    private String repImgUrl;
 	private List<OrderDetailInfo> details ;
 
 	public OrderInfo(Integer id, Integer userId, Date orderTime, Boolean completed, Integer payment) {
@@ -64,6 +65,14 @@ public class OrderInfo {
 
 	public void setPayment(Integer payment) {
 		this.payment = payment;
+	}
+
+	public String getRepImgUrl() {
+		return repImgUrl;
+	}
+
+	public void setRepImgUrl(String repImgUrl) {
+		this.repImgUrl = repImgUrl;
 	}
 
 	public List<OrderDetailInfo> getDetails() {

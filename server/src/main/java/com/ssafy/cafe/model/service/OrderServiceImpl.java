@@ -43,11 +43,9 @@ public class OrderServiceImpl implements OrderService {
         // 주문 및 주문 상세 테이블 저장
         oDao.insert(order);
         List<OrderDetail> details = order.getDetails();
-//        int quantitySum = 0;
         for(OrderDetail detail: details) {
             detail.setOrderId(order.getId());
             dDao.insert(detail);
-//            quantitySum += detail.getQuantity();
         }
 
         // 포인트 정보 저장 --- > 결제금액 어떻게 알지?
@@ -62,9 +60,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrderInfoByUser(Integer id) {
         List<Order> noDetailOrders = oDao.selectByUser(id);
+        logger.debug("noDetailOrders : {}", noDetailOrders );
         List<Order> orderInfos = new ArrayList<>();
         for (Order order : noDetailOrders) {
-            orderInfos.add(oDao.selectOrderDetails(order.getId()));
+        	Order detailOrder = oDao.selectOrderDetails(order.getId());
+        	logger.debug("test : {}",detailOrder);
+            GoogleBook book = selectByIsbn(detailOrder.getDetails().get(0).getIsbn());
+            if(book.getVolumeInfo().getImageLinks().getThumbnail() != null) {
+            	detailOrder.setRepImgUrl(book.getVolumeInfo().getImageLinks().getThumbnail());
+            	detailOrder.setRepBookTitle(book.getVolumeInfo().getTitle());
+            }
+            orderInfos.add(detailOrder);
         }
         return orderInfos;
     }
@@ -85,7 +91,6 @@ public class OrderServiceImpl implements OrderService {
     		if(detail.getGoogleBook().getSaleInfo().getListPrice() != null) {
     			detail.setSumPrice(detail.getGoogleBook().getSaleInfo().getListPrice().getAmount() * detail.getQuantity());
     		}
-    		
     	}
     	
     	info.setDetails(detailInfo);

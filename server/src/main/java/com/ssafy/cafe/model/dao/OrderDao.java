@@ -48,7 +48,7 @@ public interface OrderDao {
      */
     OrderInfo selectOrderInfo(int orderId);
 
-    Order selectOrderDetails(int id);
+    Order selectOrderDetails(int orderId);
 
 
     /**

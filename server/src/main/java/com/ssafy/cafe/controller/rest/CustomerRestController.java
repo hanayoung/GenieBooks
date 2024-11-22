@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.ssafy.cafe.model.dto.*;
 import com.ssafy.cafe.model.service.OrderService;
@@ -69,9 +70,7 @@ public class CustomerRestController {
     		+ "</pre>")
     
     public Customer login(@RequestBody Customer customer, HttpServletResponse response) throws UnsupportedEncodingException {
-    	logger.debug("customer :{}", customer);
     	Customer selected = cService.login(customer.getId(), customer.getPwd());
-    	logger.debug("selected 1 :{}",selected);
         if (selected != null) {
           Cookie cookie = new Cookie("loginId", URLEncoder.encode(selected.getId(), "utf-8"));
           	cookie.setPath("/");
@@ -132,7 +131,13 @@ public class CustomerRestController {
             info.put("customer", selected);
             List<Order> orders = oService.getOrderInfoByUser(selected.getCId());
             logger.debug("orders in controller : {}",orders);
-            info.put("order", orders);
+  
+            List<Order> completeOrders = orders.stream()
+            	.filter(order -> order.getCompleted() == true)
+            	.collect(Collectors.toList());
+            
+            info.put("completeCnt", completeOrders.size());
+            info.put("inCompleteCnt", orders.size() - completeOrders.size());
             return info;
         }
     }

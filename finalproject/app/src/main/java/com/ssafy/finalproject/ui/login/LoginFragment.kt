@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.JsonObject
 import com.ssafy.finalproject.R
+import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.customerService
 import com.ssafy.finalproject.databinding.FragmentLoginBinding
@@ -41,6 +42,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                                 customerService.login(requestBody)
                             }.onSuccess {
                                 Log.d(TAG, "onViewCreated: success $it")
+                                ApplicationClass.sharedPreferencesUtil.apply {
+                                    addUserId(it.cid)
+                                    addId(it.id)
+                                }
 
                                 findNavController().apply {
                                     navigate(R.id.action_loginFragment_to_homeFragment)

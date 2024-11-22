@@ -9,7 +9,9 @@ public class Order {
     private Date orderTime;
     private Boolean completed;
 	private Integer payment; // 결제된 최종금액
-    private List<OrderDetail> details ;
+    private String repImgUrl;
+    private String repBookTitle;
+    private List<OrderDetail> details;
 
     public Order(Integer id, Integer userId, Date orderTime, Boolean completed, Integer payment) {
         this.id = id;
@@ -73,6 +75,22 @@ public class Order {
 
 	public void setPayment(Integer payment) {
 		this.payment = payment;
+	}
+	
+	public String getRepImgUrl() {
+		return repImgUrl;
+	}
+
+	public void setRepImgUrl(String repImgUrl) {
+		this.repImgUrl = repImgUrl;
+	}
+
+	public String getRepBookTitle() {
+		return repBookTitle;
+	}
+
+	public void setRepBookTitle(String repBookTitle) {
+		this.repBookTitle = repBookTitle;
 	}
 
 	public List<OrderDetail> getDetails() {

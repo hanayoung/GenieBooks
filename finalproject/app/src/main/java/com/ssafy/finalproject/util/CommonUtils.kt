@@ -14,6 +14,11 @@ object CommonUtils {
         return "${comma.format(num)} 원"
     }
 
+    fun makeCommaWithP(num: Int): String {
+        val comma = DecimalFormat("#,###")
+        return "${comma.format(num)} P"
+    }
+
     //날짜 포맷 출력
     fun dateformatYMDHM(time: Date): String {
         val format = SimpleDateFormat("yyyy.MM.dd. HH:mm", Locale.KOREA)

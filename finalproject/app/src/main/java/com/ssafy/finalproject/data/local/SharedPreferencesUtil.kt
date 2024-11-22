@@ -54,6 +54,26 @@ class SharedPreferencesUtil(context: Context) {
         preferences.edit().remove(COOKIES_KEY_NAME).apply()
     }
 
+    fun addUserId(userId : Int) {
+        val editor = preferences.edit()
+        editor.putInt("userId", userId)
+        editor.apply()
+    }
+
+    fun getUserId() : Int {
+        return preferences.getInt("userId", 0)
+    }
+
+    fun addId(id : String) {
+        val editor = preferences.edit()
+        editor.putString("id", id)
+        editor.apply()
+    }
+
+    fun getId() : String {
+        return preferences.getString("id","-1") ?: "-1"
+    }
+
     fun addNotice(info: String) {
         val list = getNotice()
 
