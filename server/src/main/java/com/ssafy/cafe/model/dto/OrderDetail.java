@@ -1,38 +1,31 @@
 package com.ssafy.cafe.model.dto;
 
 public class OrderDetail {
-    private Integer id;
-    private Integer orderId;
-    private Integer productId;
+
+	private Integer orderId;
+	private Long isbn;
     private Integer quantity;
     
-    public OrderDetail(Integer id, Integer orderId, Integer productId, Integer quantity) {
+    public OrderDetail(Long isbn, Integer orderId, Integer quantity) {
         super();
-        this.id = id;
+        this.isbn = isbn;
         this.orderId = orderId;
-        this.productId = productId;
         this.quantity = quantity;
     }
-    
-    public OrderDetail(Integer productId, Integer quantity) {
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-    
-    public OrderDetail(Integer orderId, Integer productId, Integer quantity) {
-        this.orderId = orderId;
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-    
-    public OrderDetail() {}
-
-	public Integer getId() {
-		return id;
+	public OrderDetail(Long isbn, Integer quantity) {
+		super();
+		this.isbn = isbn;
+		this.quantity = quantity;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+    public OrderDetail() {}
+
+	public Long getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(Long isbn) {
+		this.isbn = isbn;
 	}
 
 	public Integer getOrderId() {
@@ -41,14 +34,6 @@ public class OrderDetail {
 
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
 	}
 
 	public Integer getQuantity() {
@@ -61,7 +46,7 @@ public class OrderDetail {
 
 	@Override
 	public String toString() {
-		return "OrderDetail [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity
+		return "OrderDetail [isbn=" + isbn + ", orderId=" + orderId + ", quantity=" + quantity
 				+ "]";
 	}
     

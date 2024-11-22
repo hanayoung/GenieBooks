@@ -22,4 +22,12 @@
             app:popUpToInclusive="true"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ssafy.myapplication.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/orderListFragment"
+        android:name="com.ssafy.myapplication.ui.orderlist.OrderListFragment"
+        android:label="OrderListFragment" />
 </navigation>

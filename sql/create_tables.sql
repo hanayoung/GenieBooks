@@ -25,7 +25,7 @@ create table staff(
 create table p_customer(
     o_id integer auto_increment primary key,
     c_id integer not null,
-    o_date char(50) not null,
+    o_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_done boolean not null default false
 );                               
 

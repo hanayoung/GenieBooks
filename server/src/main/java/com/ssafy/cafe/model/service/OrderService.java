@@ -21,40 +21,42 @@ public interface OrderService {
      * @param id
      * @return
      */
-    public List<Order> getOrderByUser(String id);
+    public List<Order> getOrderByUser(Integer id);
+
+    public List<Order> getOrderInfoByUser(Integer id);
     
-    /**
-     * 주문 정보를 수정한다. - 주문의 상태만 변경된다.
-     * @param order
-     */
-    public void updateOrder(Order order);
-    
+//    /**
+//     * 주문 정보를 수정한다. - 주문의 상태만 변경된다.
+//     * @param order
+//     */
+//    public void updateOrder(Order order);
+//
     /**
      * orderId에 대한 Order와 OrderDetail에 대한 내용까지 반환한다.
-     * 그리고, 추가적으로 토탈금액, 상품명 등의 추가적인 정보가 담긴 
-     * OrderInfo객체를 리턴한다. 
+     * 그리고, 추가적으로 토탈금액, 상품명 등의 추가적인 정보가 담긴
+     * OrderInfo객체를 리턴한다.
      * OrderDetail의 내용은 detail id의 오름차순으로 조회한다.
-     * 
+     *
      * @param id
      * @return
      */
     public OrderInfo getOrderInfo(Integer orderId);
 
     /**
-     * 사용자가 주문한 최근 1개월의 주문 주문번호 내림차순으로 조회된다. 
-     * 주문번호의 상세내용은 detail id의 오름차순으로 조회된다. 
-     * 관통 6단계에서 사용된다. 
+     * 사용자가 주문한 최근 1개월의 주문 주문번호 내림차순으로 조회된다.
+     * 주문번호의 상세내용은 detail id의 오름차순으로 조회된다.
+     * 관통 6단계에서 사용된다.
      * @param id
      * @return
      */
     List<OrderInfo> getLastMonthOrder(String id);
-
-    /**
-     * 사용자가 주문한 최근 6개월의 주문 주문번호 내림차순으로 조회된다.
-     * 주문번호의 상세내용은 detail id의 오름차순으로 조회된다. 
-     * 관통 6단계에서 사용된다. 
-     * @param id
-     * @return
-     */
-    List<OrderInfo> getLast6MonthOrder(String id);
+//
+//    /**
+//     * 사용자가 주문한 최근 6개월의 주문 주문번호 내림차순으로 조회된다.
+//     * 주문번호의 상세내용은 detail id의 오름차순으로 조회된다.
+//     * 관통 6단계에서 사용된다.
+//     * @param id
+//     * @return
+//     */
+//    List<OrderInfo> getLast6MonthOrder(String id);
 }

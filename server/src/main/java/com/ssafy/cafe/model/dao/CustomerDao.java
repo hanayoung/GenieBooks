@@ -1,7 +1,11 @@
 package com.ssafy.cafe.model.dao;
 
+import com.ssafy.cafe.model.dto.Category;
 import com.ssafy.cafe.model.dto.Customer;
 import com.ssafy.cafe.model.dto.Interest;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CustomerDao {
 	 /**
@@ -18,12 +22,15 @@ public interface CustomerDao {
      */
     int insertInterest(Interest interest);
 
-//    /**
-//     * 사용자의 Stamp 정보를 수정한다.
-//     * @param user
-//     * @return
-//     */
-//    int updateStamp(User user);
+
+    int delete(int userId);
+
+    /**
+     * 사용자의 Point 정보를 수정한다.
+     * @param user
+     * @return
+     */
+    int updatePoint(@Param("user_id") int userId, @Param("point") int point);
     
     /**
      * 사용자 정보를 조회한다.
@@ -32,6 +39,8 @@ public interface CustomerDao {
      */
 
     Customer selectById(String id);
+
+    List<Category> selectInterestByUserId(int id);
 
     /**
      * 사용자 정보를 조회한다.
