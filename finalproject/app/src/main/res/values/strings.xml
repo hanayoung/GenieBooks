@@ -42,5 +42,6 @@
     <string name="today_attendance">오늘의 출석체크</string>
     <string name="everyday_100">출석체크 시 매일 100원</string>
     <string name="today_check">오늘 출석하기</string>
+    <string name="book_introduce">책소개</string>
 
 </resources>
