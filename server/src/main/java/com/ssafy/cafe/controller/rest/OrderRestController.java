@@ -30,21 +30,7 @@ public class OrderRestController {
     private OrderService oService;
     
     @PostMapping
-    @Operation(summary="order 객체를 저장하고 추가된 Order의 id를 반환한다.", 
-    		description = "<pre>아래 형태로 입력하면 주문이 입력된다. \r\n"
-    				+ "'id 02' 고객이 1번 상품(아메리카노)를 2개 주문함. \r\n"
-    				+"{\r\n"
-    				+ "  \"completed\": \"N\",\r\n"
-    				+ "  \"details\": [\r\n"
-    				+ "    {\r\n"
-    				+ "      \"productId\": 1,\r\n"
-    				+ "      \"quantity\": 2\r\n"
-    				+ "    }\r\n"
-    				+ "  ],\r\n"
-    				+ "  \"orderTable\": \"웹주문\",\r\n"
-    				+ "  \"userId\": \"id 02\"\r\n"
-    				+ "} "
-    				+ "</pre>" )
+    @Operation(summary="order 객체를 저장하고 추가된 Order의 id를 반환한다.")
     public Integer makeOrder(@RequestBody Order order) {
     	logger.debug("makeOrder", order);
     	if(order.getDetails().size() <= 0) {
