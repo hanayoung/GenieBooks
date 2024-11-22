@@ -30,6 +30,9 @@ public interface CustomerService {
      */
     public boolean isUsedId(String id);
 
+
+    public void delete(int id);
+
     /**
      * id 에 해당하는 User 정보를 반환한다.
      * 

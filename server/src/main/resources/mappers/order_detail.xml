@@ -4,15 +4,15 @@
 <!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
 <mapper namespace="com.ssafy.cafe.model.dao.OrderDetailDao">
 	<insert id="insert" parameterType="OrderDetail">
-		INSERT INTO t_order_detail
+		INSERT INTO p_book
 		    (
-		    order_id,
-		    product_id, 
+		    o_id,
+		    isbn,
 		    quantity)
 		VALUES
 	       ( 
 		    #{orderId},
-		    #{productId}, 
+		    #{isbn},
 		    #{quantity}
 		    )
 	</insert>

@@ -1,8 +1,15 @@
 package com.ssafy.cafe.controller.rest;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import com.ssafy.cafe.model.dto.Order;
+import com.ssafy.cafe.model.service.OrderService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +37,21 @@ public class CustomerRestController {
     
     @Autowired
     CustomerService cService;
+
+    @Autowired
+    OrderService oService;
     
     @PostMapping("/signup")
     @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. ")
     public Boolean insert(@RequestBody Customer customer) {
-    	logger.debug("customer.insert", customer);
+    	logger.debug("customer.insert : {}", customer);
     	int result = 0;
     	try {
     		result = cService.join(customer);
     		logger.debug("result : {}",result);
     	}catch(Exception e) {
+            logger.debug("error : {}",e.getMessage());
+            cService.delete(customer.getCId());
     		result = -1;
     	}
     	
@@ -78,6 +90,52 @@ public class CustomerRestController {
     @Operation(summary = "request parameter로 전달된 id가 이미 사용중인지 반환한다.")
     public Boolean isUsedId(String id) {
         return cService.isUsedId(id);
+    }
+
+
+    // 위에 꺼 대신해서 이걸 만들었다.
+    // password를 sharedpreference에 저장하면 안되니, id만 받는데,
+    // 이 id와 쿠키에 있는 id가 같은지 확인해서 로그인 사용자를 조회해서 리턴함.
+    @GetMapping("/info")
+    @Operation(summary = "사용자의 정보와 함께 사용자의 주문 내역, 사용자 등급 정보를 반환한다.",
+            description = "사용자의 로그인 시 사용된 id를 보내야함")
+    public Map<String, Object> getInfo(HttpServletRequest request, String id) {
+        String idInCookie = "";
+        Cookie [] cookies = request.getCookies();
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                try {
+                    if("loginId".equals(cookie.getName())){
+                        idInCookie = URLDecoder.decode(cookie.getValue(), "utf-8");
+                        System.out.println("value : "+URLDecoder.decode(cookie.getValue(), "utf-8"));
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        Customer selected = cService.selectUser(id);
+
+        if(!id.equals(idInCookie)) {
+            logger.info("different cookie value : inputValue : {}, inCookie:{}", id, idInCookie);
+            selected = null; // 사용자 정보 삭제.
+        }else {
+            logger.info("valid cookie value : inputValue : {}, inCookie:{}", id, idInCookie);
+        }
+
+        if (selected == null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("user", new User());
+            return map;
+        } else {
+            Map<String, Object> info = new HashMap<>();
+            info.put("user", selected);
+            List<Order> orders = oService.getOrderByUser(selected.getId());
+            info.put("order", orders);
+//            info.put("grade", getGrade(selected.getStamps()));
+            return info;
+        }
     }
 
 }

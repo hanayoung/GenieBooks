@@ -3,7 +3,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
 <mapper namespace="com.ssafy.cafe.model.dao.CustomerDao">
-	<insert id="insert" parameterType="Customer">
+	<insert id="insert" parameterType="Customer"
+			useGeneratedKeys="true" keyProperty="cId">
 		INSERT INTO customer
 		    (nickname,
 		    id, 
@@ -20,7 +21,7 @@
     <insert id="insertInterest" parameterType="Interest">
 		INSERT INTO interest
 		    (c_id,
-		    category)
+		    type)
 		VALUES
 		    (#{cId}, 
 		    #{category})
@@ -30,5 +31,16 @@
 		SELECT * FROM customer
 		WHERE id = #{id}
 	</select>
+
+	<delete id="delete" parameterType="int">
+		DELETE from customer
+		WHERE c_id = #{userId}
+	</delete>
+
+	<update id="updatePoint" parameterType="map">
+		UPDATE customer
+			SET point = #{point, jdbcType=INTEGER}
+			WHERE c_id = #{user_id, jdbcType=INTEGER}
+	</update>
     	
 </mapper>

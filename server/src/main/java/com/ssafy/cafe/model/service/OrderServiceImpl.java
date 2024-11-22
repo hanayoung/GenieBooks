@@ -2,20 +2,11 @@ package com.ssafy.cafe.model.service;
 
 import java.util.List;
 
+import com.ssafy.cafe.model.dao.*;
+import com.ssafy.cafe.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.ssafy.cafe.model.dao.OrderDao;
-import com.ssafy.cafe.model.dao.OrderDetailDao;
-import com.ssafy.cafe.model.dao.StampDao;
-import com.ssafy.cafe.model.dao.UserDao;
-import com.ssafy.cafe.model.dto.Order;
-import com.ssafy.cafe.model.dto.OrderDetail;
-import com.ssafy.cafe.model.dto.OrderDetailInfo;
-import com.ssafy.cafe.model.dto.OrderInfo;
-import com.ssafy.cafe.model.dto.Stamp;
-import com.ssafy.cafe.model.dto.User;
 
 /**
  * @since 2021. 6. 23.
@@ -28,12 +19,9 @@ public class OrderServiceImpl implements OrderService {
     
     @Autowired
     OrderDetailDao dDao;
-    
+
     @Autowired
-    StampDao sDao;
-    
-    @Autowired
-    UserDao uDao;
+    CustomerDao cDao;
 
     @Override
     @Transactional
@@ -44,21 +32,15 @@ public class OrderServiceImpl implements OrderService {
         // 주문 및 주문 상세 테이블 저장
         oDao.insert(order);
         List<OrderDetail> details = order.getDetails();
-        int quantitySum = 0;
+//        int quantitySum = 0;
         for(OrderDetail detail: details) {
             detail.setOrderId(order.getId());
             dDao.insert(detail);
-            quantitySum += detail.getQuantity();
+//            quantitySum += detail.getQuantity();
         }
-        // 스템프 정보 저장
-        Stamp stamp = new Stamp(order.getUserId(), order.getId(), quantitySum);
-        sDao.insert(stamp);
-        // 사용자 정보 업데이트
-        User user = new User();
-        user.setId(order.getUserId());
-        user.setStamps(stamp.getQuantity());
-        uDao.updateStamp(user);
 
+        // 포인트 정보 저장 --- > 결제금액 어떻게 알지?
+        cDao.updatePoint(order.getUserId(), (int)Math.round(order.getPayment()*0.05));
     }
 
     @Override
@@ -66,11 +48,11 @@ public class OrderServiceImpl implements OrderService {
         return oDao.selectByUser(id);
     }
 
-    @Override
-    public void updateOrder(Order order) {
-        oDao.update(order);
-    }
-
+//    @Override
+//    public void updateOrder(Order order) {
+//        oDao.update(order);
+//    }
+//
     @Override
     public OrderInfo getOrderInfo(Integer id) {
         return oDao.selectOrderInfo(id);
@@ -78,18 +60,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderInfo> getLastMonthOrder(String id) {
-    	List<OrderInfo> info = oDao.getLastMonthOrder(id); 
+    	List<OrderInfo> info = oDao.getLastMonthOrder(id);
     	for (OrderInfo orderInfo : info) {
         	List<OrderDetailInfo> detailInfo = oDao.getOrderDetailInfo(orderInfo.getId());
-        	
+
         	orderInfo.setDetails(detailInfo);
 		}
-    	
+
         return info;
     }
-    
-    @Override
-    public List<OrderInfo> getLast6MonthOrder(String id) {
-        return oDao.getLast6MonthOrder(id);
-    }
+//
+//    @Override
+//    public List<OrderInfo> getLast6MonthOrder(String id) {
+//        return oDao.getLast6MonthOrder(id);
+//    }
 }

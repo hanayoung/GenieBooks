@@ -9,5 +9,10 @@
 		FROM
 		    recommend
 	</select>
-    	
+
+
+	<resultMap id="OrderResult" type="OrderInfo">
+		<collection property="details" javaType="ArrayList" column="order_id" ofType="OrderDetailInfo"
+					select="getOrderDetailInfo"/>
+	</resultMap>
 </mapper>

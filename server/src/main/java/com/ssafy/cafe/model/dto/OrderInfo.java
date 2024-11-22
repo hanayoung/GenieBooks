@@ -4,33 +4,27 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderInfo {
-    private Integer id;
-    private String userId;
-    private String orderTable;
-    private Date orderTime;
-    private Character completed;
-    
-    private List<OrderDetailInfo> details ;
-    
-    
-	public OrderInfo(Integer id, String userId, String orderTable, Date orderTime, Character complited) {
+	private Integer id;
+	private Integer userId;
+	private Date orderTime;
+	private Boolean completed;
+	private List<OrderDetailInfo> details ;
+
+	public OrderInfo(Integer id, Integer userId, Date orderTime, Boolean completed) {
         this.id = id;
         this.userId = userId;
-        this.orderTable = orderTable;
         this.orderTime = orderTime;
-        this.completed = complited;
+        this.completed = completed;
     }
 
-    public OrderInfo(String userId, String orderTable, Date orderTime, Character complited) {
+    public OrderInfo(Integer userId, Date orderTime, Boolean completed) {
         this.userId = userId;
-        this.orderTable = orderTable;
         this.orderTime = orderTime;
-        this.completed = complited;
+        this.completed = completed;
     }
     
 	public OrderInfo() {}
 
-        
 	public Integer getId() {
 		return id;
 	}
@@ -39,20 +33,12 @@ public class OrderInfo {
 		this.id = id;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
-	}
-
-	public String getOrderTable() {
-		return orderTable;
-	}
-
-	public void setOrderTable(String orderTable) {
-		this.orderTable = orderTable;
 	}
 
 	public Date getOrderTime() {
@@ -63,11 +49,11 @@ public class OrderInfo {
 		this.orderTime = orderTime;
 	}
 
-	public Character getCompleted() {
+	public Boolean getCompleted() {
 		return completed;
 	}
 
-	public void setCompleted(Character completed) {
+	public void setCompleted(Boolean completed) {
 		this.completed = completed;
 	}
 
