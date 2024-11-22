@@ -74,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/everyday_100"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/view_attendance_benefit"
         app:layout_constraintStart_toEndOf="@id/iv_gift"
         app:layout_constraintTop_toTopOf="@id/view_attendance_benefit" />
