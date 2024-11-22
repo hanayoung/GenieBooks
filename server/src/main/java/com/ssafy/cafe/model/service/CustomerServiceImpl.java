@@ -29,15 +29,18 @@ public class CustomerServiceImpl implements CustomerService {
 		if(check != null) result = -1;
 		else {
 			result = customerDao.insert(customer);
-			Customer newCustomer = customerDao.selectById(customer.getId());
 			List<Category> list = customer.getCategory();
-			for (Category category : list) {
-				Interest interest = new Interest(newCustomer.getCId(), category);
-				customerDao.insertInterest(interest);
+			Integer cId = customer.getCId();
+			try{
+				for (Category category : list) {
+					Interest interest = new Interest(cId, category);
+					customerDao.insertInterest(interest);
+				}
+			}catch (Exception e) {
+				logger.debug("error occur in impl : {}",e.getMessage());
 			}
-		}
 
-		logger.debug("before end result : {}",result);
+		}
 		return result;
 
 	}
@@ -58,12 +61,27 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public void delete(int id) {
+		customerDao.delete(id);
+	}
+
+	@Override
 	public Customer selectUser(String id) {
 		Customer customer = customerDao.selectById(id);
 		if (customer != null) {
 			return customer;
 		} else {
 			return null;
+		}
+	}
+
+	@Override
+	public List<Category> selectInterestByUserId(int id) {
+		List<Category> categoryList = customerDao.selectInterestByUserId(id);
+		if(categoryList.isEmpty()) {
+			return null;
+		}else{
+			return categoryList;
 		}
 	}
 

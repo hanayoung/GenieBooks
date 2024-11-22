@@ -106,10 +106,10 @@ public class Customer {
 		this.category = category;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", nickname=" + nickname + ", pwd=" + pwd + ", age=" + age + ", sex=" + sex
-				+ ", category= " + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Customer [id=" + id + ", nickname=" + nickname + ", pwd=" + pwd + ", age=" + age + ", sex=" + sex
+//				+ ", category= " + "]";
+//	}
 
 }

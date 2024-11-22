@@ -1,7 +1,10 @@
 package com.ssafy.cafe.model.service;
 
+import com.ssafy.cafe.model.dto.Category;
 import com.ssafy.cafe.model.dto.Customer;
 import com.ssafy.cafe.model.dto.User;
+
+import java.util.List;
 
 
 public interface CustomerService {
@@ -30,6 +33,9 @@ public interface CustomerService {
      */
     public boolean isUsedId(String id);
 
+
+    public void delete(int id);
+
     /**
      * id 에 해당하는 User 정보를 반환한다.
      * 
@@ -38,6 +44,8 @@ public interface CustomerService {
      * 조회된 User 정보를 반환한다.
      */
     public Customer selectUser(String id);
+
+    public List<Category> selectInterestByUserId(int id);
     
     
 }

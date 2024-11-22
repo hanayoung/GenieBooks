@@ -162,9 +162,9 @@ public class UserRestController {
         } else {
             Map<String, Object> info = new HashMap<>();
             info.put("user", selected);
-            List<Order> orders = oService.getOrderByUser(selected.getId());
-            info.put("order", orders);
-            info.put("grade", getGrade(selected.getStamps()));
+//            List<Order> orders = oService.getOrderByUser(selected.getId());
+//            info.put("order", orders);
+//            info.put("grade", getGrade(selected.getStamps()));
             return info;
         }
     }
@@ -179,10 +179,10 @@ public class UserRestController {
             return null;
         } else {
             Map<String, Object> info = new HashMap<>();
-            info.put("user", selected);
-            List<Order> orders = oService.getOrderByUser(user.getId());
-            info.put("order", orders);
-            info.put("grade", getGrade(selected.getStamps()));
+//            info.put("user", selected);
+//            List<Order> orders = oService.getOrderByUser(user.getId());
+//            info.put("order", orders);
+//            info.put("grade", getGrade(selected.getStamps()));
             return info;
         }
     }
