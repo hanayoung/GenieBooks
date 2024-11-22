@@ -8,16 +8,17 @@ public class OrderInfo {
 	private Integer userId;
 	private Date orderTime;
 	private Boolean completed;
+	private Integer payment; // 결제된 최종금액
 	private List<OrderDetailInfo> details ;
 
-	public OrderInfo(Integer id, Integer userId, Date orderTime, Boolean completed) {
+	public OrderInfo(Integer id, Integer userId, Date orderTime, Boolean completed, Integer payment) {
         this.id = id;
         this.userId = userId;
         this.orderTime = orderTime;
         this.completed = completed;
     }
 
-    public OrderInfo(Integer userId, Date orderTime, Boolean completed) {
+    public OrderInfo(Integer userId, Date orderTime, Boolean completed, Integer payment) {
         this.userId = userId;
         this.orderTime = orderTime;
         this.completed = completed;
@@ -55,6 +56,14 @@ public class OrderInfo {
 
 	public void setCompleted(Boolean completed) {
 		this.completed = completed;
+	}
+	
+	public Integer getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Integer payment) {
+		this.payment = payment;
 	}
 
 	public List<OrderDetailInfo> getDetails() {

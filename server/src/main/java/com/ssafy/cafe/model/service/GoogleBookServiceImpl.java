@@ -94,6 +94,5 @@ public class GoogleBookServiceImpl implements GoogleBookService {
         return googleBookDao.selectAllIsbn();
     }
 
-
 }
 

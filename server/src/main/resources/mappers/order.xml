@@ -19,6 +19,7 @@
              , c_id as user_id
              , o_date as order_time
              , is_done as completed
+             , payment
         FROM p_customer where c_id=#{userId}
         order by o_id desc
 	</select>
@@ -30,25 +31,22 @@
             , c_id as user_id
             , o_date as order_time
             , is_done as completed
+            , payment
         from p_customer
 
         where o_id = #{id};
     </select>
-
-
-
-    <!-- 관통 프로젝트 6단계에서 추가됨 -->
-    <select id="getLastMonthOrder" parameterType="string" resultType="Order">
-        select
-            o_id,
-            c_id,
-            o_date,
-            is_done
-        from p_customer
-
-        where o_id = #{id} and order_time > date_add(now(), interval -1 month)
-        order by o_id desc
-    </select>
+    
+    <select id="selectOrderInfo" parameterType="int" resultType="OrderInfo">
+		SELECT
+            o_id as id
+             , c_id as user_id
+             , o_date as order_time
+             , is_done as completed
+             , payment
+        FROM p_customer where o_id=#{orderId};
+	</select>
+    
 
     <select id="getOrderDetail" parameterType="int" resultType="OrderDetail">
        select
@@ -63,5 +61,16 @@
         <collection property="details" javaType="List" column="id" ofType="OrderDetail"
          select="getOrderDetail"/>
     </resultMap>
+
+    
+    <select id="getOrderDetailInfo" parameterType="int" resultType="OrderDetailInfo">
+       select
+            c.o_id as order_id
+            , b.isbn as isbn
+            , b.quantity as quantity
+        from p_customer c
+        join p_book b on c.o_id = b.o_id
+        where c.o_id = #{orderId};
+    </select>
 
 </mapper>
