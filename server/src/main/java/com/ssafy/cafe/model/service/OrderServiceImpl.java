@@ -1,9 +1,13 @@
 package com.ssafy.cafe.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.ssafy.cafe.controller.rest.CommentRestController;
 import com.ssafy.cafe.model.dao.*;
 import com.ssafy.cafe.model.dto.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class OrderServiceImpl implements OrderService {
-
+    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
     @Autowired
     OrderDao oDao;
     
@@ -44,8 +48,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrderByUser(String id) {
+    public List<Order> getOrderByUser(Integer id) {
         return oDao.selectByUser(id);
+    }
+
+    @Override
+    public List<Order> getOrderInfoByUser(Integer id) {
+        List<Order> noDetailOrders = oDao.selectByUser(id);
+        List<Order> orderInfos = new ArrayList<>();
+        for (Order order : noDetailOrders) {
+            orderInfos.add(oDao.selectOrderDetails(order.getId()));
+        }
+        return orderInfos;
     }
 
 //    @Override

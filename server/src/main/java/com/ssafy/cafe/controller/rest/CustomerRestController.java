@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ssafy.cafe.model.dto.Order;
+import com.ssafy.cafe.model.dto.*;
 import com.ssafy.cafe.model.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.cafe.model.dto.Customer;
-import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.model.service.CustomerService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -126,14 +124,16 @@ public class CustomerRestController {
 
         if (selected == null) {
             Map<String, Object> map = new HashMap<>();
-            map.put("user", new User());
-            return map;
+            map.put("customer", new Customer());
+            return map; // 정보 조회 실패
         } else {
             Map<String, Object> info = new HashMap<>();
-            info.put("user", selected);
-            List<Order> orders = oService.getOrderByUser(selected.getId());
+            List<Category> interest = cService.selectInterestByUserId(selected.getCId());
+            selected.setCategory(interest);
+            info.put("customer", selected);
+            List<Order> orders = oService.getOrderInfoByUser(selected.getCId());
+            logger.debug("orders in controller : {}",orders);
             info.put("order", orders);
-//            info.put("grade", getGrade(selected.getStamps()));
             return info;
         }
     }

@@ -34,7 +34,7 @@ public interface OrderDao {
      * @param userId
      * @return
      */
-    List<Order> selectByUser(String userId);
+    List<Order> selectByUser(int userId);
     
 
     /**
@@ -47,6 +47,8 @@ public interface OrderDao {
      * @return
      */
     OrderInfo selectOrderInfo(int id);
+
+    Order selectOrderDetails(int id);
 
     /**
      * 사용자가 주문한 최근 1개월의 주문 주문번호 내림차순으로 조회된다.

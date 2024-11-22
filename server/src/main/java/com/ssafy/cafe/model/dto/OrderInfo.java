@@ -65,4 +65,15 @@ public class OrderInfo {
 		this.details = details;
 	}
 
+
+	@Override
+	public String toString() {
+		return "OrderInfo{" +
+				"id=" + id +
+				", userId=" + userId +
+				", orderTime=" + orderTime +
+				", completed=" + completed +
+				", details=" + details +
+				'}';
+	}
 }

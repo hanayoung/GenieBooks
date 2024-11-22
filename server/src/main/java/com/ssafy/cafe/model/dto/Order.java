@@ -25,7 +25,14 @@ public class Order {
         this.completed = completed;
 		this.payment = payment;
     }
-    
+
+	public Order(Integer id, Integer userId, Date orderTime, Boolean completed) {
+		this.id = id;
+		this.userId = userId;
+		this.orderTime = orderTime;
+		this.completed = completed;
+	}
+
     public Order() {}
         
 	public Integer getId() {

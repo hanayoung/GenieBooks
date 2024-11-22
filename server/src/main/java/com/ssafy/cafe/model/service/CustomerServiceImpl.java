@@ -75,4 +75,14 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	}
 
+	@Override
+	public List<Category> selectInterestByUserId(int id) {
+		List<Category> categoryList = customerDao.selectInterestByUserId(id);
+		if(categoryList.isEmpty()) {
+			return null;
+		}else{
+			return categoryList;
+		}
+	}
+
 }

@@ -13,23 +13,23 @@
 
 <!--r-->
 
-	<select id="selectByUser" parameterType="string" resultType="Order">
-		SELECT o_id as id
-            , user_id
-            , order_table
-            , order_time
-            , completed
-        FROM t_order where user_id=#{userId} 
+	<select id="selectByUser" parameterType="int" resultType="Order">
+		SELECT
+            o_id as id
+             , c_id as user_id
+             , o_date as order_time
+             , is_done as completed
+        FROM p_customer where c_id=#{userId}
         order by o_id desc
 	</select>
 
 
-    <select id="selectOrderInfo" parameterType="int" resultMap="OrderResult">
+    <select id="selectOrderDetails" parameterType="int" resultMap="OrderResult">
         select
-            o_id
-            , c_id
-            , o_date
-            , is_done
+            o_id as id
+            , c_id as user_id
+            , o_date as order_time
+            , is_done as completed
         from p_customer
 
         where o_id = #{id};
@@ -50,39 +50,18 @@
         order by o_id desc
     </select>
 
-    <select id="getOrderDetailInfo" parameterType="int" resultType="OrderDetail">
+    <select id="getOrderDetail" parameterType="int" resultType="OrderDetail">
        select
             c.o_id as order_id
-            , c.c_id as user_id
-            , b.quantity
+            , b.isbn as isbn
+            , b.quantity as quantity
         from p_customer c
         join p_book b on c.o_id = b.o_id
-        order by order_id asc;
     </select>
 
-
-
-<!--    &lt;!&ndash; 관통 프로젝트 6단계에서 추가됨 &ndash;&gt;-->
-<!--    <select id="getLast6MonthOrder" parameterType="string"  resultMap="OrderResult">-->
-<!--        select -->
-<!--            o.o_id id-->
-<!--            , o.user_id -->
-<!--            , o.order_table-->
-<!--            , o.order_time-->
-<!--            , o.completed-->
-<!--            , o.o_id as order_id-->
-<!--        from t_order o -->
-
-<!--        where user_id = #{id} and order_time > date_add(now(), interval -6 month)-->
-<!--        order by o.o_id desc-->
-<!--    </select>-->
-
-    <resultMap id="OrderResult" type="OrderInfo">
-        <collection property="details" javaType="ArrayList" column="o_id" ofType="OrderDetail"
-         select="getOrderDetailInfo"/>
+    <resultMap id="OrderResult" type="Order">
+        <collection property="details" javaType="List" column="id" ofType="OrderDetail"
+         select="getOrderDetail"/>
     </resultMap>
-    
-   
-
 
 </mapper>

@@ -32,6 +32,13 @@
 		WHERE id = #{id}
 	</select>
 
+	<select id="selectInterestByUserId" parameterType="int" resultType="Category">
+		SELECT
+		    type
+		    FROM interest
+		WHERE c_id = #{cId}
+	</select>
+
 	<delete id="delete" parameterType="int">
 		DELETE from customer
 		WHERE c_id = #{userId}
@@ -42,5 +49,5 @@
 			SET point = #{point, jdbcType=INTEGER}
 			WHERE c_id = #{user_id, jdbcType=INTEGER}
 	</update>
-    	
+
 </mapper>
