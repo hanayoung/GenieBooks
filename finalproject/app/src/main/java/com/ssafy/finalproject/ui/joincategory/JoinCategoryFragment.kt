@@ -32,7 +32,7 @@ class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
         val args: JoinCategoryFragmentArgs by navArgs()
         val customer = args.customer
 
-        binding.ivBack.setOnSingleClickListener {
+        binding.backBtn.setOnSingleClickListener {
             findNavController().popBackStack()
         }
 

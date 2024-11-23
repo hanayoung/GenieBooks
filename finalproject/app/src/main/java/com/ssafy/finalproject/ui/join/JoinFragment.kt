@@ -18,7 +18,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivBack.setOnSingleClickListener {
+        binding.backBtn.setOnSingleClickListener {
             findNavController().popBackStack()
         }
 
