@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_loginFragment_to_joinFragment"
             app:destination="@id/joinFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/joinFragment"
@@ -25,9 +28,21 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ssafy.myapplication.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderListFragment"
         android:name="com.ssafy.myapplication.ui.orderlist.OrderListFragment"
-        android:label="OrderListFragment" />
+        android:label="OrderListFragment" >
+        <action
+            android:id="@+id/action_orderListFragment_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailFragment"
+        android:name="com.ssafy.myapplication.ui.orderdetail.OrderDetailFragment"
+        android:label="OrderDetailFragment" />
 </navigation>

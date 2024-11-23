@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.ssafy.finalproject.ui.home.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_attendanceFragment"
+            app:destination="@id/attendanceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.ssafy.finalproject.ui.category.CategoryFragment"
@@ -86,4 +90,8 @@
         android:name="com.ssafy.finalproject.ui.mypage.fragment.OrderListFragment"
         android:label="fragment_order_list"
         tools:layout="@layout/fragment_order_list" />
+    <fragment
+        android:id="@+id/attendanceFragment"
+        android:name="com.ssafy.finalproject.ui.attendance.AttendanceFragment"
+        android:label="AttendanceFragment" />
 </navigation>
