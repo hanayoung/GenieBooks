@@ -1,5 +1,6 @@
 package com.ssafy.finalproject.ui.categorydetail.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +11,8 @@ import com.ssafy.finalproject.R
 import com.ssafy.finalproject.data.model.dto.GoogleBook
 import com.ssafy.finalproject.databinding.ItemCategoryDetailBinding
 
-class CategoryDetailAdapter :
+private const val TAG = "CategoryDetailAdapter"
+class CategoryDetailAdapter(private val itemClickListener: ItemClickListener) :
     ListAdapter<GoogleBook, CategoryDetailAdapter.CustomViewHolder>(CustomComparator) {
 
     companion object CustomComparator : DiffUtil.ItemCallback<GoogleBook>() {
@@ -23,6 +25,10 @@ class CategoryDetailAdapter :
         }
     }
 
+    fun interface ItemClickListener {
+        fun onClick(id: String)
+    }
+
     inner class CustomViewHolder(private val binding: ItemCategoryDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -33,6 +39,10 @@ class CategoryDetailAdapter :
                 .into(binding.ivBook)
             binding.tvTitle.text = item.volumeInfo?.title
             binding.tvAuthor.text = item.volumeInfo?.authors?.get(0) ?: ""
+            binding.root.setOnClickListener {
+                Log.d(TAG, "bind: ")
+                itemClickListener.onClick(item.id)
+            }
         }
     }
 

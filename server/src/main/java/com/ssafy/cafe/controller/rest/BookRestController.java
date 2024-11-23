@@ -62,6 +62,17 @@ public class BookRestController {
 			return new ArrayList<>();
 		}
 	}
-
+	
+	@GetMapping("/detail")
+	@Operation(summary = "id에 해당하는 책을 반환한다.")
+	public GoogleBook selectBookById(String id) {
+		logger.debug("id : {}", id);
+		try {
+			return gService.selectBookbyId(id);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+		}
+		return null;
+	}
 
 }

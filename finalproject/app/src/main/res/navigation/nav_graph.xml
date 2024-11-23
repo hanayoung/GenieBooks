@@ -79,6 +79,9 @@
         <argument
             android:name="categoryKr"
             app:argType="string" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationListFragment"
@@ -94,4 +97,12 @@
         android:id="@+id/attendanceFragment"
         android:name="com.ssafy.finalproject.ui.attendance.AttendanceFragment"
         android:label="AttendanceFragment" />
+    <fragment
+        android:id="@+id/bookDetailFragment"
+        android:name="com.ssafy.finalproject.ui.bookdetail.BookDetailFragment"
+        android:label="BookDetailFragment" >
+        <argument
+            android:name="bookId"
+            app:argType="string" />
+    </fragment>
 </navigation>
