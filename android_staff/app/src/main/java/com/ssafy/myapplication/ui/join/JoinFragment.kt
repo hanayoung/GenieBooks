@@ -1,6 +1,7 @@
 package com.ssafy.myapplication.ui.join
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -10,7 +11,9 @@ import com.ssafy.myapplication.data.model.Staff
 import com.ssafy.myapplication.databinding.FragmentJoinBinding
 import com.ssafy.myapplication.util.setOnSingleClickListener
 
-class JoinFragment: BaseFragment<FragmentJoinBinding>(
+private const val TAG = "JoinFragment"
+
+class JoinFragment : BaseFragment<FragmentJoinBinding>(
     FragmentJoinBinding::bind,
     R.layout.fragment_join
 ) {
@@ -21,24 +24,53 @@ class JoinFragment: BaseFragment<FragmentJoinBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         registerObserver()
+        setupNextButton()
+    }
 
+    private fun setupNextButton() {
         binding.btnNext.setOnSingleClickListener {
-            binding.inputLayoutId.editText?.let { id ->
-                binding.inputLayoutPwd.editText?.let {  pwd ->
-                    binding.inputLayoutNickName.editText?.let { nickname ->
-                        if(id.text.toString().isNotEmpty() && pwd.text.toString().isNotEmpty() && nickname.text.toString().isNotEmpty()) {
-                            viewModel.join(Staff(id.text.toString(), pwd.text.toString(), nickname.text.toString()))
-                        }else{
-                            showToast("모든 항목을 채워주세요")
-                        }
-                    }
-
-                }
-            }
+            Log.d(TAG, "setupNextButton: ")
+            if (!validateInputs()) return@setOnSingleClickListener
+            viewModel.getIsUsedId(binding.inputLayoutId.editText?.text.toString())
         }
     }
 
+    private fun validateInputs(): Boolean {
+        val id = binding.inputLayoutId.editText?.text.toString()
+        val pwd = binding.inputLayoutPwd.editText?.text.toString()
+        val nickname = binding.inputLayoutNickName.editText?.text.toString()
+
+        if (id.isBlank() || pwd.isBlank() || nickname.isBlank()) {
+            showToast("모든 항목을 채워주세요")
+            return false
+        }
+
+        return true
+    }
+
+    private fun join() {
+        val id = binding.inputLayoutId.editText?.text.toString()
+        val pwd = binding.inputLayoutPwd.editText?.text.toString()
+        val nickname = binding.inputLayoutNickName.editText?.text.toString()
+
+        val staff = Staff(
+            id = id,
+            nickname = nickname,
+            pwd = pwd
+        )
+
+        viewModel.join(staff)
+    }
+
     private fun registerObserver() {
+        viewModel.isUsedId.observe(viewLifecycleOwner) { isUsed ->
+            if (!isUsed) {
+                join()
+            } else {
+                binding.inputLayoutId.error = "사용할 수 없는 ID입니다."
+            }
+        }
+
         viewModel.isJoinSuccess.observe(viewLifecycleOwner) {
             if (it) {
                 showToast("회원 가입에 성공하였습니다.")

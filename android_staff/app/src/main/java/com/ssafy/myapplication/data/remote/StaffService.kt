@@ -2,7 +2,9 @@ package com.ssafy.myapplication.data.remote
 
 import com.ssafy.myapplication.data.model.Staff
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface StaffService {
 
@@ -11,4 +13,7 @@ interface StaffService {
 
     @POST("staff/login")
     suspend fun login(@Body body: Staff): Staff?
+
+    @GET("staff/isUsed")
+    suspend fun isUsedId(@Query("id") id: String): Boolean
 }

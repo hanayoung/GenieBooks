@@ -22,7 +22,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
-        setupObservers()
+        registerObservers()
     }
 
     private fun setupUI() {
@@ -104,7 +104,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(
         findNavController().navigate(action)
     }
 
-    private fun setupObservers() {
+    private fun registerObservers() {
         viewModel.isUsedId.observe(viewLifecycleOwner, EventObserver { isUsed ->
             if (!isUsed) {
                 moveToJoinCategory()
