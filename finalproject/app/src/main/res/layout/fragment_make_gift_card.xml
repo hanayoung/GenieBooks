@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.gift.GiftCardFragment">
+    tools:context=".ui.gift.fragment.MakeGiftCardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/imageView16" />
 
-                <TextView
+                <EditText
                     android:id="@+id/title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -105,13 +105,16 @@
                     android:textColor="@color/text"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:hint="즐거운 하루 보내!"
+                    android:inputType="text"
                     app:layout_constraintBottom_toTopOf="@+id/name"
                     app:layout_constraintEnd_toEndOf="@+id/imageView16"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image"
-                    tools:text="ETA" />
+                    app:layout_constraintTop_toBottomOf="@+id/image" />
 
-                <TextView
+                <EditText
                     android:id="@+id/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -120,11 +123,14 @@
                     android:textSize="12sp"
                     android:layout_marginHorizontal="24dp"
                     android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:hint="행복한 고라니"
+                    android:inputType="text"
                     app:layout_constraintBottom_toTopOf="@+id/cardDescription"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title"
-                    tools:text="New Jeans" />
+                    app:layout_constraintTop_toBottomOf="@+id/title" />
 
                 <EditText
                     android:id="@+id/cardDescription"
@@ -135,7 +141,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@android:color/transparent"
                     android:gravity="top"
-                    android:hint="탭하여 함께 전하고 싶은 메시지를 작성해보세요!\n"
+                    android:hint="함께 전하고 싶은 메시지를 작성해보세요!\n"
                     android:inputType="text"
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="8sp"
@@ -152,12 +158,13 @@
         <Button
             android:id="@+id/btn_send_gift"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_background3"
+            android:layout_height="0dp"
+            android:background="@drawable/btn_long_bg"
             android:letterSpacing="-0.02"
             android:text="선물하기"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintDimensionRatio="1:0.16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
             app:layout_constraintStart_toStartOf="@+id/card_view"

@@ -6,6 +6,9 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.dotlottie.dlplayer.Mode
+import com.lottiefiles.dotlottie.core.model.Config
+import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentCategoryDetailBinding
@@ -37,6 +40,21 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
         initAdapter()
         registerObserver()
         viewModel.getAllCategoryBooks(category)
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        val loadingAnimationConfig = Config.Builder()
+            .autoplay(true)
+            .speed(1f)
+            .loop(true)
+            .source(DotLottieSource.Asset("loading_animation.lottie"))
+            .useFrameInterpolation(true)
+            .playMode(Mode.FORWARD)
+            .build()
+
+        binding.loadingAnimation.load(loadingAnimationConfig)
     }
 
     private fun initAdapter() {
@@ -52,6 +70,7 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
     private fun registerObserver() {
         viewModel.bookList.observe(viewLifecycleOwner) {
             it?.let {
+                binding.loadingAnimation.visibility = View.GONE
                 adapter.submitList(it)
             }
         }

@@ -54,4 +54,7 @@
     <string name="point_in_shopping_cart">(%1$s)</string>
     <string name="total_count">총 %1$s개</string>
 
+    <string name="gift_card_main_title">%1$s님의 선물카드</string>
+    <string name="gift_card_title">%1$s %2$s님의 선물카드</string>
+
 </resources>
