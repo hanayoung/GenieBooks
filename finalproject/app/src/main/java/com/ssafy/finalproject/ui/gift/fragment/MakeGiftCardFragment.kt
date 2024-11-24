@@ -1,4 +1,4 @@
-package com.ssafy.finalproject.ui.gift
+package com.ssafy.finalproject.ui.gift.fragment
 
 import android.Manifest
 import android.content.Intent
@@ -14,7 +14,7 @@ import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentMakeGiftCardBinding
 import com.ssafy.finalproject.util.PermissionChecker
 
-private const val TAG = "GiftCardFragment"
+private const val TAG = "MakeGiftCardFragment"
 class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
     FragmentMakeGiftCardBinding::bind,
     R.layout.fragment_make_gift_card

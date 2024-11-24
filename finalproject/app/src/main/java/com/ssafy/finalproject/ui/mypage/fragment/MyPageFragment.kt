@@ -20,15 +20,26 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnOrderList.setOnClickListener {
-            findNavController().navigate(R.id.action_myPageFragment_to_orderListFragment)
-        }
-
+        initView()
         viewModel.myPageInfo.observe(viewLifecycleOwner) {
             binding.tvNickName.text = getString(R.string.my_page_nickname, it.customer.nickname)
             binding.tvPoint.text = CommonUtils.makeCommaWithP(it.customer.point)
             binding.tvWaitingCnt.text = it.inCompleteCnt.toString()
             binding.tvDoneCnt.text = it.completeCnt.toString()
+        }
+    }
+
+    private fun initView() {
+        binding.iconGift.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_giftCardListFragment)
+        }
+
+        binding.tvGift.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_giftCardListFragment)
+        }
+
+        binding.btnOrderList.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_orderListFragment)
         }
     }
 }

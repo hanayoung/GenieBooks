@@ -72,6 +72,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         binding.btnShoppingCart.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_giftCardFragment)
         }
+
     }
 
     private fun initAdapter() {
