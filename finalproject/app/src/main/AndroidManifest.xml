@@ -25,6 +25,10 @@
     <!-- notification 전송 permission -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
     <application
         android:name="com.ssafy.finalproject.base.ApplicationClass"
         android:allowBackup="true"
