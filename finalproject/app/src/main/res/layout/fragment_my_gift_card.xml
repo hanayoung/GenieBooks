@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.gift.GiftCardFragment">
+    tools:context=".ui.gift.MyGiftCardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/imageView8"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/title_bar_bg"
@@ -30,16 +31,33 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/tv_main_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="선물카드 미리보기"
+            android:text="[보내는 사람] 님의 선물카드"
             android:textColor="@color/text"
             android:textSize="16sp"
             android:layout_marginVertical="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_gift_card_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textColor="@color/text"
+            android:letterSpacing="-0.02"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView8"
+            app:layout_constraintTop_toBottomOf="@+id/imageView8"
+            tools:text="2024.11.19 [보내는 사람]님의 선물카드" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -54,7 +72,7 @@
             app:layout_constraintDimensionRatio="1:1.4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_back">
+            app:layout_constraintTop_toBottomOf="@+id/tv_gift_card_title">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardViewLayout"
@@ -84,18 +102,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/btn_add_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_add_img"
-                    android:padding="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageView16" />
-
-                <EditText
+                <TextView
                     android:id="@+id/title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -105,16 +112,13 @@
                     android:textColor="@color/text"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:background="@android:color/transparent"
-                    android:gravity="top"
-                    android:hint="즐거운 하루 보내!\n"
-                    android:inputType="text"
+                    tools:text="즐거운 하루 보내!"
                     app:layout_constraintBottom_toTopOf="@+id/name"
                     app:layout_constraintEnd_toEndOf="@+id/imageView16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/image" />
 
-                <EditText
+                <TextView
                     android:id="@+id/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -122,27 +126,20 @@
                     android:textColor="@color/light_text"
                     android:textSize="12sp"
                     android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="top"
-                    android:hint="행복한 고라니\n"
-                    android:inputType="text"
+                    tools:text="행복한 고라니"
                     app:layout_constraintBottom_toTopOf="@+id/cardDescription"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/title" />
 
-                <EditText
+                <TextView
                     android:id="@+id/cardDescription"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="top"
-                    android:hint="함께 전하고 싶은 메시지를 작성해보세요!\n"
-                    android:inputType="text"
+                    tools:text="함께 전하고 싶은 메시지를 작성해보세요!\n"
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="8sp"
                     android:maxLines="2"
@@ -154,21 +151,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
-        <Button
-            android:id="@+id/btn_send_gift"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/btn_long_bg"
-            android:letterSpacing="-0.02"
-            android:text="선물하기"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintDimensionRatio="1:0.16"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/card_view"
-            app:layout_constraintStart_toStartOf="@+id/card_view"
-            app:layout_constraintTop_toBottomOf="@+id/card_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

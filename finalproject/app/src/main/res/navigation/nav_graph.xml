@@ -113,7 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/giftCardFragment"
-        android:name="com.ssafy.finalproject.ui.gift.GiftCardFragment"
+        android:name="com.ssafy.finalproject.ui.gift.MakeGiftCardFragment"
         android:label="fragment_gift_card"
-        tools:layout="@layout/fragment_gift_card" />
+        tools:layout="@layout/fragment_make_gift_card" />
 </navigation>

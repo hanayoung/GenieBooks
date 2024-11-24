@@ -52,4 +52,7 @@
     <string name="book_info">%1$s 저 | %2$s | %3$s</string>
     <string name="point">%1$s (5%% 적립)</string>
 
+    <string name="gift_card_main_title">%1$s님의 선물카드</string>
+    <string name="gift_card_title">%1$s %2$s님의 선물카드</string>
+
 </resources>
