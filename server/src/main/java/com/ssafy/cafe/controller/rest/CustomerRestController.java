@@ -31,7 +31,6 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequestMapping("/rest/customer")
 @CrossOrigin("*")
 public class CustomerRestController {
-	
     private static final Logger logger = LoggerFactory.getLogger(CustomerRestController.class);
     
     @Autowired

@@ -6,6 +6,7 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,10 @@ public class BookRestController {
     	try {
     		Category categoryName = Category.fromString(category);
     		String[] categoryList = categoryName.getName().split("\\+");
-    		return gService.selectBooksbyCategory(categoryList);
+			List<GoogleBook> googleBooks= gService.selectBooksbyCategory(categoryList);
+    		return googleBooks.stream()
+					.filter(book -> book.getSaleInfo().getListPrice() != null)
+					.collect(Collectors.toList());
     	}catch(Exception e) {
     		logger.debug(e.getMessage());
 			return new ArrayList<>();
