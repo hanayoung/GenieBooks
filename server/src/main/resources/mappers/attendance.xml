@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.cafe.model.dao.AttendanceDao">
+	<insert id="addAttendance" parameterType="int">
+		INSERT INTO attendance
+		    (c_id)
+		VALUES
+		    (#{userId})
+	</insert>
+
+	<select id="selectAttendance" parameterType="int" resultType="Attendance">
+		SELECT
+		    id,
+		    c_id,
+		    attend_date
+		FROM attendance
+		WHERE c_id = #{userId}
+	</select>
+
+	<select id="checkDate" parameterType="int" resultType="boolean">
+		SELECT EXISTS(
+			SELECT 1
+			FROM attendance
+			WHERE DATE(attend_date) = CURDATE()
+			and c_id = #{userId}
+		);
+	</select>
+
+</mapper>

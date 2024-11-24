@@ -64,45 +64,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/year"
         app:layout_constraintStart_toEndOf="@+id/year"
         app:layout_constraintTop_toTopOf="@+id/year" />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/calendar_arrow_shadow_bg"
-        app:layout_constraintBottom_toBottomOf="@+id/month_minus"
-        app:layout_constraintEnd_toEndOf="@+id/month_minus"
-        app:layout_constraintStart_toStartOf="@+id/month_minus"
-        app:layout_constraintTop_toTopOf="@+id/month_minus" />
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:background="@drawable/calendar_arrow_shadow_bg"
-        app:layout_constraintBottom_toBottomOf="@+id/month_plus"
-        app:layout_constraintEnd_toEndOf="@+id/month_plus"
-        app:layout_constraintStart_toStartOf="@+id/month_plus"
-        app:layout_constraintTop_toTopOf="@+id/month_plus" />
-
-    <ImageView
-        android:id="@+id/month_minus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/calendar_arrow_left"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/month_plus"
-        app:layout_constraintEnd_toStartOf="@+id/month_plus"
-        app:layout_constraintTop_toTopOf="@+id/month_plus" />
-
-    <ImageView
-        android:id="@+id/month_plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/calendar_arrow_right"
-        app:layout_constraintBottom_toBottomOf="@+id/month"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/month" />
-
     <LinearLayout
         android:id="@+id/dayWeek"
         android:layout_width="0dp"
@@ -110,7 +71,8 @@
         android:orientation="horizontal"
         android:weightSum="7"
         android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/month_plus"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/year"
         app:layout_constraintTop_toBottomOf="@+id/year">
 
