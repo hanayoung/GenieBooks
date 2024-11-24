@@ -25,14 +25,27 @@
 	</select>
 
 
+<!--    <select id="selectOrderDetails" parameterType="int" resultMap="OrderResult">-->
+<!--        select-->
+<!--            o_id as id-->
+<!--            , c_id as user_id-->
+<!--            , o_date as order_time-->
+<!--            , is_done as completed-->
+<!--            , payment-->
+<!--            , o_id as oid-->
+<!--        from p_customer-->
+<!--        where o_id = #{order_id, jdbcType=INTEGER}-->
+<!--        and is_done = #{is_complete, jdbcType=TINYINT, javaType = boolean};-->
+<!--    </select>-->
+
     <select id="selectOrderDetails" parameterType="int" resultMap="OrderResult">
         select
             o_id as id
-            , c_id as user_id
-            , o_date as order_time
-            , is_done as completed
-            , payment
-            , o_id as oid
+             , c_id as user_id
+             , o_date as order_time
+             , is_done as completed
+             , payment
+             , o_id as oid
         from p_customer
         where o_id = #{orderId};
     </select>
@@ -44,7 +57,7 @@
              , o_date as order_time
              , is_done as completed
              , payment
-        FROM p_customer where id=#{orderId};
+        FROM p_customer where o_id=#{orderId};
 	</select>
     
 

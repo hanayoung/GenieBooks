@@ -5,6 +5,7 @@ import java.util.List;
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.OrderDetailInfo;
 import com.ssafy.cafe.model.dto.OrderInfo;
+import org.apache.ibatis.annotations.Param;
 
 public interface OrderDao {
 	

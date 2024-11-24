@@ -131,13 +131,18 @@ public class CustomerRestController {
             info.put("customer", selected);
             List<Order> orders = oService.getOrderInfoByUser(selected.getCId());
             logger.debug("orders in controller : {}",orders);
-  
-            List<Order> completeOrders = orders.stream()
-            	.filter(order -> order.getCompleted() == true)
-            	.collect(Collectors.toList());
-            
-            info.put("completeCnt", completeOrders.size());
-            info.put("inCompleteCnt", orders.size() - completeOrders.size());
+            if(orders.isEmpty()){
+                info.put("completeCnt",0);
+                info.put("inCompleteCnt",0);
+            }else {
+                List<Order> completeOrders = orders.stream()
+                        .filter(order -> order.getCompleted() == true)
+                        .collect(Collectors.toList());
+
+                info.put("completeCnt", completeOrders.size());
+                info.put("inCompleteCnt", orders.size() - completeOrders.size());
+            }
+
             return info;
         }
     }

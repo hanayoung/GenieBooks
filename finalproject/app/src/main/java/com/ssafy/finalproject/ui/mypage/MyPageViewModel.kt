@@ -21,6 +21,7 @@ class MyPageViewModel: ViewModel() {
                 val id = ApplicationClass.sharedPreferencesUtil.getId()
                 RetrofitUtil.customerService.getInfo(id)
             }.onSuccess {
+                Log.d(TAG, "success : ${it}")
                 _myPageInfo.value = it
             }.onFailure {
                 Log.d(TAG, "fail : ${it.message}")

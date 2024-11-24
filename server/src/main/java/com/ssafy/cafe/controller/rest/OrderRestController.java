@@ -63,8 +63,8 @@ public class OrderRestController {
     }
     
     @GetMapping
-    @Operation(summary="사용자의 모든 주문 내역을 간략한 목록으로 반환한다.")
-    public List<Order> getAllOrders(HttpServletRequest request, String id){
+    @Operation(summary="사용자의 픽업대기중인 모든 주문 내역을 간략한 목록으로 반환한다.")
+    public List<Order> getAllWaitingOrders(HttpServletRequest request, String id){
         String idInCookie = "";
         Cookie [] cookies = request.getCookies();
         if(cookies != null) {
@@ -72,7 +72,6 @@ public class OrderRestController {
                 try {
                     if("loginId".equals(cookie.getName())){
                         idInCookie = URLDecoder.decode(cookie.getValue(), "utf-8");
-                        System.out.println("value : "+URLDecoder.decode(cookie.getValue(), "utf-8"));
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -85,8 +84,6 @@ public class OrderRestController {
         if(!id.equals(idInCookie)) {
             logger.info("different cookie value : inputValue : {}, inCookie:{}", id, idInCookie);
             selected = null; // 사용자 정보 삭제.
-        }else {
-            logger.info("valid cookie value : inputValue : {}, inCookie:{}", id, idInCookie);
         }
         if (selected == null) {
             return new ArrayList<>(); // 주문 내역 정보 조회 실패
@@ -97,14 +94,13 @@ public class OrderRestController {
         }
     }
     
-    
     @GetMapping("/{orderId}")
     @Operation(summary="{orderId}에 해당하는 주문의 내역을 목록 형태로 반환한다."
             + "이 정보는 사용자 정보 화면의 주문 내역 조회에서 사용된다." )
     public OrderInfo getOrderDetail(@PathVariable Integer orderId) {
         return oService.getOrderInfo(orderId);
     }
-    
+
     
 
     

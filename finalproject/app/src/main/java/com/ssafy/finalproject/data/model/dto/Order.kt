@@ -1,12 +1,14 @@
 package com.ssafy.finalproject.data.model.dto
 
+import java.util.Date
+
 data class Order(
     val id: Int,
     val userId : Int,
-    val orderTime : Long,
+    val orderTime : Date,
     val completed : Boolean,
     val payment : Int,
     val repImgUrl : String?,
-    val repTitle : String,
-    val detail : List<OrderDetail>
+    val repBookTitle : String,
+    val details : List<OrderDetail>
 )

@@ -48,7 +48,6 @@ public class OrderServiceImpl implements OrderService {
             dDao.insert(detail);
         }
 
-        // 포인트 정보 저장 --- > 결제금액 어떻게 알지?
         cDao.updatePoint(order.getUserId(), (int)Math.round(order.getPayment()*0.05));
     }
 
@@ -66,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
         	Order detailOrder = oDao.selectOrderDetails(order.getId());
         	logger.debug("test : {}",detailOrder);
             GoogleBook book = selectByIsbn(detailOrder.getDetails().get(0).getIsbn());
-            if(book.getVolumeInfo().getImageLinks().getThumbnail() != null) {
+            if(book.getVolumeInfo().getImageLinks() != null) {
             	detailOrder.setRepImgUrl(book.getVolumeInfo().getImageLinks().getThumbnail());
             	detailOrder.setRepBookTitle(book.getVolumeInfo().getTitle());
             }
@@ -74,11 +73,6 @@ public class OrderServiceImpl implements OrderService {
         }
         return orderInfos;
     }
-
-//    @Override
-//    public void updateOrder(Order order) {
-//        oDao.update(order);
-//    }
 
     @Override
     public OrderInfo getOrderInfo(Integer id) {
@@ -110,17 +104,18 @@ public class OrderServiceImpl implements OrderService {
                         .build()
                         .toUri();
                 ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
-                
+
                 if(response == null || response.getBody().getItems() == null) {
                     uri = UriComponentsBuilder
                             .fromUriString(Constants.GOOGLE_BOOK_API_URL)
                             .queryParam("q",String.format("ISBN:\"%d\"", isbn))
+                            .queryParam("maxResults", 40)
                             .encode()
                             .build()
                             .toUri();
                     response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
                 }
-                
+
                 book = response.getBody().getItems().get(0);
         }catch (Exception e) {
                 logger.debug("exception occur : {}",e.getMessage());

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
@@ -29,5 +30,9 @@ class OrderListFragment : BaseFragment<FragmentOrderListBinding>(
         TabLayoutMediator(binding.tabLayout, binding.listRv){ tab, position ->
             tab.text = if (position == 0) "픽업 대기" else "픽업 완료"
         }.attach()
+
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

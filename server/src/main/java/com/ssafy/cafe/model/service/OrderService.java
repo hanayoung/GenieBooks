@@ -24,7 +24,7 @@ public interface OrderService {
     public List<Order> getOrderByUser(Integer id);
 
     public List<Order> getOrderInfoByUser(Integer id);
-    
+
 //    /**
 //     * 주문 정보를 수정한다. - 주문의 상태만 변경된다.
 //     * @param order
