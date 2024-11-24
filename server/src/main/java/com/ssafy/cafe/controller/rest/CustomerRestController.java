@@ -3,6 +3,7 @@ package com.ssafy.cafe.controller.rest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,9 +142,10 @@ public class CustomerRestController {
                 info.put("completeCnt", completeOrders.size());
                 info.put("inCompleteCnt", orders.size() - completeOrders.size());
             }
-
             return info;
         }
     }
+
+
 
 }

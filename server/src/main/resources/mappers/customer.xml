@@ -50,4 +50,13 @@
 			WHERE c_id = #{user_id, jdbcType=INTEGER}
 	</update>
 
+	<select id="selectAttendance" parameterType="int" resultType="Attendance">
+		SELECT
+		    id,
+		    c_id,
+		    attend_date
+		FROM attendance
+		WHERE c_id = #{userId}
+	</select>
+
 </mapper>

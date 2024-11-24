@@ -1,5 +1,6 @@
 package com.ssafy.cafe.model.dao;
 
+import com.ssafy.cafe.model.dto.Attendance;
 import com.ssafy.cafe.model.dto.Category;
 import com.ssafy.cafe.model.dto.Customer;
 import com.ssafy.cafe.model.dto.Interest;
@@ -48,4 +49,6 @@ public interface CustomerDao {
      * @return
      */
     Customer selectByUser(Customer user);
+
+
 }

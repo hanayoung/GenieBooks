@@ -27,7 +27,7 @@ class AttendanceFragment: BaseFragment<FragmentAttendanceBinding>(
     R.layout.fragment_attendance
 ) {
     private var currentMonth = YearMonth.now()
-    private val startMonth = YearMonth.of(2024, 1)
+    private val startMonth = currentMonth
     private val endMonth = currentMonth
     private var isFirst = true
     private val daysOfWeek = daysOfWeek(firstDayOfWeek = DayOfWeek.MONDAY)
@@ -64,18 +64,6 @@ class AttendanceFragment: BaseFragment<FragmentAttendanceBinding>(
         binding.calendar.monthScrollListener = { updateTitle() }
         binding.calendar.setup(startMonth, endMonth, daysOfWeek.first())
         binding.calendar.scrollToMonth(currentMonth)
-
-        binding.monthPlus.setOnClickListener {
-            val prevMonth = binding.calendar.findFirstVisibleMonth()?.yearMonth
-            val month = prevMonth!!.plusMonths(1)
-            binding.calendar.smoothScrollToMonth(month)
-        }
-
-        binding.monthMinus.setOnClickListener {
-            val prevMonth = binding.calendar.findFirstVisibleMonth()?.yearMonth
-            val month = prevMonth!!.minusMonths(1)
-            binding.calendar.smoothScrollToMonth(month)
-        }
     }
 
     private fun updateTitle() {

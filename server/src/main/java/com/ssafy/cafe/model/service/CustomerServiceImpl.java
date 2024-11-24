@@ -2,6 +2,7 @@ package com.ssafy.cafe.model.service;
 
 import java.util.List;
 
+import com.ssafy.cafe.model.dto.Attendance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
