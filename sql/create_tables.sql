@@ -1,3 +1,7 @@
+drop database if exists ssafy_pennant;
+create database ssafy_pennant;
+use ssafy_pennant;
+
 create table customer(
     c_id integer auto_increment primary key,
     nickname char(50) not null,

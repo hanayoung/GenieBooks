@@ -9,6 +9,7 @@ import com.ssafy.myapplication.R
 import com.ssafy.myapplication.base.BaseFragment
 import com.ssafy.myapplication.data.model.Staff
 import com.ssafy.myapplication.databinding.FragmentLoginBinding
+import com.ssafy.myapplication.util.setOnSingleClickListener
 
 private const val TAG = "LoginFragment_싸피"
 
@@ -24,11 +25,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
         registerObserver()
 
-        binding.btnLogin.setOnClickListener {
+        binding.btnLogin.setOnSingleClickListener {
             if (binding.etId.text.toString().isNotEmpty() && binding.etPwd.text.toString()
                     .isNotEmpty()
             ) {
-                Log.d(TAG, "onViewCreated: ${binding.etId.text.toString()}")
                 viewModel.login(
                     Staff(
                         binding.etId.text.toString(),
@@ -47,8 +47,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
     private fun registerObserver() {
         viewModel.isLoginSuccess.observe(viewLifecycleOwner) {
             if (it) {
-                Log.d(TAG, "registerObserver: 성공")
-                // 화면 이동
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             } else {
                 showToast("ID와 비밀번호를 확인해주세요")
             }

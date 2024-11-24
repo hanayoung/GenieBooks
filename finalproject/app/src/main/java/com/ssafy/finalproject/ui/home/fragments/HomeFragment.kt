@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.dotlottie.dlplayer.Mode
@@ -27,6 +28,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.iconCalendar.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_attendanceFragment)
+        }
 
         bookVPAdapter = BookVPAdapter()
 

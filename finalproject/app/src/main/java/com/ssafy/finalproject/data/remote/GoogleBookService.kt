@@ -13,4 +13,9 @@ interface GoogleBookService {
     suspend fun getAllCategoryBooks(
         @Query("category") category: String
     ): Response<List<GoogleBook>>
+
+    @GET("book/detail")
+    suspend fun getBookById(
+        @Query("id") id: String
+    ): Response<GoogleBook>
 }

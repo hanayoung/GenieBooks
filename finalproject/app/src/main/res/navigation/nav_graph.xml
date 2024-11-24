@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.ssafy.finalproject.ui.home.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_attendanceFragment"
+            app:destination="@id/attendanceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.ssafy.finalproject.ui.category.CategoryFragment"
@@ -75,6 +79,9 @@
         <argument
             android:name="categoryKr"
             app:argType="string" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationListFragment"
@@ -86,4 +93,16 @@
         android:name="com.ssafy.finalproject.ui.mypage.fragment.OrderListFragment"
         android:label="fragment_order_list"
         tools:layout="@layout/fragment_order_list" />
+    <fragment
+        android:id="@+id/attendanceFragment"
+        android:name="com.ssafy.finalproject.ui.attendance.AttendanceFragment"
+        android:label="AttendanceFragment" />
+    <fragment
+        android:id="@+id/bookDetailFragment"
+        android:name="com.ssafy.finalproject.ui.bookdetail.BookDetailFragment"
+        android:label="BookDetailFragment" >
+        <argument
+            android:name="bookId"
+            app:argType="string" />
+    </fragment>
 </navigation>
