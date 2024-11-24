@@ -1,6 +1,7 @@
 package com.ssafy.finalproject.ui.bookdetail
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -92,6 +93,6 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(
         binding.tvPrice.text = CommonUtils.makeComma(book.saleInfo?.listPrice?.amount ?: 0)
         val point = CommonUtils.calculatePoints(book.saleInfo?.listPrice?.amount ?: 0)
         binding.tvPointValue.text = getString(R.string.point, CommonUtils.makeComma(point))
-        binding.tvSummaryValue.text = book.volumeInfo?.description
+        binding.tvSummaryValue.text = Html.fromHtml(book.volumeInfo?.description, Html.FROM_HTML_MODE_LEGACY)
     }
 }
