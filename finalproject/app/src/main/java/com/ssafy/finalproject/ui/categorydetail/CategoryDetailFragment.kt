@@ -59,7 +59,6 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
 
     private fun initAdapter() {
         adapter = CategoryDetailAdapter { id ->
-            Log.d(TAG, "initAdapter: ")
             val action =
                 CategoryDetailFragmentDirections.actionCategoryDetailFragmentToBookDetailFragment(id)
             findNavController().navigate(action)

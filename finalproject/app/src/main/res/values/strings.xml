@@ -56,5 +56,6 @@
 
     <string name="gift_card_main_title">%1$s님의 선물카드</string>
     <string name="gift_card_title">%1$s %2$s님의 선물카드</string>
+    <string name="search_total_count">총 %1$s건</string>
 
 </resources>
