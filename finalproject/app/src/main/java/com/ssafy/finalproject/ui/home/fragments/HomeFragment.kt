@@ -34,6 +34,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             findNavController().navigate(R.id.action_homeFragment_to_attendanceFragment)
         }
 
+        binding.btnShoppingCart.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_shoppingCartFragment)
+        }
+
         bookVPAdapter = BookVPAdapter()
 
         initAdapter()
@@ -67,7 +71,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             .build()
 
         binding.loadingAnimation.load(loadingAnimationConfig)
-
 
     }
 
