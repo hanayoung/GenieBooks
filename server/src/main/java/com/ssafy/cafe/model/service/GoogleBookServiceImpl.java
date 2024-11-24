@@ -103,8 +103,8 @@ public class GoogleBookServiceImpl implements GoogleBookService {
 	public GoogleBook selectBookbyId(String id) {
 		RestTemplate restTemplate = new RestTemplate();
 		try {
-			URI uri = UriComponentsBuilder.fromUriString(Constants.GOOGLE_BOOK_API_URL)
-					.pathSegment(id).encode().build().toUri();
+			URI uri = UriComponentsBuilder.fromUriString(Constants.GOOGLE_BOOK_API_URL).pathSegment(id).encode().build()
+					.toUri();
 
 			ResponseEntity<GoogleBook> response = restTemplate.getForEntity(uri, GoogleBook.class);
 			return response.getBody();
@@ -113,6 +113,25 @@ public class GoogleBookServiceImpl implements GoogleBookService {
 			logger.debug("exception occur : {}", e.getMessage());
 		}
 		return null;
+	}
+
+	@Override
+	public List<GoogleBook> searchBooksByKeyword(String keyword) {
+		RestTemplate restTemplate = new RestTemplate();
+		List<GoogleBook> bookList = new ArrayList<>();
+		try {
+
+			URI uri = UriComponentsBuilder.fromUriString(Constants.GOOGLE_BOOK_API_URL)
+					.queryParam("q", keyword).encode().build().toUri();
+
+			ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
+			bookList.addAll(response.getBody().getItems());
+
+			return bookList;
+		} catch (Exception e) {
+			logger.debug("exception occur : {}", e.getMessage());
+			return bookList;
+		}
 	}
 
 }

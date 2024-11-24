@@ -18,4 +18,9 @@ interface GoogleBookService {
     suspend fun getBookById(
         @Query("id") id: String
     ): Response<GoogleBook>
+
+    @GET("book/searchByKeyword")
+    suspend fun getBooksByKeyword(
+        @Query("keyword") keyword: String
+    ): Response<List<GoogleBook>>
 }

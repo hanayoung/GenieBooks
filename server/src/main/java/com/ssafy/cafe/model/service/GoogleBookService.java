@@ -18,4 +18,5 @@ public interface GoogleBookService {
     
     public GoogleBook selectBookbyId(String id);
     
+    public List<GoogleBook> searchBooksByKeyword(String keyword);
 }

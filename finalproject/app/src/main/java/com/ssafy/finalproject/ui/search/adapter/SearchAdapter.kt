@@ -1,4 +1,4 @@
-package com.ssafy.finalproject.ui.categorydetail.adapter
+package com.ssafy.finalproject.ui.search.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.data.model.dto.GoogleBook
-import com.ssafy.finalproject.databinding.ItemCategoryDetailBinding
+import com.ssafy.finalproject.databinding.ItemBookListBinding
+import com.ssafy.finalproject.util.CommonUtils
 
-private const val TAG = "CategoryDetailAdapter"
-class CategoryDetailAdapter(private val itemClickListener: ItemClickListener) :
-    ListAdapter<GoogleBook, CategoryDetailAdapter.CustomViewHolder>(CustomComparator) {
+private const val TAG = "SearchAdapter"
+
+class SearchAdapter(private val itemClickListener: ItemClickListener) :
+    ListAdapter<GoogleBook, SearchAdapter.CustomViewHolder>(CustomComparator) {
 
     companion object CustomComparator : DiffUtil.ItemCallback<GoogleBook>() {
         override fun areItemsTheSame(oldItem: GoogleBook, newItem: GoogleBook): Boolean {
@@ -28,7 +30,7 @@ class CategoryDetailAdapter(private val itemClickListener: ItemClickListener) :
         fun onClick(id: String)
     }
 
-    inner class CustomViewHolder(private val binding: ItemCategoryDetailBinding) :
+    inner class CustomViewHolder(private val binding: ItemBookListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: GoogleBook) {
@@ -38,6 +40,7 @@ class CategoryDetailAdapter(private val itemClickListener: ItemClickListener) :
                 .into(binding.ivBook)
             binding.tvTitle.text = item.volumeInfo?.title
             binding.tvAuthor.text = item.volumeInfo?.authors?.get(0) ?: ""
+            binding.tvPrice.text = CommonUtils.makeComma(item.saleInfo?.listPrice?.amount ?: 0)
             binding.root.setOnClickListener {
                 itemClickListener.onClick(item.id)
             }
@@ -46,12 +49,7 @@ class CategoryDetailAdapter(private val itemClickListener: ItemClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val binding =
-            ItemCategoryDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
-        val displayMetrics = parent.context.resources.displayMetrics
-        val screenWidth = displayMetrics.widthPixels
-        val itemWidth = (screenWidth * 0.28).toInt()
-        binding.root.layoutParams.width = itemWidth
+            ItemBookListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CustomViewHolder(binding)
     }
 

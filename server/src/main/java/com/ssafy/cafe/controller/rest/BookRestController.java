@@ -79,4 +79,18 @@ public class BookRestController {
 		return null;
 	}
 
+	@GetMapping("/searchByKeyword")
+	@Operation(summary = "검색한 키워드에 해당하는 책 목록을 반환한다. 없는 키워드일 경우 빈 리스트를 반환한다")
+	public List<GoogleBook> searchBooksByKeyword(String keyword) {
+		logger.debug("book.search keyword : {}", keyword);
+    	try {
+			List<GoogleBook> googleBooks= gService.searchBooksByKeyword(keyword);
+    		return googleBooks.stream()
+					.filter(book -> book.getSaleInfo().getListPrice() != null)
+					.collect(Collectors.toList());
+    	}catch(Exception e) {
+    		logger.debug(e.getMessage());
+			return new ArrayList<>();
+		}
+	}
 }
