@@ -32,6 +32,8 @@ public interface CustomerDao {
      * @return
      */
     int updatePoint(@Param("user_id") int userId, @Param("point") int point);
+
+    int getUserPoint(int userId);
     
     /**
      * 사용자 정보를 조회한다.

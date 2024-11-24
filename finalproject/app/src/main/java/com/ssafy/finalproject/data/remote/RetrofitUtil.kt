@@ -7,5 +7,6 @@ class RetrofitUtil {
         val customerService: CustomerService = ApplicationClass.retrofit.create(CustomerService::class.java)
         val googleBookService: GoogleBookService = ApplicationClass.retrofit.create(GoogleBookService::class.java)
         val orderService : OrderService = ApplicationClass.retrofit.create(OrderService::class.java)
+        val attendanceService : AttendanceService = ApplicationClass.retrofit.create(AttendanceService::class.java)
     }
 }
