@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_shoppingCartFragment"
+            app:destination="@id/shoppingCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -108,4 +111,8 @@
             android:name="bookId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/shoppingCartFragment"
+        android:name="com.ssafy.finalproject.ui.shoppingcart.ShoppingCartFragment"
+        android:label="ShoppingCartFragment" />
 </navigation>
