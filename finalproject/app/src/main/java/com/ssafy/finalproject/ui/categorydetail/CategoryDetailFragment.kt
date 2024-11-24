@@ -25,6 +25,10 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         val category = args.category
         val categoryKr = args.categoryKr
 
