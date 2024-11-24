@@ -46,12 +46,6 @@ class ShoppingCartAdapter :
 
         fun bind(item: ShoppingCartBook) {
             Log.d(TAG, "bind: $item")
-
-            val displayMetrics = binding.root.resources.displayMetrics
-            val screenHeight = displayMetrics.heightPixels
-            val itemHeight = (screenHeight * 0.2).toInt()
-            binding.root.layoutParams.height = itemHeight
-
             Glide.with(binding.root.context)
                 .load(item.imageUrl)
                 .placeholder(R.drawable.book_no_img)
@@ -84,6 +78,12 @@ class ShoppingCartAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val binding =
             ItemShoppingCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        val displayMetrics = binding.root.resources.displayMetrics
+        val screenHeight = displayMetrics.heightPixels
+        val itemHeight = (screenHeight * 0.2).toInt()
+        binding.root.layoutParams.height = itemHeight
+
         return CustomViewHolder(binding)
     }
 
