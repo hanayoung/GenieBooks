@@ -10,4 +10,8 @@
     <color name="light_text">#767676</color>
     <color name="stroke">#999999</color>
     <color name="light_background">#80E9E9EA</color>
+    <color name="background">#F5F5F5</color>
+    <color name="fab">#FFD700</color>
+    <color name="disabled">#9E9E9E</color>
+    <color name="calendar_day">#4A5660</color>
 </resources>

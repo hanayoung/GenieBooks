@@ -3,6 +3,7 @@ package com.ssafy.cafe.model.service;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.ssafy.cafe.model.dao.GoogleBookDao;
 import org.slf4j.Logger;
@@ -36,10 +37,29 @@ public class GoogleBookServiceImpl implements GoogleBookService {
 		try {
 			for (String category : categoryList) {
 				URI uri = UriComponentsBuilder.fromUriString(Constants.GOOGLE_BOOK_API_URL)
-						.queryParam("q", "subject:" + category).encode().build().toUri();
+						.queryParam("q", String.format("subject:\"%s\"", category))
+						.queryParam("langRestrict","ko")
+						.queryParam("maxResults", 40)
+						.encode().build().toUri();
 
+				logger.debug("uri : {}",uri);
 				ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
-				bookList.addAll(response.getBody().getItems());
+				if(response != null && response.getBody().getItems() != null){
+					logger.debug("category books : {}",response.getBody().getItems());
+					List<GoogleBook> list = response.getBody().getItems().stream()
+							.filter(book -> book.getSaleInfo().getListPrice() != null)
+							.collect(Collectors.toList());
+					if(list.isEmpty()) {
+						uri = UriComponentsBuilder.fromUriString(Constants.GOOGLE_BOOK_API_URL)
+								.queryParam("q",  String.format("subject:\"%s\"", category))
+								.queryParam("langRestrict","ko")
+								.queryParam("maxResults", 40)
+								.queryParam("startIndex",40)
+								.encode().build().toUri();
+						response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
+					}
+						bookList.addAll(response.getBody().getItems());
+				}
 			}
 			return bookList;
 		} catch (Exception e) {
@@ -88,7 +108,7 @@ public class GoogleBookServiceImpl implements GoogleBookService {
 
 			ResponseEntity<GoogleBook> response = restTemplate.getForEntity(uri, GoogleBook.class);
 			return response.getBody();
-			
+
 		} catch (Exception e) {
 			logger.debug("exception occur : {}", e.getMessage());
 		}

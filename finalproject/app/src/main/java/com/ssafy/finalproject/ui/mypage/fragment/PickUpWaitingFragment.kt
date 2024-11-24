@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
@@ -43,6 +44,9 @@ class PickUpWaitingFragment :  BaseFragment<FragmentPickUpWaitingBinding>(
         orderListRVAdapter.itemClickListener = object : OrderListRVAdapter.ItemClickListener {
             override fun onClick(view: View, data: Order, position: Int) {
                 Log.d(TAG, "onClick: ${data}")
+
+                val action = OrderListFragmentDirections.actionOrderListFragmentToOrderDetailFragment(data.id)
+                findNavController().navigate(action)
             }
         }
     }

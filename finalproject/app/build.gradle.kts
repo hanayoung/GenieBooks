@@ -90,4 +90,6 @@ dependencies {
 
     implementation (libs.android.lottie)
 
+    implementation(libs.view)
+
 }

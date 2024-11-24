@@ -51,10 +51,11 @@ class GiftCardListRVAdapter: ListAdapter<GiftCard, GiftCardListRVAdapter.ViewHol
         val binding =
             ItemGiftCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        val displayMetrics = context.resources.displayMetrics
-        val screenHeight = displayMetrics.heightPixels
-        val itemHeight = (screenHeight * 0.2).toInt()
-        binding.root.layoutParams.height = itemHeight
+        val displayMetrics = parent.context.resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val itemWidth = (screenWidth * 0.28).toInt()
+        binding.root.layoutParams.width = itemWidth
+        
         return ViewHolder(binding)
 
     }
