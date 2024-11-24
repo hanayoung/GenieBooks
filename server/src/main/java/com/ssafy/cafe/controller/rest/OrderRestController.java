@@ -97,7 +97,7 @@ public class OrderRestController {
     @GetMapping("/{orderId}")
     @Operation(summary="{orderId}에 해당하는 주문의 내역을 목록 형태로 반환한다."
             + "이 정보는 사용자 정보 화면의 주문 내역 조회에서 사용된다." )
-    public OrderInfo getOrderDetail(@PathVariable Integer orderId) {
+    public OrderInfo getOrderDetail(@PathVariable int orderId) {
         return oService.getOrderInfo(orderId);
     }
 

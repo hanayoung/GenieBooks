@@ -28,6 +28,19 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.loadingAnimation.visibility = View.VISIBLE
+
+        val loadingAnimationConfig = Config.Builder()
+            .autoplay(true)
+            .speed(1f)
+            .loop(true)
+            .source(DotLottieSource.Asset("loading_animation.lottie"))
+            .useFrameInterpolation(true)
+            .playMode(Mode.FORWARD)
+            .build()
+
+        binding.loadingAnimation.load(loadingAnimationConfig)
+
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -44,17 +57,6 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
-
-        val loadingAnimationConfig = Config.Builder()
-            .autoplay(true)
-            .speed(1f)
-            .loop(true)
-            .source(DotLottieSource.Asset("loading_animation.lottie"))
-            .useFrameInterpolation(true)
-            .playMode(Mode.FORWARD)
-            .build()
-
-        binding.loadingAnimation.load(loadingAnimationConfig)
     }
 
     private fun initAdapter() {
@@ -69,8 +71,8 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
     private fun registerObserver() {
         viewModel.bookList.observe(viewLifecycleOwner) {
             it?.let {
-                binding.loadingAnimation.visibility = View.GONE
                 adapter.submitList(it)
+                binding.loadingAnimation.visibility = View.GONE
             }
         }
     }

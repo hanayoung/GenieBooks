@@ -10,5 +10,5 @@ data class OrderInfo(
     val payment : Int,
     val repImgUrl : String?,
     val repBookTitle : String,
-    val detail : List<OrderDetailInfo>
+    val details : List<OrderDetailInfo>
 )

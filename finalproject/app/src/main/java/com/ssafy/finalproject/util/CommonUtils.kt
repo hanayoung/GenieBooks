@@ -2,6 +2,9 @@ package com.ssafy.finalproject.util
 
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
+import java.time.Month
+import java.time.format.TextStyle
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
@@ -36,4 +39,14 @@ object CommonUtils {
         val points = (price * 0.05).toInt()
         return points
     }
+
+    fun Month.displayText(short: Boolean = true): String {
+        val style = if (short) TextStyle.SHORT else TextStyle.FULL
+        return getDisplayName(style, Locale.KOREAN)
+    }
+
+    fun DayOfWeek.displayText(uppercase: Boolean = false): String {
+        return getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+    }
+
 }

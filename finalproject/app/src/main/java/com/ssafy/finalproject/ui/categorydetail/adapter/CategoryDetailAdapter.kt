@@ -47,6 +47,11 @@ class CategoryDetailAdapter(private val itemClickListener: ItemClickListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val binding =
             ItemCategoryDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        val displayMetrics = parent.context.resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val itemWidth = (screenWidth * 0.28).toInt()
+        binding.root.layoutParams.width = itemWidth
         return CustomViewHolder(binding)
     }
 

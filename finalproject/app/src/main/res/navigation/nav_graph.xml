@@ -107,7 +107,11 @@
         android:id="@+id/orderListFragment"
         android:name="com.ssafy.finalproject.ui.mypage.fragment.OrderListFragment"
         android:label="fragment_order_list"
-        tools:layout="@layout/fragment_order_list" />
+        tools:layout="@layout/fragment_order_list">
+        <action
+            android:id="@+id/action_orderListFragment_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/attendanceFragment"
         android:name="com.ssafy.finalproject.ui.attendance.AttendanceFragment"
@@ -137,9 +141,36 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.ssafy.finalproject.ui.search.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="SearchFragment">
         <action
             android:id="@+id/action_searchFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailFragment"
+        android:name="com.ssafy.finalproject.ui.mypage.fragment.OrderDetailFragment"
+        android:label="fragment_order_detail"
+        tools:layout="@layout/fragment_order_detail">
+        <argument
+            android:name="orderId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/pickUpCompleteFragment"
+        android:name="com.ssafy.finalproject.ui.mypage.fragment.PickUpCompleteFragment"
+        android:label="fragment_pick_up_complete"
+        tools:layout="@layout/fragment_pick_up_complete">
+        <action
+            android:id="@+id/action_pickUpCompleteFragment_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pickUpWaitingFragment"
+        android:name="com.ssafy.finalproject.ui.mypage.fragment.PickUpWaitingFragment"
+        android:label="fragment_pick_up_waiting"
+        tools:layout="@layout/fragment_pick_up_waiting">
+        <action
+            android:id="@+id/action_pickUpWaitingFragment_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment" />
     </fragment>
 </navigation>

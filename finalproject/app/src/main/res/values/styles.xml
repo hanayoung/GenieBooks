@@ -22,4 +22,7 @@
         <item name="android:fontFamily">@font/pretendard_regular</item>
     </style>
 
+    <style name="FABCircleShape" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
