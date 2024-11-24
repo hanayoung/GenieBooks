@@ -14,6 +14,7 @@ import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.model.dto.GoogleBook
 import com.ssafy.finalproject.databinding.FragmentHomeBinding
+import com.ssafy.finalproject.ui.categorydetail.CategoryDetailFragmentDirections
 import com.ssafy.finalproject.ui.home.HomeViewModel
 import com.ssafy.finalproject.ui.home.adapter.BookVPAdapter
 import com.ssafy.finalproject.util.CommonUtils
@@ -24,7 +25,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 ) {
     private lateinit var bookVPAdapter: BookVPAdapter
 
-    private val viewModel : HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
         initAdapter()
 
-        viewModel.bookList.observe(viewLifecycleOwner){ it ->
+        viewModel.bookList.observe(viewLifecycleOwner) { it ->
             binding.loadingAnimation.visibility = View.GONE
             bookVPAdapter.submitList(it)
 
@@ -56,14 +57,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
         }
 
-       val loadingAnimationConfig = Config.Builder()
-           .autoplay(true)
-           .speed(1f)
-           .loop(true)
-           .source(DotLottieSource.Asset("loading_animation.lottie"))
-           .useFrameInterpolation(true)
-           .playMode(Mode.FORWARD)
-           .build()
+        val loadingAnimationConfig = Config.Builder()
+            .autoplay(true)
+            .speed(1f)
+            .loop(true)
+            .source(DotLottieSource.Asset("loading_animation.lottie"))
+            .useFrameInterpolation(true)
+            .playMode(Mode.FORWARD)
+            .build()
 
         binding.loadingAnimation.load(loadingAnimationConfig)
 
@@ -113,7 +114,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                     super.onPageSelected(position)
                     // 책 정보 변경
 
-                    if(viewModel.bookList.value != null) {
+                    if (viewModel.bookList.value != null) {
                         initializeTextView()
 
                         viewModel.bookList.value?.get(position)?.volumeInfo?.let { book ->
@@ -137,11 +138,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         bookVPAdapter.itemClickListener = object : BookVPAdapter.ItemClickListener {
             override fun onClick(view: View, data: GoogleBook, position: Int) {
                 // 책 상세화면으로 이동
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToBookDetailFragment(data.id)
+                findNavController().navigate(action)
             }
         }
     }
 
-    private fun initializeTextView(){
+    private fun initializeTextView() {
         binding.tvTitle.text = ""
         binding.tvPrice.text = ""
         binding.tvOverview.text = ""

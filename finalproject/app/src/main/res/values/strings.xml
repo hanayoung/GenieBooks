@@ -50,5 +50,6 @@
     <string name="today_check">오늘 출석하기</string>
     <string name="book_introduce">책소개</string>
     <string name="book_info">%1$s 저 | %2$s | %3$s</string>
+    <string name="point">%1$s (5%% 적립)</string>
 
 </resources>

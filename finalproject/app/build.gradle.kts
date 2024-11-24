@@ -81,6 +81,8 @@ dependencies {
     implementation (libs.android.beacon.library)
 
     // Glide 사용
+    // imageview blur
+    implementation(libs.glide.transformations)
     implementation (libs.glide)
     annotationProcessor(libs.compiler)
 

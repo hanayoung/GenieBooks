@@ -11,7 +11,7 @@ object CommonUtils {
     //천단위 콤마
     fun makeComma(num: Int): String {
         val comma = DecimalFormat("#,###")
-        return "${comma.format(num)} 원"
+        return "${comma.format(num)}원"
     }
 
     fun makeCommaWithP(num: Int): String {
@@ -32,4 +32,8 @@ object CommonUtils {
         return format.format(time)
     }
 
+    fun calculatePoints(price: Int): Int {
+        val points = (price * 0.05).toInt()
+        return points
+    }
 }
