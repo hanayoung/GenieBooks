@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.cafe.model.dao.GiftCardDao">
+	<insert id="insertGiftCard" parameterType="GiftCard">
+		INSERT INTO gift
+		    (title,
+		    content,
+		    image,
+		    sender_id)
+		VALUES
+		    (#{title},
+		    #{content},
+		    #{imgUrl},
+		    #{senderId})
+	</insert>
+
+	<select id="selectAllGiftCards" parameterType="int" resultType="GiftCard">
+		SELECT
+			g_id as id,
+		    title,
+		    content,
+		    image as imgUrl,
+		    g_date as giftDate,
+		    recipient_id,
+		    sender_id
+		FROM gift
+		WHERE c_id = #{userId}
+	</select>
+
+	<update id="updateGiftCard" parameterType="map">
+		UPDATE gift
+			SET recipient_id = #{recipient_id, jdbcType=INTEGER}
+			WHERE g_id = #{giftcard_id, jdbcType=INTEGER}
+	</update>
+
+
+</mapper>
