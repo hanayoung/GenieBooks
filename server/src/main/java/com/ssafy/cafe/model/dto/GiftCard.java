@@ -8,12 +8,13 @@ public class GiftCard {
 	private String content;
 	private String imgUrl;
 	private Date giftDate;
+	private String senderName;
 	private int senderId;
 	private int recipientId;
 	
 	public GiftCard() {}
 	
-	public GiftCard(String title, String content, String imgUrl, Date giftDate, int senderId) {
+	public GiftCard(String title, String content, String imgUrl, Date giftDate, String senderName, int senderId) {
 		super();
 		this.title = title;
 		this.content = content;
@@ -22,13 +23,17 @@ public class GiftCard {
 		this.senderId = senderId;
 	}
 
-	public GiftCard(int id, String title, String content, String imgUrl, Date giftDate) {
+	public GiftCard(int id, String title, String content, String imgUrl, Date giftDate, String senderName, int senderId,
+			int recipientId) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.imgUrl = imgUrl;
 		this.giftDate = giftDate;
+		this.senderName = senderName;
+		this.senderId = senderId;
+		this.recipientId = recipientId;
 	}
 
 	public int getId() {
@@ -69,6 +74,14 @@ public class GiftCard {
 
 	public void setGiftDate(Date giftDate) {
 		this.giftDate = giftDate;
+	}
+
+	public String getSenderName() {
+		return senderName;
+	}
+
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
 	}
 
 	public int getSenderId() {

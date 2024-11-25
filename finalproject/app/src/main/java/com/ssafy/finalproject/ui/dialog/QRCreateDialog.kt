@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.ssafy.finalproject.R
 import com.ssafy.finalproject.databinding.DialogQRCreateBinding
 import com.ssafy.finalproject.util.setOnSingleClickListener
 
@@ -49,5 +50,16 @@ class QRCreateDialog: DialogFragment() {
         binding.exitBtn.setOnSingleClickListener {
             dismiss()
         }
+    }
+
+    private fun setDialog() {
+        val displayMetrics = resources.displayMetrics
+        val widthPixels = displayMetrics.widthPixels
+
+        val params = dialog?.window?.attributes
+        params?.width = (widthPixels * 0.8).toInt()
+        params?.height = ((widthPixels * 0.8).toInt() / 1.5).toInt()
+        dialog?.window?.attributes = params as WindowManager.LayoutParams
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg)
     }
 }

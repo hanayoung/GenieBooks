@@ -4,5 +4,6 @@ data class GiftCardRequest(
     val title: String,
     val content: String,
     val imgUrl: String,
-    val senderId : Int
+    val senderId : Int,
+    val senderName : String
 )

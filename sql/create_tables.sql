@@ -67,4 +67,5 @@ create table attendance(
 
 ALTER TABLE customer ADD COLUMN fcm_token varchar(100) NOT NULL;
 
+ALTER TABLE gift ADD COLUMN sender_name varchar(50) NOT NULL;
 
