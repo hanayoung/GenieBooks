@@ -1,5 +1,6 @@
 package com.ssafy.cafe.controller.rest;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.Staff;
 import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.model.service.CustomerService;
+import com.ssafy.cafe.model.service.FirebaseCloudMessageService;
 import com.ssafy.cafe.model.service.StaffService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,6 +38,12 @@ public class StaffRestController {
     
     @Autowired
     StaffService sService;
+    
+    @Autowired
+    FirebaseCloudMessageService service;
+    
+    @Autowired
+    CustomerService cService;
     
     @PostMapping("/signup")
     @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. ")
@@ -91,10 +99,13 @@ public class StaffRestController {
     
     @PutMapping("/order/complete")
     @Operation(summary = "직원이 수령함")
-    public Boolean updateOrderState(@RequestBody Map<String, Integer> payload) {
+    public Boolean updateOrderState(@RequestBody Map<String, Integer> payload) throws IOException {
     	int orderId = payload.get("orderId");
+    	int userId = payload.get("userId");
     	Boolean result = sService.updateOrderState(orderId);
         logger.debug("orders in controller : {}",result);
+        String fcmToken = cService.getFcmTokenbyUserId(userId);
+        service.sendMessageTo(fcmToken,"픽업 준비 완료", "도서가 준비되었습니다");
         return result;
     }
 

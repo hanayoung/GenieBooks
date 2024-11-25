@@ -33,6 +33,8 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
             messageTitle = remoteMessage.notification!!.title.toString()
             messageContent = remoteMessage.notification!!.body.toString()
 
+            Log.d(TAG, "onMessageReceived: ${messageContent} ${messageTitle}")
+
         } else {  // background 에 있을경우 혹은 foreground에 있을경우 두 경우 모두
             val data = remoteMessage.data
             Log.d(TAG, "data.message: ${data}")
@@ -43,19 +45,18 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
             messageContent = data.get("myBody").toString()
         }
 
-        val mainIntent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-
-        val mainPendingIntent: PendingIntent =
-            PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE)
-
+//        val mainIntent = Intent(this, MainActivity::class.java).apply {
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
+//
+//        val mainPendingIntent: PendingIntent =
+//            PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE)
+//
         val builder1 = NotificationCompat.Builder(this, MainActivity.channel_id)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setContentTitle(messageTitle)
             .setContentText(messageContent)
             .setAutoCancel(true)
-            .setContentIntent(mainPendingIntent)
 
         val notificationManager: NotificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

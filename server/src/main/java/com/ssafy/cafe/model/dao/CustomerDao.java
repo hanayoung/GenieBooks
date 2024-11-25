@@ -53,6 +53,8 @@ public interface CustomerDao {
     Customer selectByUser(Customer user);
     
     int uploadToken(@Param("token") String token, @Param("user_id") int userId);
+    
+    String getFcmTokenbyUserId(int userId);
 
 
 }

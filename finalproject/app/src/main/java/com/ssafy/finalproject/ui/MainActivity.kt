@@ -48,11 +48,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.bnv.setupWithNavController(navController)
 
         hideBottomNavigationView(navController)
-
+        
         registerObserver()
         getNFCData(intent)
 
-//        checkPermission()
+        checkPermission()
     }
 
     private fun getNFCData(intent: Intent) {
