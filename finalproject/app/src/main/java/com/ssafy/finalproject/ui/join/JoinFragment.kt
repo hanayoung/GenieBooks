@@ -1,17 +1,21 @@
 package com.ssafy.finalproject.ui.join
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ssafy.finalproject.Gender
 import com.ssafy.finalproject.R
+import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.model.dto.Customer
 import com.ssafy.finalproject.databinding.FragmentJoinBinding
 import com.ssafy.finalproject.ui.EventObserver
 import com.ssafy.finalproject.util.setOnSingleClickListener
+import kotlin.math.log
 
+private const val TAG = "JoinFragment"
 class JoinFragment : BaseFragment<FragmentJoinBinding>(
     FragmentJoinBinding::bind, R.layout.fragment_join
 ) {
@@ -90,14 +94,16 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(
         val age = binding.inputLayoutAge.editText?.text.toString().toInt()
 
         val gender = if (isMan) Gender.MAN.name else Gender.WOMAN.name
-
+        val fcmToken = ApplicationClass.sharedPreferencesUtil.getFcmToken()
+        Log.d(TAG, "moveToJoinCategory: fcmToken ${fcmToken}")
         val customer = Customer(
             id = id,
             nickname = nickname,
             pwd = pwd,
             age = age,
             sex = gender,
-            category = arrayListOf()
+            category = arrayListOf(),
+            fcmToken = fcmToken
         )
 
         val action = JoinFragmentDirections.actionJoinFragmentToJoinCategoryFragment(customer)

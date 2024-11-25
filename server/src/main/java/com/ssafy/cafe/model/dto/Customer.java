@@ -11,13 +11,15 @@ public class Customer {
 	private Sex sex;
 	private Integer point;
 	private List<Category> category;
+	private String fcmToken;
 
 	public Customer() {
 	}
 
-	public Customer(String id, String pwd) {
+	public Customer(String id, String pwd, String fcmToken) {
 		this.id = id;
 		this.pwd = pwd;
+		this.fcmToken = fcmToken;
 	}
 	public Customer(String id, String nickname, String pwd, Integer age, Sex sex, Integer point, List<Category> category) {
 		this.id = id;
@@ -105,6 +107,22 @@ public class Customer {
 	public void setCategory(List<Category> category) {
 		this.category = category;
 	}
+
+	public String getFcmToken() {
+		return fcmToken;
+	}
+
+	public void setFcmToken(String fcmToken) {
+		this.fcmToken = fcmToken;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [cId=" + cId + ", id=" + id + ", nickname=" + nickname + ", pwd=" + pwd + ", age=" + age
+				+ ", sex=" + sex + ", point=" + point + ", category=" + category + ", fcmToken=" + fcmToken + "]";
+	}
+	
+	
 
 //	@Override
 //	public String toString() {

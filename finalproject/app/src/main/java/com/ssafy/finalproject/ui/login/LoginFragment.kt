@@ -33,9 +33,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                     if(id.text.toString().isNotEmpty() && pwd.text.toString().isNotEmpty()) {
                         lifecycleScope.launch {
                             runCatching {
+                                val fcmToken = ApplicationClass.sharedPreferencesUtil.getFcmToken()
                                 val jsonObject = JsonObject().apply {
                                     addProperty("id", id.text.toString())
                                     addProperty("pwd", pwd.text.toString())
+                                    addProperty("fcmToken", fcmToken)
                                 }
                                 val requestBody = RequestBody.create(
                                     "application/json".toMediaTypeOrNull(),

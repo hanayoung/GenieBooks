@@ -77,6 +77,7 @@ public class CustomerRestController {
             cookie.setMaxAge(60*60*24*30); //30일
             response.addCookie(cookie);
             logger.debug("selected :{}",selected);
+            cService.uploadToken(customer.getFcmToken(), selected.getCId());
         }
         logger.debug("selected  2:{}",selected);
         return selected;

@@ -51,6 +51,8 @@ public interface CustomerDao {
      * @return
      */
     Customer selectByUser(Customer user);
+    
+    int uploadToken(@Param("token") String token, @Param("user_id") int userId);
 
 
 }

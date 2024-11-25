@@ -87,4 +87,9 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	}
 
+	@Override
+	public int uploadToken(String token, int userId) {
+		return customerDao.uploadToken(token, userId);
+	}
+
 }
