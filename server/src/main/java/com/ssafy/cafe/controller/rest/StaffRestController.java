@@ -2,6 +2,8 @@ package com.ssafy.cafe.controller.rest;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.cafe.model.dto.Customer;
+import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.Staff;
 import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.model.service.CustomerService;
@@ -75,6 +79,23 @@ public class StaffRestController {
     @Operation(summary = "request parameter로 전달된 id가 이미 사용중인지 반환한다.")
     public Boolean isUsedId(String id) {
         return sService.isUsedId(id);
+    }
+    
+    @GetMapping("/order")
+    @Operation(summary = "픽업 대기 중인 목록 반환")
+    public List<Order> getAllOrders() {
+    	List<Order> orders = sService.selectAllWaitingOrders();
+        logger.debug("orders in controller : {}",orders);
+        return orders;
+    }
+    
+    @PutMapping("/order/complete")
+    @Operation(summary = "직원이 수령함")
+    public Boolean updateOrderState(@RequestBody Map<String, Integer> payload) {
+    	int orderId = payload.get("orderId");
+    	Boolean result = sService.updateOrderState(orderId);
+        logger.debug("orders in controller : {}",result);
+        return result;
     }
 
 }

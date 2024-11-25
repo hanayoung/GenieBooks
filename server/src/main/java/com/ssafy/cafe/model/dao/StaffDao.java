@@ -1,5 +1,8 @@
 package com.ssafy.cafe.model.dao;
 
+import java.util.List;
+
+import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.Staff;
 
 public interface StaffDao {
@@ -31,4 +34,8 @@ public interface StaffDao {
      * @return
      */
     Staff selectByUser(Staff user);
+    
+    List<Order> selectAllWaitingOrders();
+    
+    boolean updateOrderState(int orderId);
 }
