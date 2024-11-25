@@ -50,5 +50,7 @@ public interface CustomerService {
     
     public int uploadToken(String token, int userId);
     
+    public String getFcmTokenbyUserId(int userId);
+    
     
 }

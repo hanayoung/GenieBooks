@@ -43,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         hideBottomNavigationView(navController)
 
-//        checkPermission()
+        checkPermission()
     }
 
     private fun hideBottomNavigationView(navController: NavController) {

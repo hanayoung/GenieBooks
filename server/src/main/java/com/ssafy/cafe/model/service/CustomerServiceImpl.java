@@ -92,4 +92,9 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.uploadToken(token, userId);
 	}
 
+	@Override
+	public String getFcmTokenbyUserId(int userId) {
+		return customerDao.getFcmTokenbyUserId(userId);
+	}
+
 }
