@@ -4,6 +4,9 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
+import android.nfc.NdefMessage
+import android.nfc.NfcAdapter
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     /** permission check **/
     private val checker = PermissionChecker(this)
     private val runtimePermissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS)
+
     /** permission check **/
 
     val viewModel by viewModels<MainViewModel>()
@@ -63,7 +67,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private fun checkPermission() {
         /** permission check **/
         if (!checker.checkPermission(this, runtimePermissions)) {
-            checker.setOnGrantedListener{ //퍼미션 획득 성공일때
+            checker.setOnGrantedListener { //퍼미션 획득 성공일때
                 init()
             }
 
@@ -74,12 +78,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         /** permission check **/
     }
 
-    private fun init(){
+    private fun init() {
         initFCM()
         createNotificationChannel(channel_id, "smart_store")
     }
 
-    private fun initFCM(){
+    private fun initFCM() {
         // FCM 토큰 수신
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -87,16 +91,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 return@OnCompleteListener
             }
             // token log 남기기
-            Log.d(TAG, "token: ${task.result?:"task.result is null"}")
-            if(task.result != null){
+            Log.d(TAG, "token: ${task.result ?: "task.result is null"}")
+            if (task.result != null) {
                 uploadToken(task.result!!)
             }
         })
     }
+
     // Notification 수신을 위한 체널 추가
-    private fun createNotificationChannel(id: String, name: String){
+    private fun createNotificationChannel(id: String, name: String) {
         val importance = NotificationManager.IMPORTANCE_HIGH
-        val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager: NotificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(NotificationChannel(id, name, importance))
@@ -107,18 +113,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     companion object {
         // Notification Channel ID
         const val channel_id = "smart_store_channel"
+
         // ratrofit  수업 후 network 에 업로드 할 수 있도록 구성
-        fun uploadToken(token:String){
+        fun uploadToken(token: String) {
             // 새로운 토큰 수신 시 서버로 전송
             firebaseTokenService.uploadToken(token).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
                         val res = response.body()
                         Log.d(TAG, "onResponse: $res")
                     } else {
                         Log.d(TAG, "onResponse: Error Code ${response.code()}")
                     }
                 }
+
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d(TAG, t.message ?: "토큰 정보 등록 중 통신오류")
                 }

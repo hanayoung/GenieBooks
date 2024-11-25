@@ -61,7 +61,7 @@ class SharedPreferencesUtil(context: Context) {
     }
 
     fun getUserId() : Int {
-        return preferences.getInt("userId", 0)
+        return preferences.getInt("userId", -1)
     }
 
     fun addId(id : String) {
