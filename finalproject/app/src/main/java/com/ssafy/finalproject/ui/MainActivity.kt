@@ -18,6 +18,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.finalproject.R
+import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseActivity
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.firebaseTokenService
 import com.ssafy.finalproject.databinding.ActivityMainBinding
@@ -36,18 +37,58 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     /** permission check **/
 
-    val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<MainViewModel>()
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
         binding.bnv.setupWithNavController(navController)
 
         hideBottomNavigationView(navController)
 
+        registerObserver()
+        getNFCData(intent)
+
 //        checkPermission()
+    }
+
+    private fun getNFCData(intent: Intent) {
+        val action = intent.action
+        Log.d(TAG, "getNFCData: $action")
+        if (action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
+
+            val messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
+
+            messages?.forEach {
+                val message = it as NdefMessage
+                message.records.forEach {
+                    val type = String(it.type)
+                    val payload = String(it.payload)
+
+                    Log.d(TAG, "getNFCData: $type")
+                    Log.d(TAG, "getNFCData: $payload")
+
+                    if (type == "T") {
+                        val giftCardId = String(it.payload)
+                        Log.d(TAG, "getNFCData - giftCardId: $giftCardId")
+                        viewModel.receiveGiftCard(
+                            ApplicationClass.sharedPreferencesUtil.getUserId(),
+                            giftCardId.toInt()
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun registerObserver() {
+        viewModel.isReceiveSuccess.observe(this) {
+            showToast("선물이 도착했어요!😊")
+            navController.navigate(R.id.giftCardListFragment)
+        }
     }
 
     private fun hideBottomNavigationView(navController: NavController) {
