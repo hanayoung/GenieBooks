@@ -58,6 +58,13 @@ create table recommend(
     isbn bigint not null
 );
 
+create table attendance(
+	id integer auto_increment primary key,
+    c_id integer not null,
+    attend_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    constraint foreign key (c_id) references customer(c_id) on delete cascade
+);
+
 ALTER TABLE customer ADD COLUMN fcm_token varchar(100) NOT NULL;
 
 
