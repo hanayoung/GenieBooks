@@ -37,6 +37,20 @@
 			SET recipient_id = #{recipient_id, jdbcType=INTEGER}
 			WHERE g_id = #{giftcard_id, jdbcType=INTEGER}
 	</update>
+	
+	<select id="selectGiftCardById" parameterType="int" resultType="GiftCard">
+	  SELECT
+        g_id as id,
+        title,
+        content,
+        image as imgUrl,
+        g_date as giftDate,
+        recipient_id,
+        sender_id,
+        sender_name
+    FROM gift
+    WHERE g_id = #{giftCardId}
+   </select>
 
 
 </mapper>

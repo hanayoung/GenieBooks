@@ -14,8 +14,11 @@ interface GiftCardService {
     suspend fun insertGiftCard(@Body body: GiftCardRequest): Boolean
 
     @GET("gift")
-    suspend fun getAllGiftCards(@Query("userId") userId : Int) : List<GiftCard>
+    suspend fun getAllGiftCards(@Query("userId") userId: Int): List<GiftCard>
 
     @PUT("gift")
-    suspend fun receiveGiftCard(@Body payload : Map<String, Int>): Int
+    suspend fun receiveGiftCard(@Body payload: Map<String, Int>): Int
+
+    @GET("gift/selectById")
+    suspend fun getGiftCardById(@Query("giftCardId") giftCardId: Int): GiftCard
 }

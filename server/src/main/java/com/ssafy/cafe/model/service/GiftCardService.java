@@ -11,4 +11,6 @@ public interface GiftCardService {
 	public List<GiftCard> selectAllGiftCards(int userId);
 	
 	public int updateGiftCard(int recipientId, int giftCardId);
+	
+	public GiftCard selectGiftCardById(int giftCardId);
 }

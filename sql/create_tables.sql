@@ -45,12 +45,12 @@ create table gift(
     g_id integer auto_increment primary key,
     title char(50) not null,
     content char(100) not null,
-    image char(100) not null default false,
+    image char(255) not null,
 	g_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     recipient_id int not null default 0,
     sender_id int not null,
-    constraint foreign key (sender_id) references customer(c_id) on delete cascade,
-    constraint foreign key (recipient_id) references customer(c_id) on delete cascade
+    sender_name varchar(50),
+    constraint foreign key (sender_id) references customer(c_id) on delete cascade
 ); 
 
 create table recommend(
@@ -65,7 +65,5 @@ create table attendance(
     constraint foreign key (c_id) references customer(c_id) on delete cascade
 );
 
-ALTER TABLE customer ADD COLUMN fcm_token varchar(100) NOT NULL;
-
-ALTER TABLE gift ADD COLUMN sender_name varchar(50) NOT NULL;
+ALTER TABLE customer ADD COLUMN fcm_token varchar(255) NOT NULL;
 
