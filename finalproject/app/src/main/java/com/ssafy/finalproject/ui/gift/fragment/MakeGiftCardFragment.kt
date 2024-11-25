@@ -9,14 +9,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
+import com.ssafy.finalproject.data.model.dto.GiftCard
+import com.ssafy.finalproject.data.model.dto.GiftCardRequest
 import com.ssafy.finalproject.databinding.FragmentMakeGiftCardBinding
 import com.ssafy.finalproject.ui.EventObserver
 import com.ssafy.finalproject.ui.gift.MakeGiftCardViewModel
 import com.ssafy.finalproject.util.PermissionChecker
+import java.util.Date
 
 private const val TAG = "MakeGiftCardFragment"
 class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
@@ -27,6 +31,7 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
     private lateinit var launcher: ActivityResultLauncher<Intent>
     private val viewModel by viewModels<MakeGiftCardViewModel>()
     private var isImageSelected = false
+    private val userId = ApplicationClass.sharedPreferencesUtil.getUserId()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +58,8 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        registerObserver()
+
         binding.btnAddImg.setOnClickListener {
             // 갤러리 연결
             val intent = Intent().also { intent ->
@@ -74,7 +81,6 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
             // 서버로 선물카드 전송 + 구매 목록 전송
             if (isImageSelected) {
-                val userId = ApplicationClass.sharedPreferencesUtil.getUserId()
                 val timeStamp = System.currentTimeMillis()
                 viewModel.uploadImage(userId, timeStamp)
             } else {
@@ -107,7 +113,26 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
     private fun registerObserver() {
         viewModel.imagePathEvent.observe(viewLifecycleOwner, EventObserver {
+            val title = binding.title.text.toString()
+            val name = binding.name.text.toString()
+            val description = binding.cardDescription.text.toString()
 
+            val giftCard = GiftCardRequest(
+                title = title,
+                content = description,
+                imgUrl = it,
+                senderId = userId,
+                senderName = name
+            )
+
+            viewModel.insertGiftCard(giftCard)
         })
+
+        viewModel.isSendSuccess.observe(viewLifecycleOwner) {
+            if (it) {
+                showToast("상품을 주문했습니다.")
+                findNavController().navigate(R.id.action_makeGiftCardFragment_to_homeFragment)
+            }
+        }
     }
 }

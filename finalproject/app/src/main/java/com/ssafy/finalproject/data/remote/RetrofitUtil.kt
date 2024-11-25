@@ -9,5 +9,6 @@ class RetrofitUtil {
         val orderService : OrderService = ApplicationClass.retrofit.create(OrderService::class.java)
         val attendanceService : AttendanceService = ApplicationClass.retrofit.create(AttendanceService::class.java)
         val firebaseTokenService: FirebaseTokenService = ApplicationClass.retrofit.create(FirebaseTokenService::class.java)
+        val giftCardService: GiftCardService = ApplicationClass.retrofit.create(GiftCardService::class.java)
     }
 }

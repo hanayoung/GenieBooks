@@ -133,10 +133,15 @@
             app:destination="@id/giftCardCheckDialog" />
     </fragment>
     <fragment
-        android:id="@+id/giftCardFragment"
+        android:id="@+id/makeGiftCardFragment"
         android:name="com.ssafy.finalproject.ui.gift.fragment.MakeGiftCardFragment"
         android:label="fragment_gift_card"
-        tools:layout="@layout/fragment_make_gift_card" />
+        tools:layout="@layout/fragment_make_gift_card" >
+        <action
+            android:id="@+id/action_makeGiftCardFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/giftCardListFragment"
         android:name="com.ssafy.finalproject.ui.gift.fragment.GiftCardListFragment"
@@ -185,8 +190,8 @@
         android:name="com.ssafy.finalproject.ui.dialog.GiftCardCheckDialog"
         android:label="GiftCardCheckDialog" >
         <action
-            android:id="@+id/action_giftCardCheckDialog_to_giftCardFragment"
-            app:destination="@id/giftCardFragment" />
+            android:id="@+id/action_giftCardCheckDialog_to_makeGiftCardFragment"
+            app:destination="@id/makeGiftCardFragment" />
         <action
             android:id="@+id/action_giftCardCheckDialog_to_homeFragment"
             app:destination="@id/homeFragment" />
