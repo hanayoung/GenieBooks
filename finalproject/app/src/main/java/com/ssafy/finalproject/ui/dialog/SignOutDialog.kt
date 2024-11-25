@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.databinding.DialogSignoutBinding
+import com.ssafy.finalproject.ui.LoginActivity
 import com.ssafy.finalproject.ui.MainActivity
 
 class SignOutDialog : DialogFragment() {
@@ -35,8 +36,7 @@ class SignOutDialog : DialogFragment() {
         binding.btnPos.setOnClickListener {
             ApplicationClass.sharedPreferencesUtil.clear()
             // 로그아웃
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
         }
 
