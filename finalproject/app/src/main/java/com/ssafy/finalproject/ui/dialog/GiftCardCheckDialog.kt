@@ -61,7 +61,6 @@ class GiftCardCheckDialog: DialogFragment(){
                     activityViewModel.bookList.value?.forEach{
                         payment += it.price * it.count
                     }
-                    Log.d(TAG, "onViewCreated: ${payment}")
                     val userId = ApplicationClass.sharedPreferencesUtil.getUserId()
                     val details = activityViewModel.bookList.value?.map {
                         OrderDetail((it.id).toLong(), it.count)
@@ -80,7 +79,6 @@ class GiftCardCheckDialog: DialogFragment(){
                     )
                     RetrofitUtil.orderService.makeOrder(requestBody)
                 }.onSuccess {
-                    Log.d(TAG, "onViewCreated: ${it}")
                     if(it > -1) {
                        Toast.makeText(requireContext(), "주문해주셔서 감사합니다🥰",Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_giftCardCheckDialog_to_homeFragment)

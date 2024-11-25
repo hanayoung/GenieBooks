@@ -1,5 +1,8 @@
 package com.ssafy.cafe.model.service;
 
+import java.util.List;
+
+import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.Staff;
 
 
@@ -37,6 +40,10 @@ public interface StaffService {
      * 조회된 User 정보를 반환한다.
      */
     public Staff selectUser(String id);
+    
+    public List<Order> selectAllWaitingOrders();
+    
+    public boolean updateOrderState(int orderId);
     
     
 }

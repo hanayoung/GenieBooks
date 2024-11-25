@@ -41,5 +41,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         binding.btnOrderList.setOnClickListener {
             findNavController().navigate(R.id.action_myPageFragment_to_orderListFragment)
         }
+
+        binding.tvOrderList.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_orderListFragment)
+        }
+
+        binding.tvLogout.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_signOutDialog)
+        }
     }
 }

@@ -103,4 +103,8 @@ class SharedPreferencesUtil(context: Context) {
         return list
     }
 
+    fun clear() {
+        preferences.edit().clear().commit()
+    }
+
 }
