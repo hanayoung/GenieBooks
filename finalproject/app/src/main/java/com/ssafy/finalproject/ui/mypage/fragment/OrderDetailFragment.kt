@@ -40,7 +40,6 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(
                 val action = OrderDetailFragmentDirections.actionOrderDetailFragmentToQRCreateDialog(it)
                 findNavController().navigate(action)
             }
-
         }
     }
 

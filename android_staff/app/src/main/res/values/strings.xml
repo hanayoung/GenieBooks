@@ -19,4 +19,8 @@
     <string name="order_product">주문상품</string>
     <string name="order_info">결제정보</string>
     <string name="product_price">상품금액</string>
+
+    <string name="order_list_title">%1$s 외 %2$d건</string>
+    <string name="order_list_content">총 %1$d종 %2$d권 외 %3$s</string>
+
 </resources>
