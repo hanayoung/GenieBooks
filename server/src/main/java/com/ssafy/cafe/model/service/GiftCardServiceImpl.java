@@ -29,4 +29,9 @@ public class GiftCardServiceImpl implements GiftCardService{
 		return giftCardDao.updateGiftCard(recipientId, giftCardId);
 	}
 
+	@Override
+	public GiftCard selectGiftCardById(int giftCardId) {
+		return giftCardDao.selectGiftCardById(giftCardId);
+	}
+
 }

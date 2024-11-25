@@ -12,4 +12,6 @@ public interface GiftCardDao {
 	List<GiftCard> selectAllGiftCards(int userId);
 	
 	int updateGiftCard(@Param("recipient_id")int recipientId, @Param("giftcard_id") int giftCardId);
+	
+	GiftCard selectGiftCardById(int giftCardId);
 }

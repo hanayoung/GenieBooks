@@ -3,8 +3,10 @@ package com.ssafy.finalproject.ui
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.os.Build
@@ -12,6 +14,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -21,8 +24,11 @@ import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseActivity
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.firebaseTokenService
+import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.giftCardService
 import com.ssafy.finalproject.databinding.ActivityMainBinding
+import com.ssafy.finalproject.ui.home.fragments.HomeFragmentDirections
 import com.ssafy.finalproject.util.PermissionChecker
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,12 +39,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     /** permission check **/
     private val checker = PermissionChecker(this)
+
     private val runtimePermissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS)
 
     /** permission check **/
 
     private val viewModel by viewModels<MainViewModel>()
     private lateinit var navController: NavController
+    private lateinit var nAdapter: NfcAdapter
+    private lateinit var pIntent: PendingIntent
+    private lateinit var filters: Array<IntentFilter>
+    private var giftCardId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,21 +59,60 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.bnv.setupWithNavController(navController)
 
         hideBottomNavigationView(navController)
-        
-        registerObserver()
-        getNFCData(intent)
 
+        setNFCAdapter()
+        registerObserver()
         checkPermission()
 
         Log.d(TAG, "onCreate: ${ApplicationClass.sharedPreferencesUtil.getFcmToken()}")
     }
 
-    private fun getNFCData(intent: Intent) {
+    override fun onResume() {
+        super.onResume()
+        nAdapter.enableForegroundDispatch(this, pIntent, filters, null)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        nAdapter.disableForegroundDispatch(this)
+    }
+
+    private fun setNFCAdapter() {
+        nAdapter = NfcAdapter.getDefaultAdapter(this)
+
+        // Intent 를 처리할 activity. --> PendingIntent
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP // 내가 top에 있으면 재사용 --> onNewIntent
+        }
+        pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE)
+
+        val filter = IntentFilter()
+        filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED)
+        filter.addCategory(Intent.CATEGORY_DEFAULT)
+        filter.addDataType("text/*")
+
+        filters = arrayOf(filter)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        Log.d(TAG, "onNewIntent: ")
+        parseData(intent)
+    }
+
+    private fun parseData(intent: Intent) {
         val action = intent.action
         Log.d(TAG, "getNFCData: $action")
         if (action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
-
-            val messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
+            val messages = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableArrayExtra(
+                    NfcAdapter.EXTRA_NDEF_MESSAGES,
+                    NdefMessage::class.java
+                )
+            } else {
+                intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES) as Array<NdefMessage>
+            }
 
             messages?.forEach {
                 val message = it as NdefMessage
@@ -74,35 +124,46 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     Log.d(TAG, "getNFCData: $payload")
 
                     if (type == "T") {
-                        val giftCardId = String(it.payload)
+                        giftCardId = String(it.payload, 3, it.payload.size - 3).toInt()
                         Log.d(TAG, "getNFCData - giftCardId: $giftCardId")
                         viewModel.receiveGiftCard(
                             ApplicationClass.sharedPreferencesUtil.getUserId(),
-                            giftCardId.toInt()
+                            giftCardId
                         )
                     }
                 }
             }
         }
+
     }
 
     private fun registerObserver() {
         viewModel.isReceiveSuccess.observe(this) {
             showToast("선물이 도착했어요!😊")
-            navController.navigate(R.id.giftCardListFragment)
+            getGiftCard(giftCardId)
+        }
+    }
+
+    private fun getGiftCard(giftCardId: Int) {
+        lifecycleScope.launch {
+            runCatching {
+                giftCardService.getGiftCardById(giftCardId)
+            }.onSuccess {
+                val action = HomeFragmentDirections.actionHomeFragmentToMyGiftCardFragment(it)
+                navController.navigate(action)
+            }.onFailure {
+                Log.d(TAG, "getGiftCard: ${it.message}")
+            }
         }
     }
 
     private fun hideBottomNavigationView(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bnv.visibility = when (destination.id) {
-                R.id.loginFragment -> View.GONE
-                R.id.joinFragment -> View.GONE
-                R.id.joinCategoryFragment -> View.GONE
                 R.id.homeFragment -> View.VISIBLE
                 R.id.categoryFragment -> View.VISIBLE
                 R.id.myPageFragment -> View.VISIBLE
-                else -> View.VISIBLE
+                else -> View.GONE
             }
         }
     }

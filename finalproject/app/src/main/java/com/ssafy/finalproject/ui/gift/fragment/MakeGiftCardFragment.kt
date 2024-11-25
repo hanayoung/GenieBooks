@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -20,9 +21,11 @@ import com.ssafy.finalproject.databinding.FragmentMakeGiftCardBinding
 import com.ssafy.finalproject.ui.EventObserver
 import com.ssafy.finalproject.ui.gift.MakeGiftCardViewModel
 import com.ssafy.finalproject.util.PermissionChecker
+import com.ssafy.finalproject.util.setOnSingleClickListener
 import java.util.Date
 
 private const val TAG = "MakeGiftCardFragment"
+
 class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
     FragmentMakeGiftCardBinding::bind,
     R.layout.fragment_make_gift_card
@@ -37,22 +40,23 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
         super.onCreate(savedInstanceState)
         checkPermission()
 
-        launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == AppCompatActivity.RESULT_OK) {
-                val intent = checkNotNull(result.data)
-                val imageUri = intent.data // 갤러리에서 선택한 사진 받아옴
+        launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                    val intent = checkNotNull(result.data)
+                    val imageUri = intent.data // 갤러리에서 선택한 사진 받아옴
 
-                imageUri?.let {
-                    viewModel.selectImage(it)
-                    isImageSelected = true
+                    imageUri?.let {
+                        viewModel.selectImage(it)
+                        isImageSelected = true
+                    }
+
+                    Glide.with(requireContext())
+                        .load(imageUri)
+                        .centerCrop()
+                        .into(binding.image)
                 }
-
-                Glide.with(requireContext())
-                    .load(imageUri)
-                    .centerCrop()
-                    .into(binding.image)
             }
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,14 +73,14 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
             launcher.launch(intent)
         }
 
-        binding.btnSendGift.setOnClickListener {
+        binding.btnSendGift.setOnSingleClickListener {
             val title = binding.title.text.toString()
             val name = binding.name.text.toString()
             val description = binding.cardDescription.text.toString()
 
             if (title.isBlank() || name.isBlank() || description.isBlank()) {
                 showToast("빈칸을 채워주세요.")
-                return@setOnClickListener
+                return@setOnSingleClickListener
             }
 
             // 서버로 선물카드 전송 + 구매 목록 전송
@@ -89,16 +93,16 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
         }
     }
 
-    private fun checkPermission(){
+    private fun checkPermission() {
         /** permission check **/
-            if (!checker.checkPermission(requireContext(), arrayOf(getRequiredPermission()))) {
-                checker.setOnGrantedListener { //퍼미션 획득 성공일때
-                    Log.d(TAG, "checkPermission: permission granted")
-                }
-                checker.requestPermissionLauncher.launch(arrayOf(getRequiredPermission())) // 권한없으면 창 띄움
-            } else { //이미 전체 권한이 있는 경우
-                Log.d(TAG, "checkPermission: permission 이미 있음")
+        if (!checker.checkPermission(requireContext(), arrayOf(getRequiredPermission()))) {
+            checker.setOnGrantedListener { //퍼미션 획득 성공일때
+                Log.d(TAG, "checkPermission: permission granted")
             }
+            checker.requestPermissionLauncher.launch(arrayOf(getRequiredPermission())) // 권한없으면 창 띄움
+        } else { //이미 전체 권한이 있는 경우
+            Log.d(TAG, "checkPermission: permission 이미 있음")
+        }
 
         /** permission check **/
     }
@@ -130,7 +134,7 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
         viewModel.isSendSuccess.observe(viewLifecycleOwner) {
             if (it) {
-                showToast("상품을 주문했습니다.")
+                showToast("주문해주셔서 감사합니다🥰")
                 findNavController().navigate(R.id.action_makeGiftCardFragment_to_homeFragment)
             }
         }
