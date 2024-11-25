@@ -13,9 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -42,7 +40,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     /** permission check **/
     private val checker = PermissionChecker(this)
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private val runtimePermissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS)
 
     /** permission check **/
@@ -161,13 +158,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private fun hideBottomNavigationView(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bnv.visibility = when (destination.id) {
-                R.id.loginFragment -> View.GONE
-                R.id.joinFragment -> View.GONE
-                R.id.joinCategoryFragment -> View.GONE
                 R.id.homeFragment -> View.VISIBLE
                 R.id.categoryFragment -> View.VISIBLE
                 R.id.myPageFragment -> View.VISIBLE
-                else -> View.VISIBLE
+                else -> View.GONE
             }
         }
     }
