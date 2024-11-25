@@ -17,7 +17,7 @@ class ApplicationClass : Application() {
     companion object {
         // 핸드폰으로 접속은 같은 인터넷으로 연결 되어있어야함 (유,무선)
 //        const val SERVER_URL = "http://192.168.0.20:9987/rest/"
-        const val SERVER_URL = "http://192.168.35.7:9987/rest/"
+        const val SERVER_URL = "http://192.168.222.159:9987/rest/"
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil
         lateinit var retrofit: Retrofit
 

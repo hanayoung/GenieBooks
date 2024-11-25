@@ -6,9 +6,11 @@
 	<insert id="insert" parameterType="Order" 
 	               useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO p_customer
-			(c_id)
+			(c_id,
+             payment)
 		VALUES
-			(#{userId})
+			(#{userId},
+			 #{payment})
 	</insert>
 
 <!--r-->
