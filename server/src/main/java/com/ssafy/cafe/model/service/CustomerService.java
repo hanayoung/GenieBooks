@@ -48,5 +48,7 @@ public interface CustomerService {
 
     public List<Category> selectInterestByUserId(int id);
     
+    public int uploadToken(String token, int userId);
+    
     
 }

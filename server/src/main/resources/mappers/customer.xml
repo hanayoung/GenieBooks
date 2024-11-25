@@ -10,13 +10,15 @@
 		    id, 
 		    pwd,
 		    age,
-		    sex)
+		    sex,
+		    fcm_token)
 		VALUES
 		    (#{nickname}, 
 		    #{id},
 		    #{pwd}, 
 		    #{age}, 
-		    #{sex})
+		    #{sex},
+		    #{fcmToken})
 	</insert>
     <insert id="insertInterest" parameterType="Interest">
 		INSERT INTO interest
@@ -65,5 +67,12 @@
 		FROM customer
 		WHERE c_id = #{userId}
 	</select>
+	
+	<update id="uploadToken" parameterType="map">
+		UPDATE customer
+			SET fcm_token = #{token, jdbcType=VARCHAR}
+			WHERE c_id = #{user_id, jdbcType=INTEGER}
+	</update>
+	
 
 </mapper>

@@ -18,7 +18,8 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d(TAG, "onNewToken: $token")
-        MainActivity.uploadToken(token)
+//        MainActivity.uploadToken(token)
+        ApplicationClass.sharedPreferencesUtil.setFcmToken(token)
     }
 
     // Foreground, Background 모두 처리하기 위해서는 data에 값을 담아서 넘긴다.

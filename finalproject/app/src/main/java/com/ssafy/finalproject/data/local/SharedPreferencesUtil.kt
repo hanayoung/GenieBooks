@@ -103,6 +103,16 @@ class SharedPreferencesUtil(context: Context) {
         return list
     }
 
+    fun setFcmToken(token : String) {
+        val editor = preferences.edit()
+        editor.putString("fcm_token", token)
+        editor.apply()
+    }
+
+    fun getFcmToken() : String {
+        return preferences.getString("fcm_token","-1") ?: "-1"
+    }
+
     fun clear() {
         preferences.edit().clear().commit()
     }
