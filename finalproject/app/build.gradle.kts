@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id ("androidx.navigation.safeargs.kotlin")
     id ("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -72,9 +73,10 @@ dependencies {
     //framework ktx dependency 추가
     implementation (libs.androidx.fragment.ktx)
 
-    // FCM 사용 위한 plugins
+    // Firebase 관련 plugins
     implementation(platform(libs.firebase.bom))
     implementation (libs.firebase.messaging.ktx)
+    implementation(libs.firebase.storage)
 
     // Beacon 사용위한 Dependency 추가
     //Android beacon Library. https://github.com/AltBeacon/android-beacon-library

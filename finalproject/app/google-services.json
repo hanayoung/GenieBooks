@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123624107723",
+    "project_id": "finalproject-dc5b3",
+    "storage_bucket": "finalproject-dc5b3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123624107723:android:75f6e4efc3373eeb08b54e",
+        "android_client_info": {
+          "package_name": "com.ssafy.finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuRNZvM73Kqs13mTp7Nt9YIiiODuKxvnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

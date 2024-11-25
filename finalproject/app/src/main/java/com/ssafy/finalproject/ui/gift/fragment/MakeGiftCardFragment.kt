@@ -8,10 +8,14 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.ssafy.finalproject.R
+import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentMakeGiftCardBinding
+import com.ssafy.finalproject.ui.EventObserver
+import com.ssafy.finalproject.ui.gift.MakeGiftCardViewModel
 import com.ssafy.finalproject.util.PermissionChecker
 
 private const val TAG = "MakeGiftCardFragment"
@@ -21,6 +25,8 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 ) {
     private val checker = PermissionChecker(this)
     private lateinit var launcher: ActivityResultLauncher<Intent>
+    private val viewModel by viewModels<MakeGiftCardViewModel>()
+    private var isImageSelected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,11 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 val intent = checkNotNull(result.data)
                 val imageUri = intent.data // 갤러리에서 선택한 사진 받아옴
+
+                imageUri?.let {
+                    viewModel.selectImage(it)
+                    isImageSelected = true
+                }
 
                 Glide.with(requireContext())
                     .load(imageUri)
@@ -52,7 +63,23 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
         }
 
         binding.btnSendGift.setOnClickListener {
+            val title = binding.title.text.toString()
+            val name = binding.name.text.toString()
+            val description = binding.cardDescription.text.toString()
+
+            if (title.isBlank() || name.isBlank() || description.isBlank()) {
+                showToast("빈칸을 채워주세요.")
+                return@setOnClickListener
+            }
+
             // 서버로 선물카드 전송 + 구매 목록 전송
+            if (isImageSelected) {
+                val userId = ApplicationClass.sharedPreferencesUtil.getUserId()
+                val timeStamp = System.currentTimeMillis()
+                viewModel.uploadImage(userId, timeStamp)
+            } else {
+                showToast("사진을 선택해주세요.")
+            }
         }
     }
 
@@ -76,5 +103,11 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
         } else {
             Manifest.permission.READ_EXTERNAL_STORAGE
         }
+    }
+
+    private fun registerObserver() {
+        viewModel.imagePathEvent.observe(viewLifecycleOwner, EventObserver {
+
+        })
     }
 }
