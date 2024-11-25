@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ssafy.finalproject.data.model.dto.ShoppingCartBook
 
+private const val TAG = "MainViewModel_싸피"
 class MainViewModel: ViewModel() {
 
     private var _bookList: MutableLiveData<MutableList<ShoppingCartBook>> = MutableLiveData(mutableListOf())
