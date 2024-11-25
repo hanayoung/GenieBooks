@@ -7,32 +7,50 @@ public class Order {
     private Integer id;
     private Integer userId;
     private Date orderTime;
-    private Boolean completed;
+	private Date pickupTime;
+	private Boolean isPickup;
+	private Boolean isDone;
 	private Integer payment; // 결제된 최종금액
     private String repImgUrl;
     private String repBookTitle;
     private List<OrderDetail> details;
 
-    public Order(Integer id, Integer userId, Date orderTime, Boolean completed, Integer payment) {
-        this.id = id;
-        this.userId = userId;
-        this.orderTime = orderTime;
-        this.completed = completed;
-		this.payment = payment;
-    }
-
-    public Order(Integer userId, Date orderTime, Boolean completed, Integer payment) {
-        this.userId = userId;
-        this.orderTime = orderTime;
-        this.completed = completed;
-		this.payment = payment;
-    }
-
-	public Order(Integer id, Integer userId, Date orderTime, Boolean completed) {
+	public Order(Integer id, Integer userId, Date orderTime, Date pickupTime, Boolean isPickup, Boolean isDone, Integer payment, String repImgUrl, String repBookTitle, List<OrderDetail> details) {
 		this.id = id;
 		this.userId = userId;
 		this.orderTime = orderTime;
-		this.completed = completed;
+		this.pickupTime = pickupTime;
+		this.isPickup = isPickup;
+		this.isDone = isDone;
+		this.payment = payment;
+		this.repImgUrl = repImgUrl;
+		this.repBookTitle = repBookTitle;
+		this.details = details;
+	}
+
+	public Order(Integer id, Integer userId, Date orderTime, Boolean isPickup, Boolean isDone, Integer payment) {
+        this.id = id;
+        this.userId = userId;
+        this.orderTime = orderTime;
+		this.isPickup = isPickup;
+        this.isDone = isDone;
+		this.payment = payment;
+    }
+
+    public Order(Integer userId, Date orderTime, Boolean isPickup, Boolean isDone, Integer payment) {
+        this.userId = userId;
+        this.orderTime = orderTime;
+		this.isPickup = isPickup;
+		this.isDone = isDone;
+		this.payment = payment;
+    }
+
+	public Order(Integer id, Integer userId, Date orderTime, Boolean isPickup, Boolean isDone) {
+		this.id = id;
+		this.userId = userId;
+		this.orderTime = orderTime;
+		this.isPickup = isPickup;
+		this.isDone = isDone;
 	}
 
     public Order() {}
@@ -61,12 +79,20 @@ public class Order {
 		this.orderTime = orderTime;
 	}
 
-	public Boolean getCompleted() {
-		return completed;
+	public Boolean getPickup() {
+		return isPickup;
 	}
 
-	public void setCompleted(Boolean completed) {
-		this.completed = completed;
+	public void setPickup(Boolean isPickup) {
+		isPickup = isPickup;
+	}
+
+	public Boolean getDone() {
+		return isDone;
+	}
+
+	public void setDone(Boolean isDone) {
+		isDone = isDone;
 	}
 
 	public Integer getPayment() {
@@ -93,6 +119,14 @@ public class Order {
 		this.repBookTitle = repBookTitle;
 	}
 
+	public Date getPickupTime() {
+		return pickupTime;
+	}
+
+	public void setPickupTime(Date pickupTime) {
+		this.pickupTime = pickupTime;
+	}
+
 	public List<OrderDetail> getDetails() {
 		return details;
 	}
@@ -103,9 +137,17 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", userId=" + userId + ", orderTime=" + orderTime
-				+ ", completed=" + completed + ", details=" + details + "]";
+		return "Order{" +
+				"id=" + id +
+				", userId=" + userId +
+				", orderTime=" + orderTime +
+				", pickupTime=" + pickupTime +
+				", isPickup=" + isPickup +
+				", isDone=" + isDone +
+				", payment=" + payment +
+				", repImgUrl='" + repImgUrl + '\'' +
+				", repBookTitle='" + repBookTitle + '\'' +
+				", details=" + details +
+				'}';
 	}
-    
-    
 }

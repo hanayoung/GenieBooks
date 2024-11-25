@@ -30,7 +30,10 @@ create table p_customer(
     o_id integer auto_increment primary key,
     c_id integer not null,
     o_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    is_done boolean not null default false
+    p_date TIMESTAMP,
+    is_pickup boolean not null default false,
+    is_done boolean not null default false,
+    payment integer not null default 0
 );                               
 
 create table p_book(
@@ -45,13 +48,14 @@ create table gift(
     g_id integer auto_increment primary key,
     title char(50) not null,
     content char(100) not null,
-    image char(255) not null,
+    image char(255) not null default false,
 	g_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     recipient_id int not null default 0,
     sender_id int not null,
+    constraint foreign key (sender_id) references customer(c_id) on delete cascade
     sender_name varchar(50),
     constraint foreign key (sender_id) references customer(c_id) on delete cascade
-); 
+);
 
 create table recommend(
 	id integer auto_increment primary key,
@@ -67,3 +71,6 @@ create table attendance(
 
 ALTER TABLE customer ADD COLUMN fcm_token varchar(255) NOT NULL;
 
+ALTER TABLE p_customer ADD COLUMN is_pickup boolean NOT NULL default false;
+
+ALTER TABLE p_customer ADD COLUMN pickup_date TIMESTAMP;

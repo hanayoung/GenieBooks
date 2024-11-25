@@ -106,6 +106,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         initBeacon()
         checkPermissionBeacon()
         checkPermission()
+
+        Log.d(TAG, "onCreate: ${ApplicationClass.sharedPreferencesUtil.getFcmToken()}")
     }
 
     override fun onResume() {

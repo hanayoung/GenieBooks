@@ -1,5 +1,6 @@
-package com.ssafy.finalproject.data.model.dto
+package com.ssafy.myapplication.data.model
 
+import com.ssafy.finalproject.data.model.dto.OrderDetailInfo
 import java.util.Date
 
 data class OrderInfo(
@@ -7,8 +8,8 @@ data class OrderInfo(
     val userId : Int,
     val orderTime : Date,
     val pickupTime : Date,
-    var pickup : Boolean,
-    var done : Boolean,
+    var isPickup : Boolean,
+    var isDone : Boolean,
     val payment : Int,
     val repImgUrl : String?,
     val repBookTitle : String,

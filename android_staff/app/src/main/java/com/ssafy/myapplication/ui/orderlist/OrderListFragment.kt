@@ -35,6 +35,14 @@ class OrderListFragment : BaseFragment<FragmentOrderListBinding>(
             adapter = orderListRVAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
+        orderListRVAdapter.itemClickListener = object : OrderListRVAdapter.ItemClickListener{
+            override fun onClick(view: View, data: Order, position: Int) {
+                val action = OrderListFragmentDirections.actionOrderListFragmentToOrderDetailFragment(data.id)
+                findNavController().navigate(action)
+            }
+
+        }
     }
 
     private fun initObserver() {

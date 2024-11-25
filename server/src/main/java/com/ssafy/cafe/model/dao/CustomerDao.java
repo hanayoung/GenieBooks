@@ -56,5 +56,4 @@ public interface CustomerDao {
     
     String getFcmTokenbyUserId(int userId);
 
-
 }

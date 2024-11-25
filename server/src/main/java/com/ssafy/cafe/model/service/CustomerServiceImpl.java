@@ -44,7 +44,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 		}
 		return result;
-
 	}
 
 	@Override
@@ -96,5 +95,4 @@ public class CustomerServiceImpl implements CustomerService {
 	public String getFcmTokenbyUserId(int userId) {
 		return customerDao.getFcmTokenbyUserId(userId);
 	}
-
 }

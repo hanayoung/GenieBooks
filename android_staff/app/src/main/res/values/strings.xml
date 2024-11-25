@@ -23,4 +23,7 @@
     <string name="order_list_title">%1$s 외 %2$d건</string>
     <string name="order_list_content">총 %1$d종 %2$d권 외 %3$s</string>
 
+    <string name="order_detail_info">%1$s 주문 (주문번호 %2$d)</string>
+    <string name="order_detail_price_quantity">%1$s\t\t%2$d개</string>
+
 </resources>

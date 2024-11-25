@@ -23,6 +23,10 @@ interface StaffService {
     @GET("staff/order")
     suspend fun getAllOrders(): List<Order>
 
-    @PUT("staff/order/complete")
-    suspend fun updateOrderState(@Body body: RequestBody) : Boolean
+    @PUT("staff/order/done")
+    suspend fun updateOrderStateDone(@Body body: RequestBody) : Boolean
+
+    @PUT("staff/order/pickup")
+    suspend fun updateOrderStatePickup(@Body body: RequestBody) : Boolean
+
 }

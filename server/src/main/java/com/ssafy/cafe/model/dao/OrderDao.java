@@ -60,4 +60,6 @@ public interface OrderDao {
      * @return
      */
     List<OrderDetailInfo> getOrderDetailInfo(int orderId);
+
+    boolean updatePickupTime(int orderId);
 }

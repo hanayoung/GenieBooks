@@ -36,14 +36,14 @@ class PickUpWaitingFragment :  BaseFragment<FragmentPickUpWaitingBinding>(
         }
 
         viewModel.orderList.observe(viewLifecycleOwner) {
+            Log.d(TAG, "onViewCreated: ${it}")
             orderListRVAdapter.submitList(it.filter { order ->
-                order.completed == false
+                order.pickup == false
             })
         }
 
         orderListRVAdapter.itemClickListener = object : OrderListRVAdapter.ItemClickListener {
             override fun onClick(view: View, data: Order, position: Int) {
-                Log.d(TAG, "onClick: ${data}")
 
                 val action = OrderListFragmentDirections.actionOrderListFragmentToOrderDetailFragment(data.id)
                 findNavController().navigate(action)
