@@ -80,5 +80,4 @@
 		FROM customer
 		WHERE c_id = #{userId}
 	</select>
-
 </mapper>

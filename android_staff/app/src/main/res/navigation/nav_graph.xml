@@ -44,5 +44,9 @@
     <fragment
         android:id="@+id/orderDetailFragment"
         android:name="com.ssafy.myapplication.ui.orderdetail.OrderDetailFragment"
-        android:label="OrderDetailFragment" />
+        android:label="OrderDetailFragment" >
+        <argument
+            android:name="orderId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

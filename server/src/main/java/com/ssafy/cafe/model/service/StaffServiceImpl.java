@@ -70,8 +70,8 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public List<Order> selectAllWaitingOrders() {
-		List<Order> noDetailOrders = staffDao.selectAllWaitingOrders();
+	public List<Order> selectAllOrders() {
+		List<Order> noDetailOrders = staffDao.selectAllOrders();
 		List<Order> orderInfos = new ArrayList<>();
 		for (Order order : noDetailOrders) {
 			Order detailOrder = oDao.selectOrderDetails(order.getId());
@@ -85,7 +85,17 @@ public class StaffServiceImpl implements StaffService {
 		}
 		return orderInfos;
 	}
-	
+
+	@Override
+	public boolean updateOrderStatePickup(int orderId) {
+		return staffDao.updateOrderStatePickup(orderId);
+	}
+
+	@Override
+	public boolean updateOrderStateDone(int orderId) {
+		return staffDao.updateOrderStateDone(orderId);
+	}
+
 	public GoogleBook selectByIsbn(Long isbn) {
 	 	   RestTemplate restTemplate = new RestTemplate();
 	 	   GoogleBook book = new GoogleBook();
@@ -117,10 +127,5 @@ public class StaffServiceImpl implements StaffService {
 
 	        return book;
 	    }
-
-	@Override
-	public boolean updateOrderState(int orderId) {
-		return staffDao.updateOrderState(orderId);
-	}
 
 }

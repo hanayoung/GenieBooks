@@ -53,6 +53,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         getNFCData(intent)
 
         checkPermission()
+
+        Log.d(TAG, "onCreate: ${ApplicationClass.sharedPreferencesUtil.getFcmToken()}")
     }
 
     private fun getNFCData(intent: Intent) {

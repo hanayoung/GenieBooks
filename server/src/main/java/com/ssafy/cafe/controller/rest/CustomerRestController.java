@@ -137,7 +137,7 @@ public class CustomerRestController {
                 info.put("inCompleteCnt",0);
             }else {
                 List<Order> completeOrders = orders.stream()
-                        .filter(order -> order.getCompleted() == true)
+                        .filter(order -> order.getPickup() == true)
                         .collect(Collectors.toList());
 
                 info.put("completeCnt", completeOrders.size());

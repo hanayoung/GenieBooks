@@ -124,5 +124,10 @@ public class OrderServiceImpl implements OrderService {
         return book;
     }
 
+    @Override
+    public boolean updatePickupTime(int orderId){
+        return oDao.updatePickupTime(orderId);
+    }
+
 
 }

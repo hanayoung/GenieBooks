@@ -32,8 +32,9 @@ class PickUpCompleteFragment : BaseFragment<FragmentPickUpCompleteBinding>(
         }
 
         viewModel.orderList.observe(viewLifecycleOwner) {
+            Log.d(TAG, "onViewCreated: ${it}")
             orderListRVAdapter.submitList(it.filter { order ->
-                order.completed == true
+                order.pickup == true
             })
         }
 

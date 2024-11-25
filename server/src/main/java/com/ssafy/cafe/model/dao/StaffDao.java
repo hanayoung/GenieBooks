@@ -35,7 +35,9 @@ public interface StaffDao {
      */
     Staff selectByUser(Staff user);
     
-    List<Order> selectAllWaitingOrders();
+    List<Order> selectAllOrders();
     
-    boolean updateOrderState(int orderId);
+    boolean updateOrderStatePickup(int orderId);
+
+    boolean updateOrderStateDone(int orderId);
 }

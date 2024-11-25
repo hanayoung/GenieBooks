@@ -7,22 +7,26 @@ public class OrderInfo {
 	private Integer id;
 	private Integer userId;
 	private Date orderTime;
-	private Boolean completed;
+	private Date pickupTime;
+	private Boolean isPickup;
+	private Boolean isDone;
 	private Integer payment; // 결제된 최종금액
     private String repImgUrl;
 	private List<OrderDetailInfo> details ;
 
-	public OrderInfo(Integer id, Integer userId, Date orderTime, Boolean completed, Integer payment) {
+	public OrderInfo(Integer id, Integer userId, Date orderTime, Boolean isPickup, Boolean isDone, Integer payment) {
         this.id = id;
         this.userId = userId;
         this.orderTime = orderTime;
-        this.completed = completed;
+		this.isPickup = isPickup;
+		this.isDone = isDone;
     }
 
-    public OrderInfo(Integer userId, Date orderTime, Boolean completed, Integer payment) {
+    public OrderInfo(Integer userId, Date orderTime, Boolean isPickup, Boolean isDone, Integer payment) {
         this.userId = userId;
         this.orderTime = orderTime;
-        this.completed = completed;
+		this.isPickup = isPickup;
+		this.isDone = isDone;
     }
     
 	public OrderInfo() {}
@@ -51,14 +55,22 @@ public class OrderInfo {
 		this.orderTime = orderTime;
 	}
 
-	public Boolean getCompleted() {
-		return completed;
+	public Boolean getPickup() {
+		return isPickup;
 	}
 
-	public void setCompleted(Boolean completed) {
-		this.completed = completed;
+	public void setPickup(Boolean isPickup) {
+		this.isPickup = isPickup;
 	}
-	
+
+	public Boolean getDone() {
+		return isDone;
+	}
+
+	public void setDone(Boolean isDone) {
+		this.isDone = isDone;
+	}
+
 	public Integer getPayment() {
 		return payment;
 	}
@@ -75,6 +87,14 @@ public class OrderInfo {
 		this.repImgUrl = repImgUrl;
 	}
 
+	public Date getPickupTime() {
+		return pickupTime;
+	}
+
+	public void setPickupTime(Date pickupTime) {
+		this.pickupTime = pickupTime;
+	}
+
 	public List<OrderDetailInfo> getDetails() {
 		return details;
 	}
@@ -83,14 +103,17 @@ public class OrderInfo {
 		this.details = details;
 	}
 
-
 	@Override
 	public String toString() {
 		return "OrderInfo{" +
 				"id=" + id +
 				", userId=" + userId +
 				", orderTime=" + orderTime +
-				", completed=" + completed +
+				", pickupTime=" + pickupTime +
+				", isPickup=" + isPickup +
+				", isDone=" + isDone +
+				", payment=" + payment +
+				", repImgUrl='" + repImgUrl + '\'' +
 				", details=" + details +
 				'}';
 	}

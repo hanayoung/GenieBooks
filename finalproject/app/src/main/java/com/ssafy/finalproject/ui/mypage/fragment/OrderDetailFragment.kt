@@ -58,7 +58,10 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(
             orderDetailRVAdapter.submitList(it.details)
             binding.tvOrder.text = getString(R.string.order_detail_info, CommonUtils.dateformatYMDHM(it.orderTime), it.id)
             binding.tvPrice.text = CommonUtils.makeComma(it.payment)
-            binding.tvPickupTime.text = CommonUtils.dateformatYMDHM(it.orderTime)
+            if(it.pickupTime != null) {
+                binding.tvPickupTime.text = CommonUtils.dateformatYMDHM(it.pickupTime)
+            }
+
         }
     }
 }

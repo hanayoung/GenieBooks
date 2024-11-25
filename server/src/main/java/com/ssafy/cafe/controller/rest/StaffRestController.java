@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.cafe.model.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,9 @@ public class StaffRestController {
     
     @Autowired
     CustomerService cService;
+
+    @Autowired
+    OrderService oService;
     
     @PostMapping("/signup")
     @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. ")
@@ -92,20 +96,31 @@ public class StaffRestController {
     @GetMapping("/order")
     @Operation(summary = "픽업 대기 중인 목록 반환")
     public List<Order> getAllOrders() {
-    	List<Order> orders = sService.selectAllWaitingOrders();
+    	List<Order> orders = sService.selectAllOrders();
         logger.debug("orders in controller : {}",orders);
         return orders;
     }
     
-    @PutMapping("/order/complete")
-    @Operation(summary = "직원이 수령함")
-    public Boolean updateOrderState(@RequestBody Map<String, Integer> payload) throws IOException {
+    @PutMapping("/order/done")
+    @Operation(summary = "도서 준비 완료됨 상태, fcm을 사용자에게 보냄")
+    public Boolean updateOrderStateDone(@RequestBody Map<String, Integer> payload) throws IOException {
     	int orderId = payload.get("orderId");
     	int userId = payload.get("userId");
-    	Boolean result = sService.updateOrderState(orderId);
-        logger.debug("orders in controller : {}",result);
+    	Boolean result = sService.updateOrderStateDone(orderId);
         String fcmToken = cService.getFcmTokenbyUserId(userId);
         service.sendMessageTo(fcmToken,"픽업 준비 완료", "도서가 준비되었습니다");
+        return result;
+    }
+
+    @PutMapping("/order/pickup")
+    @Operation(summary = "직원이 수령함")
+    public Boolean updateOrderStatePickup(@RequestBody Map<String, Integer> payload) throws IOException {
+        int orderId = payload.get("orderId");
+        int userId = payload.get("userId");
+        Boolean result = sService.updateOrderStatePickup(orderId);
+        String fcmToken = cService.getFcmTokenbyUserId(userId);
+        service.sendMessageTo(fcmToken,"수령 완료", "수령이 완료되었습니다. 즐거운 시간 되세요🥰");
+        oService.updatePickupTime(orderId);
         return result;
     }
 

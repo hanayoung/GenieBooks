@@ -41,9 +41,9 @@ public interface StaffService {
      */
     public Staff selectUser(String id);
     
-    public List<Order> selectAllWaitingOrders();
+    public List<Order> selectAllOrders();
     
-    public boolean updateOrderState(int orderId);
-    
-    
+    public boolean updateOrderStatePickup(int orderId);
+
+    public boolean updateOrderStateDone(int orderId);
 }
