@@ -46,7 +46,7 @@ class GiftCardCheckDialog: DialogFragment(){
         setDialog()
 
         binding.btnPos.setOnClickListener {
-            findNavController().navigate(R.id.action_giftCardCheckDialog_to_giftCardFragment)
+            findNavController().navigate(R.id.action_giftCardCheckDialog_to_makeGiftCardFragment)
         }
 
         binding.btnNeg.setOnClickListener {

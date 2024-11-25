@@ -93,6 +93,6 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(
         binding.tvPrice.text = CommonUtils.makeComma(book.saleInfo?.listPrice?.amount ?: 0)
         val point = CommonUtils.calculatePoints(book.saleInfo?.listPrice?.amount ?: 0)
         binding.tvPointValue.text = getString(R.string.point, CommonUtils.makeComma(point))
-        binding.tvSummaryValue.text = Html.fromHtml(book.volumeInfo?.description, Html.FROM_HTML_MODE_LEGACY)
+        binding.tvSummaryValue.text = Html.fromHtml(book.volumeInfo?.description ?: "", Html.FROM_HTML_MODE_LEGACY)
     }
 }
