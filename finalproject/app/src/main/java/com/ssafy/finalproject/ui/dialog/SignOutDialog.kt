@@ -1,25 +1,17 @@
 package com.ssafy.finalproject.ui.dialog
 
-import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import androidx.annotation.NonNull
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
-import com.ssafy.finalproject.databinding.DialogGiftCardCheckBinding
 import com.ssafy.finalproject.databinding.DialogSignoutBinding
 import com.ssafy.finalproject.ui.MainActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class SignOutDialog : DialogFragment() {
     private var _binding: DialogSignoutBinding? = null
@@ -62,7 +54,7 @@ class SignOutDialog : DialogFragment() {
         params?.width = (widthPixels * 0.8).toInt()
         params?.height = ((widthPixels * 0.8).toInt() / 1.5).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_small_bg)
     }
 
     override fun onDestroyView() {

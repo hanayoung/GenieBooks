@@ -23,13 +23,6 @@ class QRCreateDialog: DialogFragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onResume() {
-        super.onResume()
-        dialog?.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +35,8 @@ class QRCreateDialog: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setDialog()
 
         val barcodeEncoder = BarcodeEncoder()
         val bitmap = barcodeEncoder.encodeBitmap((args.orderId).toString(), BarcodeFormat.QR_CODE, 400, 400)
@@ -57,9 +52,9 @@ class QRCreateDialog: DialogFragment() {
         val widthPixels = displayMetrics.widthPixels
 
         val params = dialog?.window?.attributes
-        params?.width = (widthPixels * 0.8).toInt()
-        params?.height = ((widthPixels * 0.8).toInt() / 1.5).toInt()
+        params?.width = (widthPixels * 0.9).toInt()
+        params?.height = (widthPixels * 0.9).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_small_bg)
     }
 }

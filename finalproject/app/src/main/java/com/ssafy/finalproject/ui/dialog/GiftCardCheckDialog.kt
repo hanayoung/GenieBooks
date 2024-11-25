@@ -1,12 +1,10 @@
 package com.ssafy.finalproject.ui.dialog
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
@@ -17,7 +15,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
-import com.ssafy.finalproject.data.model.dto.Order
 import com.ssafy.finalproject.data.model.dto.OrderDetail
 import com.ssafy.finalproject.data.remote.RetrofitUtil
 import com.ssafy.finalproject.databinding.DialogGiftCardCheckBinding
@@ -25,7 +22,6 @@ import com.ssafy.finalproject.ui.MainViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import kotlin.math.log
 
 private const val TAG = "GiftCardCheckDialog"
 class GiftCardCheckDialog: DialogFragment(){
@@ -103,7 +99,7 @@ class GiftCardCheckDialog: DialogFragment(){
         params?.width = (widthPixels * 0.8).toInt()
         params?.height = ((widthPixels * 0.8).toInt() / 1.5).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_bg)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_small_bg)
     }
 
     override fun onDestroyView() {
