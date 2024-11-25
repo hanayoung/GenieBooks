@@ -26,9 +26,10 @@
 		    image as imgUrl,
 		    g_date as giftDate,
 		    recipient_id,
-		    sender_id
+		    sender_id,
+		    sender_name
 		FROM gift
-		WHERE c_id = #{userId}
+		WHERE recipient_id = #{userId}
 	</select>
 
 	<update id="updateGiftCard" parameterType="map">

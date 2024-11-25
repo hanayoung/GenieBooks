@@ -3,6 +3,8 @@ package com.ssafy.finalproject.ui.gift.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentMyGiftCardBinding
@@ -15,6 +17,7 @@ class MyGiftCardFragment : BaseFragment<FragmentMyGiftCardBinding>(
     FragmentMyGiftCardBinding::bind,
     R.layout.fragment_my_gift_card
 ) {
+    private val args : MyGiftCardFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -22,18 +25,16 @@ class MyGiftCardFragment : BaseFragment<FragmentMyGiftCardBinding>(
             findNavController().popBackStack()
         }
 
-        binding.tvMainTitle.text = getString(R.string.gift_card_main_title, "즐거운 고라니")
+        binding.tvGiftCardTitle.text = getString(R.string.gift_card_title, CommonUtils.dateformatYMDHM(args.data.giftDate), args.data.title)
+        binding.tvMainTitle.text = getString(R.string.gift_card_main_title, args.data.senderName)
+        Glide.with(requireContext())
+            .load(args.data.imgUrl)
+            .centerCrop()
+            .into(binding.image)
 
-        val localDate = LocalDate.now()
-        binding.tvGiftCardTitle.text = getString(
-            R.string.gift_card_title, CommonUtils.dateformatYMD(
-                Date.from(
-                    localDate.atStartOfDay(
-                        ZoneId.systemDefault()
-                    ).toInstant()
-                )
-            ),"즐거운 고라니")
+        binding.title.text = args.data.title
+        binding.name.text = args.data.senderName
+        binding.cardDescription.text = args.data.content
 
-        // 이후에 데이터 전달받아서 적용하기
     }
 }

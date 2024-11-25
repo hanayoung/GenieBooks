@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ssafy.finalproject.data.model.dto.GiftCard
 import com.ssafy.finalproject.databinding.ItemGiftCardBinding
+import okhttp3.internal.notifyAll
 
+private const val TAG = "GiftCardListRVAdapter"
 class GiftCardListRVAdapter: ListAdapter<GiftCard, GiftCardListRVAdapter.ViewHolder>(IdComparator) {
     lateinit var itemClickListener: ItemClickListener
     private lateinit var context: Context
@@ -37,6 +39,9 @@ class GiftCardListRVAdapter: ListAdapter<GiftCard, GiftCardListRVAdapter.ViewHol
                 .centerCrop()
                 .into(binding.image)
 
+            binding.title.text = data.title
+            binding.name.text = data.senderName
+            Log.d(TAG, "bind: ${data.senderName}")
             binding.card.setOnClickListener {
                 itemClickListener.onClick(it, data, adapterPosition)
             }

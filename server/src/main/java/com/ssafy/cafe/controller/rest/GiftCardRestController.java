@@ -55,9 +55,9 @@ public class GiftCardRestController {
     @PutMapping
     private int receiveGiftCard(@RequestBody Map<String, Integer> payload) {
     	int recipientId = payload.get("recipientId");
-    	int giftCardId = payload.get("id");
+    	int giftCardId = payload.get("giftCardId");
     	
     	return giftCardService.updateGiftCard(recipientId, giftCardId);
     }
-//    
+   
 }

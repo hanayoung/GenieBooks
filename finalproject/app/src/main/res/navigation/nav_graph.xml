@@ -146,7 +146,11 @@
         android:id="@+id/giftCardListFragment"
         android:name="com.ssafy.finalproject.ui.gift.fragment.GiftCardListFragment"
         android:label="fragment_gift_card_list"
-        tools:layout="@layout/fragment_gift_card_list" />
+        tools:layout="@layout/fragment_gift_card_list" >
+        <action
+            android:id="@+id/action_giftCardListFragment_to_myGiftCardFragment"
+            app:destination="@id/myGiftCardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.ssafy.finalproject.ui.search.SearchFragment"
@@ -214,4 +218,13 @@
             android:name="orderId"
             app:argType="integer" />
     </dialog>
+    <fragment
+        android:id="@+id/myGiftCardFragment"
+        android:name="com.ssafy.finalproject.ui.gift.fragment.MyGiftCardFragment"
+        android:label="fragment_my_gift_card"
+        tools:layout="@layout/fragment_my_gift_card" >
+        <argument
+            android:name="data"
+            app:argType="com.ssafy.finalproject.data.model.dto.GiftCard" />
+    </fragment>
 </navigation>
