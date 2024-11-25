@@ -8,12 +8,14 @@
 		    (title,
 		    content,
 		    image,
-		    sender_id)
+		    sender_id,
+		    sender_name)
 		VALUES
 		    (#{title},
 		    #{content},
 		    #{imgUrl},
-		    #{senderId})
+		    #{senderId},
+		    #{senderName})
 	</insert>
 
 	<select id="selectAllGiftCards" parameterType="int" resultType="GiftCard">

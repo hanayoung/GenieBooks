@@ -163,7 +163,6 @@
             android:letterSpacing="-0.02"
             android:text="선물하기"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintDimensionRatio="1:0.16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/card_view"
