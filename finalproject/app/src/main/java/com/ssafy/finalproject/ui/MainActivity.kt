@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -13,8 +15,11 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -23,12 +28,20 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseActivity
+import com.ssafy.finalproject.data.remote.RetrofitUtil
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.firebaseTokenService
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.giftCardService
 import com.ssafy.finalproject.databinding.ActivityMainBinding
 import com.ssafy.finalproject.ui.home.fragments.HomeFragmentDirections
 import com.ssafy.finalproject.util.PermissionChecker
 import kotlinx.coroutines.launch
+import org.altbeacon.beacon.Beacon
+import org.altbeacon.beacon.BeaconManager
+import org.altbeacon.beacon.BeaconParser
+import org.altbeacon.beacon.Identifier
+import org.altbeacon.beacon.MonitorNotifier
+import org.altbeacon.beacon.RangeNotifier
+import org.altbeacon.beacon.Region
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +55,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private val runtimePermissions = arrayOf(Manifest.permission.POST_NOTIFICATIONS)
 
+    private val runtimePermissionsBeacon = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        arrayOf(
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_ADVERTISE,
+            Manifest.permission.BLUETOOTH_CONNECT,
+        )
+    } else {
+        arrayOf(
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
+        )
+    }
     /** permission check **/
 
     private val viewModel by viewModels<MainViewModel>()
@@ -50,6 +75,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private lateinit var pIntent: PendingIntent
     private lateinit var filters: Array<IntentFilter>
     private var giftCardId = -1
+
+    private lateinit var beaconManager: BeaconManager
+    private lateinit var bluetoothManager: BluetoothManager
+    private lateinit var bluetoothAdapter: BluetoothAdapter
+
+    private val region = Region(
+        "estimote",
+        listOf(
+            Identifier.parse(BEACON_UUID),
+            Identifier.parse(BEACON_MAJOR),
+            Identifier.parse(BEACON_MINOR)
+        ),
+        BLUETOOTH_ADDRESS
+    )
+
+    private var eventPopUpAble = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +103,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         setNFCAdapter()
         registerObserver()
+        initBeacon()
+        checkPermissionBeacon()
         checkPermission()
     }
 
@@ -91,6 +134,111 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         filter.addDataType("text/*")
 
         filters = arrayOf(filter)
+    }
+
+    private fun initBeacon(){
+        beaconManager = BeaconManager.getInstanceForApplication(this)
+        beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"))
+        bluetoothManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
+        bluetoothAdapter = bluetoothManager.adapter
+    }
+
+    private fun checkPermissionBeacon() {
+        if (!checker.checkPermission(this, runtimePermissionsBeacon)) {
+            checker.setOnGrantedListener {
+                //퍼미션 획득 성공일때
+                if(eventPopUpAble) startScan()
+            }
+            checker.requestPermissionLauncher.launch(runtimePermissionsBeacon)
+        } else { //이미 전체 권한이 있는 경우
+            if(eventPopUpAble) startScan()
+        }
+    }
+
+    private fun startScan() {
+        if (!bluetoothAdapter.isEnabled) {
+            requestEnableBLE()
+        }
+        beaconManager.addMonitorNotifier(monitorNotifier)
+        beaconManager.startMonitoring(region)
+
+        beaconManager.addRangeNotifier(rangeNotifier)
+        beaconManager.startRangingBeacons(region)
+    }
+
+    private fun requestEnableBLE() {
+        val callBLEEnableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+        requestBLEActivity.launch(callBLEEnableIntent)
+        Log.d(TAG, "requestEnableBLE: ")
+    }
+
+    private val requestBLEActivity: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        // 사용자의 블루투스 사용이 가능한지 확인
+        if (bluetoothAdapter.isEnabled) {
+            if(eventPopUpAble) startScan()
+        }else{
+            Log.d(TAG, "불가능: ")
+        }
+    }
+
+    private var monitorNotifier: MonitorNotifier = object : MonitorNotifier {
+        override fun didEnterRegion(region: Region) { //발견 함.
+            Log.d(TAG, "I just saw an beacon for the first time!")
+        }
+
+        override fun didExitRegion(region: Region) { //발견 못함.
+            Log.d(TAG, "I no longer see an beacon")
+        }
+
+        override fun didDetermineStateForRegion(state: Int, region: Region) { //상태변경
+            Log.d(TAG, "I have just switched from seeing/not seeing beacons: $state")
+        }
+    }
+
+    private var rangeNotifier: RangeNotifier = object : RangeNotifier {
+        override fun didRangeBeaconsInRegion(beacons: MutableCollection<Beacon>?, r: Region?) {
+            beacons?.run {
+                if (isNotEmpty()) {
+                    forEach { beacon ->
+                        if(eventPopUpAble) {
+                            if (beacon.distance <= BEACON_DISTANCE) {
+                                eventPopUpAble = false
+                                beaconManager.stopMonitoring(region)
+                                beaconManager.stopRangingBeacons(region)
+                                addAttendance()
+                            } else {
+                                eventPopUpAble = true
+                            }
+                        }
+                        Log.d(
+                            TAG,
+                            "distance: " + beacon.distance + " id:" + beacon.id1 + "/" + beacon.id2 + "/" + beacon.id3
+                        )
+                    }
+                }
+                if (isEmpty()) {
+                    Log.d(TAG, "didRangeBeaconsInRegion: 비컨을 찾을 수 없습니다.")
+                }
+            }
+        }
+    }
+
+    fun addAttendance() {
+        lifecycleScope.launch {
+            runCatching {
+                val id = ApplicationClass.sharedPreferencesUtil.getId()
+                RetrofitUtil.attendanceService.addAttendance(id)
+            }.onSuccess {
+                Log.d(TAG, "addAttendance: ${it}")
+                if (it) {
+                    showToast("출석체크에 성공하였습니다.")
+                }
+            }.onFailure {
+                Log.d(TAG, "addAttendance: fail ${it.message}")
+            }
+        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -234,5 +382,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 }
             })
         }
+
+        private const val BEACON_UUID = "e2c56db5-dffb-48d2-b060-d0f5a71096e0" // 우리반 모두 동일값
+        private const val BEACON_MAJOR = "40011" // 우리반 모두 동일값
+        private const val BEACON_MINOR = "43424" // 우리반 모두 동일값
+        private const val BLUETOOTH_ADDRESS = "C3:00:00:1C:5E:7F"
+        private const val BEACON_DISTANCE = 5.0 // 거리
     }
 }
