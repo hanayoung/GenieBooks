@@ -1,6 +1,5 @@
 package com.ssafy.cafe.model.service;
 
-import com.ssafy.cafe.Custom404ErrorController;
 import com.ssafy.cafe.model.dao.AttendanceDao;
 import com.ssafy.cafe.model.dao.CustomerDao;
 import com.ssafy.cafe.model.dto.Attendance;

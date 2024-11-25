@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
         	Order detailOrder = oDao.selectOrderDetails(order.getId());
         	logger.debug("test : {}",detailOrder);
             GoogleBook book = selectByIsbn(detailOrder.getDetails().get(0).getIsbn());
-            if(book.getVolumeInfo().getImageLinks() != null) {
+            if(book.getVolumeInfo() != null && book.getVolumeInfo().getImageLinks() != null) {
             	detailOrder.setRepImgUrl(book.getVolumeInfo().getImageLinks().getThumbnail());
             	detailOrder.setRepBookTitle(book.getVolumeInfo().getTitle());
             }

@@ -1,0 +1,32 @@
+
+a
+java:S1192a"FDefine a constant instead of duplicating this literal "utf-8" 3 times.(“â‡Øÿÿÿÿÿ
+
+java:S1488µ"\Immediately return this expression instead of assigning it to the temporary variable "info".(£ß‘Àùÿÿÿÿ8ÈĞùŠµ2
+M
+java:S61266"2Replace this String concatenation with Text block.(î§âıÿÿÿÿ
+@
+java:S3457?"%String contains no format specifiers.(¤ÚÛÜøÿÿÿÿ
+\
+java:S1126G"AReplace this if-then-else statement by a single return statement.(™¦Ôêøÿÿÿÿ
+H
+java:S6126W"2Replace this String concatenation with Text block.(œÙÁÓ
+V	java:S125b"<This block of commented-out lines of code should be removed.(¥½Ö¹ûÿÿÿÿ
+V	java:S125n"<This block of commented-out lines of code should be removed.(´˜ßúÿÿÿÿ
+H
+java:S1135j"2Complete the task associated to this TODO comment.(î‰Ï
+T	java:S106Œ"9Replace this use of System.out or System.err by a logger.(Ï€¦êûÿÿÿÿ
+N
+java:S1135"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ
+^	java:S125¥"<This block of commented-out lines of code should be removed.(…©óñıÿÿÿÿ8ÂÃøŠµ2
+;
+java:S1168³"$Return an empty map instead of null.(¥¹ï
+^	java:S125¶"<This block of commented-out lines of code should be removed.(Å¦÷ùÿÿÿÿ8€ÑùŠµ2
+W	java:S125×"<This block of commented-out lines of code should be removed.(ô‰ç‹úÿÿÿÿ
+W	java:S125ô"<This block of commented-out lines of code should be removed.(ŸğÕÜûÿÿÿÿ
+Y
+java:S1128">Remove this unused import 'com.ssafy.cafe.model.dto.Customer'.(‚ÚŸÅıÿÿÿÿ
+X
+java:S1128";Remove this unused import 'com.ssafy.cafe.model.dto.Order'.(¾‰—¥8¯şøŠµ2
+d
+java:S1128"IRemove this unused import 'com.ssafy.cafe.model.service.CustomerService'.(ÛÌÎøÿÿÿÿ

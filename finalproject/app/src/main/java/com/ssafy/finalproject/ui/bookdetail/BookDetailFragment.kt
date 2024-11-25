@@ -52,7 +52,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(
         binding.btnShoppingCart.setOnSingleClickListener {
             activityViewModel.addShoppingCart(
                 book = ShoppingCartBook(
-                    id = book.id,
+                    id = book.volumeInfo?.industryIdentifiers?.get(0)?.identifier ?: "",
                     imageUrl = book.volumeInfo?.imageLinks?.thumbnail ?: "",
                     title = book.volumeInfo?.title ?: "",
                     price = book.saleInfo?.listPrice?.amount ?: 0,

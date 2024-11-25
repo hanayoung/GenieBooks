@@ -63,8 +63,8 @@ public class OrderRestController {
     }
     
     @GetMapping
-    @Operation(summary="사용자의 픽업대기중인 모든 주문 내역을 간략한 목록으로 반환한다.")
-    public List<Order> getAllWaitingOrders(HttpServletRequest request, String id){
+    @Operation(summary="사용자의 모든 주문 내역을 간략한 목록으로 반환한다.")
+    public List<Order> getAllOrders(HttpServletRequest request, String id){
         String idInCookie = "";
         Cookie [] cookies = request.getCookies();
         if(cookies != null) {
@@ -101,7 +101,7 @@ public class OrderRestController {
         return oService.getOrderInfo(orderId);
     }
 
-    
+
 
     
 }

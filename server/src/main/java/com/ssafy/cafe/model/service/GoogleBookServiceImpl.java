@@ -122,7 +122,10 @@ public class GoogleBookServiceImpl implements GoogleBookService {
 		try {
 
 			URI uri = UriComponentsBuilder.fromUriString(Constants.GOOGLE_BOOK_API_URL)
-					.queryParam("q", keyword).encode().build().toUri();
+					.queryParam("q", keyword)
+					.queryParam("langRestrict","ko")
+					.queryParam("maxResults", 40)
+					.encode().build().toUri();
 
 			ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
 			bookList.addAll(response.getBody().getItems());

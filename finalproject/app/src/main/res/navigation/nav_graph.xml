@@ -14,9 +14,6 @@
             android:id="@+id/action_homeFragment_to_attendanceFragment"
             app:destination="@id/attendanceFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_giftCardFragment"
-            app:destination="@id/giftCardFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
         <action
@@ -127,7 +124,11 @@
     <fragment
         android:id="@+id/shoppingCartFragment"
         android:name="com.ssafy.finalproject.ui.shoppingcart.ShoppingCartFragment"
-        android:label="ShoppingCartFragment" />
+        android:label="ShoppingCartFragment" >
+        <action
+            android:id="@+id/action_shoppingCartFragment_to_giftCardCheckDialog"
+            app:destination="@id/giftCardCheckDialog" />
+    </fragment>
     <fragment
         android:id="@+id/giftCardFragment"
         android:name="com.ssafy.finalproject.ui.gift.fragment.MakeGiftCardFragment"
@@ -173,4 +174,15 @@
             android:id="@+id/action_pickUpWaitingFragment_to_orderDetailFragment"
             app:destination="@id/orderDetailFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/giftCardCheckDialog"
+        android:name="com.ssafy.finalproject.ui.dialog.GiftCardCheckDialog"
+        android:label="GiftCardCheckDialog" >
+        <action
+            android:id="@+id/action_giftCardCheckDialog_to_giftCardFragment"
+            app:destination="@id/giftCardFragment" />
+        <action
+            android:id="@+id/action_giftCardCheckDialog_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
 </navigation>

@@ -33,4 +33,10 @@ class MainViewModel: ViewModel() {
     private fun changeBookList() {
         _bookList.value = _bookList.value?.toMutableList()
     }
+
+    fun clearShoppingCart(){
+        _bookList.value?.clear()
+    }
+
+
 }

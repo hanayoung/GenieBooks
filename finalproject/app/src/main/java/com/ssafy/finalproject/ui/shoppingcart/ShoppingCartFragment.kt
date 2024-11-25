@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.model.dto.ShoppingCartBook
@@ -26,6 +27,13 @@ class ShoppingCartFragment: BaseFragment<FragmentShoppingCartBinding>(
 
         registerObserver()
         initAdapter()
+
+        binding.btnOrder.setOnClickListener {
+            findNavController().navigate(R.id.action_shoppingCartFragment_to_giftCardCheckDialog)
+        }
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun initAdapter() {
@@ -46,7 +54,13 @@ class ShoppingCartFragment: BaseFragment<FragmentShoppingCartBinding>(
         activityViewModel.bookList.observe(viewLifecycleOwner) { bookList ->
             adapter.submitList(bookList?.toList())
             updateTotal(bookList)
+            activityViewModel.bookList.value?.let {
+                if(it.size == 0) binding.btnOrder.isEnabled = false
+                else binding.btnOrder.isEnabled = true
+            }
         }
+
+
     }
 
     private fun updateTotal(bookList: MutableList<ShoppingCartBook>) {

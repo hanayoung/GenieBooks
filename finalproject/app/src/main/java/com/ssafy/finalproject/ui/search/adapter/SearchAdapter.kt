@@ -50,6 +50,10 @@ class SearchAdapter(private val itemClickListener: ItemClickListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val binding =
             ItemBookListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val displayMetrics = parent.context.resources.displayMetrics
+        val screenHeight = displayMetrics.heightPixels
+        val itemHeight = (screenHeight * 0.2).toInt()
+        binding.root.layoutParams.height = itemHeight
         return CustomViewHolder(binding)
     }
 
