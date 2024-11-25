@@ -92,4 +92,6 @@ dependencies {
 
     implementation(libs.view)
 
+    implementation (libs.zxing.android.embedded)
+
 }

@@ -13,6 +13,7 @@ import com.ssafy.finalproject.databinding.FragmentOrderDetailBinding
 import com.ssafy.finalproject.ui.mypage.OrderDetailViewModel
 import com.ssafy.finalproject.ui.mypage.adapter.OrderDetailRVAdapter
 import com.ssafy.finalproject.util.CommonUtils
+import com.ssafy.finalproject.util.setOnSingleClickListener
 
 private const val TAG = "OrderDetailFragment"
 class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(
@@ -32,6 +33,14 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(
 
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.floatingActionButton.setOnSingleClickListener {
+            viewModel.orderDetail.value?.id?.let {
+                val action = OrderDetailFragmentDirections.actionOrderDetailFragmentToQRCreateDialog(it)
+                findNavController().navigate(action)
+            }
+
         }
     }
 

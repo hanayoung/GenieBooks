@@ -1,13 +1,8 @@
 package com.ssafy.finalproject.data.model.dto
 
-import java.util.Date
-
-data class GiftCard(
-    val id: Int,
+data class GiftCardRequest(
     val title: String,
     val content: String,
     val imgUrl: String,
-    val orderTime : Date,
-    val recipientId : Int,
     val senderId : Int
 )

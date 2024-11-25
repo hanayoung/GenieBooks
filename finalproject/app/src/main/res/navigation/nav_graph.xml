@@ -158,6 +158,9 @@
         <argument
             android:name="orderId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_orderDetailFragment_to_QRCreateDialog"
+            app:destination="@id/QRCreateDialog" />
     </fragment>
     <fragment
         android:id="@+id/pickUpCompleteFragment"
@@ -197,5 +200,13 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
+    </dialog>
+    <dialog
+        android:id="@+id/QRCreateDialog"
+        android:name="com.ssafy.finalproject.ui.dialog.QRCreateDialog"
+        android:label="QRCreateDialog" >
+        <argument
+            android:name="orderId"
+            app:argType="integer" />
     </dialog>
 </navigation>
