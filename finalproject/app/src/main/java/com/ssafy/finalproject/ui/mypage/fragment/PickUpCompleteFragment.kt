@@ -41,7 +41,7 @@ class PickUpCompleteFragment : BaseFragment<FragmentPickUpCompleteBinding>(
         orderListRVAdapter.itemClickListener = object : OrderListRVAdapter.ItemClickListener {
             override fun onClick(view: View, data: Order, position: Int) {
                 Log.d(TAG, "onClick: ${data}")
-                val action = PickUpCompleteFragmentDirections.actionPickUpCompleteFragmentToOrderDetailFragment(data.id)
+                val action = OrderListFragmentDirections.actionOrderListFragmentToOrderDetailFragment(data.id)
                 findNavController().navigate(action)
             }
         }

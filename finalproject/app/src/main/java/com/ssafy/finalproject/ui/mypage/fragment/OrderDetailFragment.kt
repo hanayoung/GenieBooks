@@ -41,6 +41,7 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(
                 findNavController().navigate(action)
             }
         }
+
     }
 
     private fun initAdapter() {
@@ -60,6 +61,9 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(
             binding.tvPrice.text = CommonUtils.makeComma(it.payment)
             if(it.pickupTime != null) {
                 binding.tvPickupTime.text = CommonUtils.dateformatYMDHM(it.pickupTime)
+                binding.floatingActionButton.visibility = View.GONE
+            }else{
+                binding.floatingActionButton.visibility = View.VISIBLE
             }
 
         }
