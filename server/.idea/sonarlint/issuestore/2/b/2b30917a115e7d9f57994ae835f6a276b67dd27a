@@ -1,0 +1,14 @@
+
+ˆ
+java:S4165W"fRemove this useless assignment; "isPickup" already holds the assigned value along all execution paths.(ÂË÷Ÿşÿÿÿÿ8ô€Ô¶2
+
+java:S4165_"dRemove this useless assignment; "isDone" already holds the assigned value along all execution paths.(¾éõ¤8Å‹Õ¶2
+^	java:S107"BConstructor has 10 parameters, which is greater than 7 authorized.(î•è€8À¨•¶2
+^
+java:S1854W"<Remove this useless assignment to local variable "isPickup".(ÂË÷Ÿşÿÿÿÿ8…éÓ¶2
+Q
+java:S1656W"/Remove or correct this useless self-assignment.(ÂË÷Ÿşÿÿÿÿ8÷€Ô¶2
+W
+java:S1854_":Remove this useless assignment to local variable "isDone".(¾éõ¤8½ğÔ¶2
+L
+java:S1656_"/Remove or correct this useless self-assignment.(¾éõ¤8È‹Õ¶2

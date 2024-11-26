@@ -64,6 +64,8 @@ class GiftCardCheckDialog: DialogFragment(){
                     if(details.isEmpty()) throw Exception("details is empty")
                     val gson = Gson()
                     val detailsJsonArray = gson.toJsonTree(details).asJsonArray
+
+                    Log.d(TAG, "onViewCreated: details ${detailsJsonArray}")
                     val jsonObject = JsonObject().apply {
                         addProperty("userId", userId)
                         addProperty("payment", payment)

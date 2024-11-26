@@ -22,6 +22,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseActivity
@@ -226,7 +228,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     }
                 }
                 if (isEmpty()) {
-//                    Log.d(TAG, "didRangeBeaconsInRegion: 비컨을 찾을 수 없습니다.")
+                    Log.d(TAG, "didRangeBeaconsInRegion: 비컨을 찾을 수 없습니다.")
                 }
             }
         }
@@ -340,6 +342,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 //        initFCM()
         createNotificationChannel(channel_id, "smart_store")
     }
+
+//    private fun initFCM() {
+//        // FCM 토큰 수신
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+//            if (!task.isSuccessful) {
+//                Log.d(TAG, "FCM 토큰 얻기에 실패하였습니다.", task.exception)
+//                return@OnCompleteListener
+//            }
+//            // token log 남기기
+//            Log.d(TAG, "token: ${task.result ?: "task.result is null"}")
+//            if (task.result != null) {
+//                uploadToken(task.result!!)
+//            }
+//        })
+//    }
 
     // Notification 수신을 위한 체널 추가
     private fun createNotificationChannel(id: String, name: String) {

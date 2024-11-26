@@ -53,7 +53,7 @@ class MyFirebaseMessageService : FirebaseMessagingService() {
 //            PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE)
 //
         val builder1 = NotificationCompat.Builder(this, MainActivity.channel_id)
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setSmallIcon(R.drawable.logo_img_bg)
             .setContentTitle(messageTitle)
             .setContentText(messageContent)
             .setAutoCancel(true)

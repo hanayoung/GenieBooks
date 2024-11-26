@@ -67,7 +67,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         }
 
         binding.btnAttendance.setOnClickListener {
-            findNavController().navigate(R.id.action_myPageFragment_to_recommendFragment)
+            findNavController().navigate(R.id.action_myPageFragment_to_attendanceFragment)
         }
     }
 }

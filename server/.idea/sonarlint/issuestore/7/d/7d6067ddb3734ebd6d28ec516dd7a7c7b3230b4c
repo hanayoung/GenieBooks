@@ -1,0 +1,17 @@
+
+h
+java:S2259N"FA "NullPointerException" could be thrown; "getBody()" can return null.(«€ëßùÿÿÿÿ8ÅÙ­Ã¶2
+\
+java:S2259O"FA "NullPointerException" could be thrown; "getBody()" can return null.(Õâß
+Y
+java:S2589N"7Remove this expression which always evaluates to "true"(«€ëßùÿÿÿÿ8ÅÙ­Ã¶2
+O
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8ï·­Ã¶2
+k
+java:S1128"PRemove this unused import 'org.springframework.web.bind.annotation.PostMapping'.(äƒà°ùÿÿÿÿ
+k
+java:S1128"PRemove this unused import 'org.springframework.web.bind.annotation.RequestBody'.(â­½Àıÿÿÿÿ
+T
+java:S1128">Remove this unused import 'com.ssafy.cafe.model.dto.GiftCard'.(’“
+d
+java:S1128"IRemove this unused import 'com.ssafy.cafe.model.service.GiftCardService'.(ä¼üıÿÿÿÿ
