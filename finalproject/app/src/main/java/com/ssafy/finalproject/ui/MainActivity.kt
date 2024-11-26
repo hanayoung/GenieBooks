@@ -34,6 +34,7 @@ import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.giftCardService
 import com.ssafy.finalproject.databinding.ActivityMainBinding
 import com.ssafy.finalproject.ui.home.fragments.HomeFragmentDirections
 import com.ssafy.finalproject.util.PermissionChecker
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.altbeacon.beacon.Beacon
 import org.altbeacon.beacon.BeaconManager
@@ -158,6 +159,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun startScan() {
+        Log.d(TAG, "startScan: ")
         if (!bluetoothAdapter.isEnabled) {
             requestEnableBLE()
         }
@@ -166,6 +168,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         beaconManager.addRangeNotifier(rangeNotifier)
         beaconManager.startRangingBeacons(region)
+
+        lifecycleScope.launch {
+            delay(5000) // 5초 대기
+            stopScan()
+        }
+    }
+
+    private fun stopScan() {
+        beaconManager.stopMonitoring(region)
+        beaconManager.stopRangingBeacons(region)
+        Log.d(TAG, "stopScan: 스캔 중지")
     }
 
     private fun requestEnableBLE() {
@@ -208,8 +221,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                             if (beacon.distance <= BEACON_DISTANCE) {
                                 Log.d(TAG, "didRangeBeaconsInRegion: 비컨을 찾았습니다.")
                                 eventPopUpAble = false
-                                beaconManager.stopMonitoring(region)
-                                beaconManager.stopRangingBeacons(region)
+                                stopScan()
                                 addAttendance()
                             } else {
                                 eventPopUpAble = true
