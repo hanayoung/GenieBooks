@@ -22,6 +22,10 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(
 
         registerObserver()
         initAdapter()
+
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun initAdapter() {

@@ -65,5 +65,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         binding.tvAiBook.setOnClickListener {
             findNavController().navigate(R.id.action_myPageFragment_to_recommendFragment)
         }
+
+        binding.btnAttendance.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_recommendFragment)
+        }
     }
 }
