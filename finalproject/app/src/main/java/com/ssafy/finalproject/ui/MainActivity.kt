@@ -60,6 +60,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             Manifest.permission.BLUETOOTH_SCAN,
             Manifest.permission.BLUETOOTH_ADVERTISE,
             Manifest.permission.BLUETOOTH_CONNECT,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
         )
     } else {
         arrayOf(
@@ -206,6 +208,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     forEach { beacon ->
                         if(eventPopUpAble) {
                             if (beacon.distance <= BEACON_DISTANCE) {
+                                Log.d(TAG, "didRangeBeaconsInRegion: 비컨을 찾았습니다.")
                                 eventPopUpAble = false
                                 beaconManager.stopMonitoring(region)
                                 beaconManager.stopRangingBeacons(region)
