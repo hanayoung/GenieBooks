@@ -1,6 +1,7 @@
 package com.ssafy.finalproject.ui.search.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -43,6 +44,9 @@ class SearchAdapter(private val itemClickListener: ItemClickListener) :
             binding.tvPrice.text = CommonUtils.makeComma(item.saleInfo?.listPrice?.amount ?: 0)
             binding.root.setOnClickListener {
                 itemClickListener.onClick(item.id)
+            }
+            if(item.saleInfo?.listPrice == null) {
+                binding.tvPrice.text = "절판된 책입니다"
             }
         }
     }

@@ -63,4 +63,17 @@
         app:layout_constraintTop_toBottomOf="@id/tv_total_count"
         tools:listitem="@layout/item_book_list" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_animation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="@+id/rv"
+        app:layout_constraintStart_toStartOf="@+id/rv"
+        app:layout_constraintTop_toTopOf="@+id/rv"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="ai_loading.json"
+        app:lottie_loop="true" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

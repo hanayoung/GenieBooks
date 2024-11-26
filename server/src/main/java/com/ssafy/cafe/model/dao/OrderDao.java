@@ -62,4 +62,6 @@ public interface OrderDao {
     List<OrderDetailInfo> getOrderDetailInfo(int orderId);
 
     boolean updatePickupTime(int orderId);
+
+    int getUserIdByOrderId(int orderId);
 }

@@ -10,13 +10,7 @@ import com.ssafy.cafe.model.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.Staff;
@@ -120,9 +114,17 @@ public class StaffRestController {
         int userId = payload.get("userId");
         Boolean result = sService.updateOrderStatePickup(orderId);
         String fcmToken = cService.getFcmTokenbyUserId(userId);
+        logger.debug("fcmToken : {}",fcmToken);
         serviceWithData.sendDataMessageTo(fcmToken,"수령 완료", "수령이 완료되었습니다. 즐거운 시간 되세요🥰");
         oService.updatePickupTime(orderId);
         return result;
+    }
+
+    @GetMapping("/order/{orderId}")
+    public int getUserIdByOrderId(@PathVariable int orderId) {
+        int userId = oService.getUserIdByOrderId(orderId);
+        logger.debug("get UserId : {}",userId);
+        return userId;
     }
 
 }

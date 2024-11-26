@@ -93,5 +93,10 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(
         val point = CommonUtils.calculatePoints(book.saleInfo?.listPrice?.amount ?: 0)
         binding.tvPointValue.text = getString(R.string.point, CommonUtils.makeComma(point))
         binding.tvSummaryValue.text = Html.fromHtml(book.volumeInfo?.description ?: "", Html.FROM_HTML_MODE_LEGACY)
+
+        if(book.saleInfo == null) {
+            binding.btnShoppingCart.visibility = View.GONE
+            binding.tvPrice.text = "절판된 책입니다"
+        }
     }
 }

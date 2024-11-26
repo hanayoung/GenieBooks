@@ -46,4 +46,6 @@ public interface OrderService {
 
     public boolean updatePickupTime(int orderId);
 
+    public int getUserIdByOrderId(int orderId);
+
 }

@@ -85,4 +85,11 @@
         WHERE o_id = #{orderId}
     </update>
 
+    <select id="getUserIdByOrderId" parameterType="int" resultType="int">
+        select
+             c_id as userId
+        from p_customer
+        where o_id = #{orderId};
+    </select>
+
 </mapper>

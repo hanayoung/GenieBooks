@@ -19,7 +19,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.loadingAnimation.playAnimation()
         registerObserver()
         initAdapter()
 
@@ -40,6 +40,8 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(
     private fun registerObserver() {
         viewModel.recommendBookList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            binding.loadingAnimation.pauseAnimation()
+            binding.loadingAnimation.visibility = View.GONE
             binding.tvTotalCount.text = getString(R.string.search_total_count, it.size.toString())
         }
     }

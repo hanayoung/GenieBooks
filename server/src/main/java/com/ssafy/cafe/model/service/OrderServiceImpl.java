@@ -134,5 +134,10 @@ public class OrderServiceImpl implements OrderService {
         return oDao.updatePickupTime(orderId);
     }
 
+    @Override
+    public int getUserIdByOrderId(int orderId) {
+        return oDao.getUserIdByOrderId(orderId);
+    }
+
 
 }

@@ -67,7 +67,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private val viewModel by viewModels<MainViewModel>()
     private lateinit var navController: NavController
-    private lateinit var nAdapter: NfcAdapter
+    private var nAdapter: NfcAdapter ?= null
     private lateinit var pIntent: PendingIntent
     private lateinit var filters: Array<IntentFilter>
     private var giftCardId = -1
@@ -106,13 +106,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onResume() {
         super.onResume()
-        nAdapter.enableForegroundDispatch(this, pIntent, filters, null)
+        nAdapter?.enableForegroundDispatch(this, pIntent, filters, null)
 
     }
 
     override fun onPause() {
         super.onPause()
-        nAdapter.disableForegroundDispatch(this)
+        nAdapter?.disableForegroundDispatch(this)
     }
 
     private fun setNFCAdapter() {

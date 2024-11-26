@@ -3,6 +3,7 @@ package com.ssafy.myapplication.ui.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
@@ -16,7 +17,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(
     FragmentHomeBinding::bind,
     R.layout.fragment_home
 ) {
-
+    private val viewModel : QRScanViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,6 +37,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(
             Log.d(TAG, "qr data is null: ")
         } else {
             Log.d(TAG, "qr data : ${result.contents}")
+            viewModel.updatePickupState(orderId = result.contents.toInt())
+
         }
     }
 

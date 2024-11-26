@@ -7,6 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface StaffService {
@@ -28,5 +29,8 @@ interface StaffService {
 
     @PUT("staff/order/pickup")
     suspend fun updateOrderStatePickup(@Body body: RequestBody) : Boolean
+
+    @GET("staff/order/{orderId}")
+    suspend fun getUserIdByOrderId(@Path(value = "orderId") orderId: Int) : Int
 
 }
