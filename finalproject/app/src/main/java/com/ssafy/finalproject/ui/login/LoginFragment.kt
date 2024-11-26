@@ -19,6 +19,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 
 private const val TAG = "LoginFragment_싸피"
+
 class LoginFragment : BaseFragment<FragmentLoginBinding>(
     FragmentLoginBinding::bind,
     R.layout.fragment_login
@@ -29,8 +30,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
 
         binding.btnLogin.setOnClickListener {
             binding.inputLayoutId.editText?.let { id ->
-                binding.inputLayoutPwd.editText?.let {  pwd ->
-                    if(id.text.toString().isNotEmpty() && pwd.text.toString().isNotEmpty()) {
+                binding.inputLayoutPwd.editText?.let { pwd ->
+                    if (id.text.toString().isNotEmpty() && pwd.text.toString().isNotEmpty()) {
                         lifecycleScope.launch {
                             runCatching {
                                 val fcmToken = ApplicationClass.sharedPreferencesUtil.getFcmToken()
@@ -51,7 +52,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
                                     addId(it.id)
                                 }
 
-                                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                                val intent =
+                                    Intent(requireActivity(), MainActivity::class.java).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                startActivity(intent)
+                                requireActivity().finish()
                             }.onFailure {
                                 Log.d(TAG, "onViewCreated: fail ${it.message}")
                                 showToast("ID와 비밀번호를 확인해주세요")

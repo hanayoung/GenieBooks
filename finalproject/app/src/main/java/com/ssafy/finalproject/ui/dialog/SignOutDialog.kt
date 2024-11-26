@@ -36,8 +36,12 @@ class SignOutDialog : DialogFragment() {
         binding.btnPos.setOnClickListener {
             ApplicationClass.sharedPreferencesUtil.clear()
             // 로그아웃
-            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            val intent =
+                Intent(requireActivity(), LoginActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
             startActivity(intent)
+            requireActivity().finish()
         }
 
         binding.btnNeg.setOnClickListener {

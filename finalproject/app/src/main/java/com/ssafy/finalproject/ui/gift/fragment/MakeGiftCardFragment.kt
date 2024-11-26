@@ -12,22 +12,32 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.dotlottie.dlplayer.Mode
 import com.lottiefiles.dotlottie.core.model.Config
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.model.dto.GiftCard
 import com.ssafy.finalproject.data.model.dto.GiftCardRequest
+import com.ssafy.finalproject.data.model.dto.OrderDetail
+import com.ssafy.finalproject.data.remote.RetrofitUtil
 import com.ssafy.finalproject.databinding.FragmentMakeGiftCardBinding
 import com.ssafy.finalproject.ui.EventObserver
+import com.ssafy.finalproject.ui.MainViewModel
 import com.ssafy.finalproject.ui.gift.MakeGiftCardViewModel
 import com.ssafy.finalproject.util.PermissionChecker
 import com.ssafy.finalproject.util.setOnSingleClickListener
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 import java.util.Date
 
 private const val TAG = "MakeGiftCardFragment"
@@ -38,6 +48,7 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 ) {
     private val checker = PermissionChecker(this)
     private lateinit var launcher: ActivityResultLauncher<Intent>
+    private val activityViewModel by activityViewModels<MainViewModel>()
     private val viewModel by viewModels<MakeGiftCardViewModel>()
     private var isImageSelected = false
     private val userId = ApplicationClass.sharedPreferencesUtil.getUserId()
@@ -141,6 +152,48 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
         }
     }
 
+    private fun makeOrder() {
+        // 주문 확인
+        lifecycleScope.launch {
+            runCatching {
+                var payment = 0
+                activityViewModel.bookList.value?.forEach{
+                    payment += it.price * it.count
+                }
+                val userId = ApplicationClass.sharedPreferencesUtil.getUserId()
+                val details = activityViewModel.bookList.value?.map {
+                    OrderDetail((it.id).toLong(), it.count)
+                } ?: emptyList()
+                if(details.isEmpty()) throw Exception("details is empty")
+                val gson = Gson()
+                val detailsJsonArray = gson.toJsonTree(details).asJsonArray
+                val jsonObject = JsonObject().apply {
+                    addProperty("userId", userId)
+                    addProperty("payment", payment)
+                    add("details", detailsJsonArray)
+                }
+                val requestBody = RequestBody.create(
+                    "application/json".toMediaTypeOrNull(),
+                    jsonObject.toString()
+                )
+                RetrofitUtil.orderService.makeOrder(requestBody)
+            }.onSuccess {
+                if(it > -1) {
+                    Toast.makeText(requireContext(), "주문해주셔서 감사합니다🥰",Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "makeOrder: 장바구니 삭제")
+                    activityViewModel.clearShoppingCart()
+                    findNavController().navigate(R.id.action_makeGiftCardFragment_to_homeFragment)
+                }else{
+                    Toast.makeText(requireContext(), "주문이 실패하였습니다. 다시 시도해주세요😥",Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                }
+
+            }.onFailure {
+                Log.d(TAG, "onViewCreated: fail ${it.message}")
+            }
+        }
+    }
+
     private fun registerObserver() {
         viewModel.imagePathEvent.observe(viewLifecycleOwner, EventObserver {
             val title = binding.title.text.toString()
@@ -160,8 +213,7 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
         viewModel.isSendSuccess.observe(viewLifecycleOwner) {
             if (it) {
-                showToast("주문해주셔서 감사합니다🥰")
-                findNavController().navigate(R.id.action_makeGiftCardFragment_to_homeFragment)
+                makeOrder()
             }
         }
     }

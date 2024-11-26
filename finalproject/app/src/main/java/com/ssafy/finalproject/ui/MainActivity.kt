@@ -312,6 +312,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 R.id.homeFragment -> View.VISIBLE
                 R.id.categoryFragment -> View.VISIBLE
                 R.id.myPageFragment -> View.VISIBLE
+                R.id.signOutDialog -> View.VISIBLE
                 else -> View.GONE
             }
         }

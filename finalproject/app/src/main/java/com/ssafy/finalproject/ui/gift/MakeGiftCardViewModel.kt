@@ -2,17 +2,29 @@ package com.ssafy.finalproject.ui.gift
 
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.ssafy.finalproject.R
+import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.data.model.dto.GiftCard
 import com.ssafy.finalproject.data.model.dto.GiftCardRequest
+import com.ssafy.finalproject.data.model.dto.OrderDetail
+import com.ssafy.finalproject.data.remote.RetrofitUtil
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.giftCardService
 import com.ssafy.finalproject.ui.Event
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 
 private const val TAG = "MakeGiftCardViewModel_싸피"
 class MakeGiftCardViewModel: ViewModel(){
