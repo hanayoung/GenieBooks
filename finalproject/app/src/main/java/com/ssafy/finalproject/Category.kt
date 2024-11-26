@@ -14,7 +14,7 @@ enum class Category(private val categoryKr: String) {
     ARTANDPER("예술/대중문화"),
     COMPUTER("컴퓨터/IT"),
     HUMAN("인문"),
-    SELFHELP("자기계발"),
+    SELFHELF("자기계발"),
     POANDSO("정치/사회"),
     FOREIGN("외국어"),
     JUVENILE("청소년");

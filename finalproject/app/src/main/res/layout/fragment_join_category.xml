@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_teanden" />
 
     <TextView
-        android:id="@+id/tv_self_help"
+        android:id="@+id/tv_self_helf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -106,7 +106,7 @@
         android:text="@string/category_crandhoandfi"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_self_help" />
+        app:layout_constraintTop_toBottomOf="@id/tv_self_helf" />
 
     <TextView
         android:id="@+id/tv_poandli"
@@ -227,7 +227,7 @@
         android:text="@string/category_computer"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tv_religion"
-        app:layout_constraintTop_toBottomOf="@id/tv_self_help" />
+        app:layout_constraintTop_toBottomOf="@id/tv_self_helf" />
 
     <Button
         android:id="@+id/btn_next"

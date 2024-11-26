@@ -52,7 +52,7 @@ class JoinCategoryFragment : BaseFragment<FragmentJoinCategoryBinding>(
             binding.tvJuvenile to Category.JUVENILE,
             binding.tvComputer to Category.COMPUTER,
             binding.tvHuman to Category.HUMAN,
-            binding.tvSelfHelp to Category.SELFHELP,
+            binding.tvSelfHelf to Category.SELFHELF,
             binding.tvPoandso to Category.POANDSO,
             binding.tvForeign to Category.FOREIGN
         )
