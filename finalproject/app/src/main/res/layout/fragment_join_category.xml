@@ -85,18 +85,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_teanden" />
 
     <TextView
-        android:id="@+id/tv_crandhoandfi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="36dp"
-        android:fontFamily="@font/pretendard_bold"
-        android:text="@string/category_crandhoandfi"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_foreign" />
-
-    <TextView
         android:id="@+id/tv_self_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,7 +94,19 @@
         android:text="@string/category_selfhelf"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_crandhoandfi" />
+        app:layout_constraintTop_toBottomOf="@id/tv_foreign" />
+
+    <TextView
+        android:id="@+id/tv_crandhoandfi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/category_crandhoandfi"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_self_help" />
 
     <TextView
         android:id="@+id/tv_poandli"
@@ -120,12 +120,12 @@
         app:layout_constraintTop_toTopOf="@id/tv_fiction" />
 
     <TextView
-        android:id="@+id/tv_hoandho"
+        android:id="@+id/tv_juvenile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:fontFamily="@font/pretendard_bold"
-        android:text="@string/category_hoandho"
+        android:text="@string/category_juvenile"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tv_poandli"
         app:layout_constraintTop_toBottomOf="@id/tv_fiction" />
@@ -162,17 +162,6 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tv_poandli"
         app:layout_constraintTop_toBottomOf="@id/tv_foreign" />
-
-    <TextView
-        android:id="@+id/tv_buandec"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:fontFamily="@font/pretendard_bold"
-        android:text="@string/category_buandec"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_poandli"
-        app:layout_constraintTop_toBottomOf="@id/tv_crandhoandfi" />
 
     <TextView
         android:id="@+id/tv_religion"
@@ -238,7 +227,7 @@
         android:text="@string/category_computer"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tv_religion"
-        app:layout_constraintTop_toBottomOf="@id/tv_crandhoandfi" />
+        app:layout_constraintTop_toBottomOf="@id/tv_self_help" />
 
     <Button
         android:id="@+id/btn_next"
