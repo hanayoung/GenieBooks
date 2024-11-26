@@ -30,9 +30,10 @@ public class BookRecommendRequest {
 	public Sex getSex() {
 		return sex;
 	}
-	public void setSex(Sex gensexder) {
+	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
+	
 
 	@Override
 	public String toString() {

@@ -31,9 +31,6 @@ public class BookParser {
                         case "author":
                             book.setAuthor(value);
                             break;
-                        case "isbn":
-                            book.setIsbn(value);
-                            break;
                         case "reason":
                             book.setReason(value);
                             break;
