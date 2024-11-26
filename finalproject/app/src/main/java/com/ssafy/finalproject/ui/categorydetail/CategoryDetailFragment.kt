@@ -1,7 +1,6 @@
 package com.ssafy.finalproject.ui.categorydetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -34,7 +33,7 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
             .autoplay(true)
             .speed(1f)
             .loop(true)
-            .source(DotLottieSource.Asset("loading_animation.lottie"))
+            .source(DotLottieSource.Asset("loading.lottie"))
             .useFrameInterpolation(true)
             .playMode(Mode.FORWARD)
             .build()

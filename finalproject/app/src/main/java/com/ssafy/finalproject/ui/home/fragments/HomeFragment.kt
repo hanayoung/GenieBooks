@@ -2,13 +2,18 @@ package com.ssafy.finalproject.ui.home.fragments
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.animation.AnimationUtils.loadAnimation
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.dotlottie.dlplayer.Mode
+import com.lottiefiles.dotlottie.core.loader.DotLottieResult
 import com.lottiefiles.dotlottie.core.model.Config
+import com.lottiefiles.dotlottie.core.util.DotLottieEventListener
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
@@ -18,6 +23,7 @@ import com.ssafy.finalproject.ui.home.HomeViewModel
 import com.ssafy.finalproject.ui.home.adapter.BookVPAdapter
 import com.ssafy.finalproject.util.CommonUtils
 
+private const val TAG = "HomeFragment"
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     FragmentHomeBinding::bind,
     R.layout.fragment_home
@@ -28,6 +34,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                loadAnimation()
+            }
+        })
 
         binding.iconCalendar.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_attendanceFragment)
@@ -46,35 +59,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         initAdapter()
 
         viewModel.bookList.observe(viewLifecycleOwner) { it ->
-            binding.loadingAnimation.visibility = View.GONE
-            bookVPAdapter.submitList(it)
+            if(it.isNotEmpty()){
+                binding.loadingAnimation.visibility = View.GONE
+                bookVPAdapter.submitList(it)
+                it[0].volumeInfo?.let { book ->
+                    binding.tvTitle.text = book.title
+                    binding.tvAuthor.text = book.authors.joinToString(separator = ", ")
+                }
 
-            it[0].volumeInfo?.let { book ->
-                binding.tvTitle.text = book.title
-                binding.tvAuthor.text = book.authors.joinToString(separator = ", ")
+                it[0].saleInfo?.listPrice?.amount?.let { price ->
+                    binding.tvPrice.text = CommonUtils.makeComma(price)
+                }
+
+                it[0].searchInfo?.textSnippet?.let { textSnippet ->
+                    binding.tvOverview.text = textSnippet
+                }
+
+                binding.loadingAnimation.visibility = View.GONE
+                binding.bookVP.visibility = View.VISIBLE
             }
-
-            it[0].saleInfo?.listPrice?.amount?.let { price ->
-                binding.tvPrice.text = CommonUtils.makeComma(price)
-            }
-
-            it[0].searchInfo?.textSnippet?.let { textSnippet ->
-                binding.tvOverview.text = textSnippet
-            }
-
         }
+    }
 
-        val loadingAnimationConfig = Config.Builder()
+    private fun loadAnimation() {
+        val config = Config.Builder()
             .autoplay(true)
-            .speed(1f)
-            .loop(true)
-            .source(DotLottieSource.Asset("loading_animation.lottie"))
-            .useFrameInterpolation(true)
-            .playMode(Mode.FORWARD)
+            .source(DotLottieSource.Asset("loading.lottie"))
             .build()
-
-        binding.loadingAnimation.load(loadingAnimationConfig)
-
+        binding.loadingAnimation.load(config)
     }
 
     private fun initAdapter() {

@@ -127,10 +127,10 @@ public class CustomerRestController {
             return map; // 정보 조회 실패
         } else {
             Map<String, Object> info = new HashMap<>();
-            List<Category> interest = cService.selectInterestByUserId(selected.getCId());
-            selected.setCategory(interest);
+//            List<Category> interest = cService.selectInterestByUserId(selected.getCId());
+//            selected.setCategory(interest);
             info.put("customer", selected);
-            List<Order> orders = oService.getOrderInfoByUser(selected.getCId());
+            List<Order> orders = oService.getBriefOrderInfoByUser(selected.getCId());
             logger.debug("orders in controller : {}",orders);
             if(orders.isEmpty()){
                 info.put("completeCnt",0);

@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.dotlottie.dlplayer.Mode
+import com.lottiefiles.dotlottie.core.model.Config
+import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
@@ -61,8 +64,19 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.loadingAnimation.visibility = View.GONE
         registerObserver()
+
+        val loadingAnimationConfig = Config.Builder()
+            .autoplay(true)
+            .speed(1f)
+            .loop(true)
+            .source(DotLottieSource.Asset("gift_card_loading.lottie"))
+            .useFrameInterpolation(true)
+            .playMode(Mode.FORWARD)
+            .build()
+
+        binding.loadingAnimation.load(loadingAnimationConfig)
 
         binding.btnAddImg.setOnClickListener {
             // 갤러리 연결
@@ -85,12 +99,16 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
             // 서버로 선물카드 전송 + 구매 목록 전송
             if (isImageSelected) {
+                binding.loadingAnimation.visibility = View.VISIBLE
+
                 val timeStamp = System.currentTimeMillis()
                 viewModel.uploadImage(userId, timeStamp)
             } else {
                 showToast("사진을 선택해주세요.")
             }
         }
+
+
     }
 
     private fun checkPermission() {

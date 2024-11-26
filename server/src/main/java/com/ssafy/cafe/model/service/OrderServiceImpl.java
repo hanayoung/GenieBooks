@@ -57,6 +57,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getBriefOrderInfoByUser(Integer id) {
+        List<Order> noDetailOrders = oDao.selectByUser(id);
+        return noDetailOrders;
+    }
+    
+    @Override
     public List<Order> getOrderInfoByUser(Integer id) {
         List<Order> noDetailOrders = oDao.selectByUser(id);
         logger.debug("noDetailOrders : {}", noDetailOrders );

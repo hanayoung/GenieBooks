@@ -46,7 +46,6 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(
         }
 
         registerObserver()
-        Log.d(TAG, "onViewCreated: ${args.bookId}")
         viewModel.getBookById(args.bookId)
 
         binding.btnShoppingCart.setOnSingleClickListener {
