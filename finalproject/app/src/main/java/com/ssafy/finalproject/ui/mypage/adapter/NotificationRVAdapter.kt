@@ -16,31 +16,31 @@ import com.ssafy.finalproject.databinding.ItemNotificationBinding
 import com.ssafy.finalproject.util.CommonUtils
 import java.util.Date
 
-class NotificationRVAdapter: ListAdapter<Notification, NotificationRVAdapter.ViewHolder>(IdComparator) {
+class NotificationRVAdapter: ListAdapter<String, NotificationRVAdapter.ViewHolder>(IdComparator) {
     lateinit var itemClickListener: ItemClickListener
     private lateinit var context: Context
     interface ItemClickListener{
-        fun onClick(view: View, data: Notification, position: Int)
+        fun onClick(view: View, data: String, position: Int)
     }
 
-    companion object IdComparator: DiffUtil.ItemCallback<Notification>(){
-        override fun areItemsTheSame(oldItem: Notification, newItem: Notification): Boolean {
+    companion object IdComparator: DiffUtil.ItemCallback<String>(){
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
 
-        override fun areContentsTheSame(oldItem: Notification, newItem: Notification): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
 
     inner class ViewHolder(val binding: ItemNotificationBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Notification){
+        fun bind(data: String){
             binding.btnRemove.setOnClickListener {
                 itemClickListener.onClick(it, data, adapterPosition) // TODO FCM 연결 후 해당 알림 지우기
             }
 
-            binding.tvDate.text = CommonUtils.dateformatYMDHM(Date(data.date))
-            binding.tvContent.text = data.content
+//            binding.tvDate.text = CommonUtils.dateformatYMDHM(Date(data.date))
+            binding.tvContent.text = data
         }
     }
 
