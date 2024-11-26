@@ -5,10 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -64,19 +67,7 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loadingAnimation.visibility = View.GONE
         registerObserver()
-
-        val loadingAnimationConfig = Config.Builder()
-            .autoplay(true)
-            .speed(1f)
-            .loop(true)
-            .source(DotLottieSource.Asset("gift_card_loading.lottie"))
-            .useFrameInterpolation(true)
-            .playMode(Mode.FORWARD)
-            .build()
-
-        binding.loadingAnimation.load(loadingAnimationConfig)
 
         binding.btnAddImg.setOnClickListener {
             // 갤러리 연결
@@ -99,7 +90,15 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
             // 서버로 선물카드 전송 + 구매 목록 전송
             if (isImageSelected) {
+                binding.cardView.visibility = View.GONE
                 binding.loadingAnimation.visibility = View.VISIBLE
+                loadAnimation()
+                if (binding.loadingAnimation.width > 0 && binding.loadingAnimation.height > 0) {
+
+                } else {
+                    Log.e("DotLottie", "View dimensions are zero")
+                }
+                binding.btnSendGift.isEnabled = false
 
                 val timeStamp = System.currentTimeMillis()
                 viewModel.uploadImage(userId, timeStamp)
@@ -107,9 +106,18 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
                 showToast("사진을 선택해주세요.")
             }
         }
-
-
     }
+
+    private fun loadAnimation() {
+        binding.loadingAnimation.post {
+            val config = Config.Builder()
+                .autoplay(true)
+                .source(DotLottieSource.Asset("gift_card_loading.lottie"))
+                .build()
+            binding.loadingAnimation.load(config)
+        }
+    }
+
 
     private fun checkPermission() {
         /** permission check **/
