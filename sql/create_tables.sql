@@ -52,7 +52,6 @@ create table gift(
 	g_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     recipient_id int not null default 0,
     sender_id int not null,
-    constraint foreign key (sender_id) references customer(c_id) on delete cascade,
     sender_name varchar(50),
     constraint foreign key (sender_id) references customer(c_id) on delete cascade
 );
