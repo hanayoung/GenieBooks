@@ -16,6 +16,7 @@ import com.ssafy.finalproject.ui.home.adapter.BookVPAdapter
 import com.ssafy.finalproject.util.CommonUtils
 
 private const val TAG = "HomeFragment"
+
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     FragmentHomeBinding::bind,
     R.layout.fragment_home
@@ -32,6 +33,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             findNavController().navigate(R.id.action_homeFragment_to_attendanceFragment)
         }
 
+        binding.iconRobot.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_recommendFragment)
+        }
+
         binding.btnShoppingCart.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_shoppingCartFragment)
         }
@@ -46,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
 
         viewModel.bookList.observe(viewLifecycleOwner) { it ->
-            if(it.isNotEmpty()){
+            if (it.isNotEmpty()) {
                 binding.loadingAnimation.visibility = View.GONE
                 binding.loadingAnimation.pauseAnimation()
                 bookVPAdapter.submitList(it)

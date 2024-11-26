@@ -22,17 +22,23 @@ class ApplicationClass : Application() {
 
         private val nullOnEmptyConverterFactory = object : Converter.Factory() {
             fun converterFactory() = this
-            override fun responseBodyConverter(type: Type, annotations: Array<out Annotation>, retrofit: Retrofit) = object :
+            override fun responseBodyConverter(
+                type: Type,
+                annotations: Array<out Annotation>,
+                retrofit: Retrofit
+            ) = object :
                 Converter<ResponseBody, Any?> {
-                val nextResponseBodyConverter = retrofit.nextResponseBodyConverter<Any?>(converterFactory(), type, annotations)
+                val nextResponseBodyConverter =
+                    retrofit.nextResponseBodyConverter<Any?>(converterFactory(), type, annotations)
+
                 override fun convert(value: ResponseBody) = if (value.contentLength() != 0L) {
-                    try{
+                    try {
                         nextResponseBodyConverter.convert(value)
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         e.printStackTrace()
                         null
                     }
-                } else{
+                } else {
                     null
                 }
             }
@@ -49,7 +55,7 @@ class ApplicationClass : Application() {
         // 레트로핏 인스턴스를 생성하고, 레트로핏에 각종 설정값들을 지정해줍니다.
         // 연결 타임아웃시간은 5초로 지정이 되어있고, HttpLoggingInterceptor를 붙여서 어떤 요청이 나가고 들어오는지를 보여줍니다.
         val okHttpClient = OkHttpClient.Builder()
-            .readTimeout(5000, TimeUnit.MILLISECONDS)
+            .readTimeout(10000, TimeUnit.MILLISECONDS)
             .connectTimeout(5000, TimeUnit.MILLISECONDS)
             // 로그캣에 okhttp.OkHttpClient로 검색하면 http 통신 내용을 보여줍니다.
 //            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))

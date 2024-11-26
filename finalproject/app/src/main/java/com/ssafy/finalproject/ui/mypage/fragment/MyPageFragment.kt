@@ -15,7 +15,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
     R.layout.fragment_my_page
 ) {
 
-    private val viewModel : MyPageViewModel by viewModels()
+    private val viewModel: MyPageViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,6 +56,18 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
 
         binding.btnNoti.setOnClickListener {
             findNavController().navigate(R.id.action_myPageFragment_to_notificationListFragment)
+        }
+
+        binding.tvCalendar.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_attendanceFragment)
+        }
+
+        binding.tvAiBook.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_recommendFragment)
+        }
+
+        binding.btnAttendance.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_recommendFragment)
         }
     }
 }

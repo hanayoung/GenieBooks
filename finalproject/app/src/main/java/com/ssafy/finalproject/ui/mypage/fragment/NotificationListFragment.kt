@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
-import com.ssafy.finalproject.data.model.dto.Notification
 import com.ssafy.finalproject.databinding.FragmentNotificationListBinding
 import com.ssafy.finalproject.ui.mypage.NotificationViewModel
 import com.ssafy.finalproject.ui.mypage.adapter.NotificationRVAdapter
