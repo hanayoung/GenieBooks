@@ -3,7 +3,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
 <mapper namespace="com.ssafy.cafe.model.dao.StaffDao">
-	<insert id="insert" parameterType="Staff">
+	<insert id="insert" parameterType="Staff"
+			useGeneratedKeys="true" keyProperty="sId">
 		INSERT INTO staff
 		    (nickname,
 		    id, 

@@ -40,6 +40,26 @@ class SharedPreferencesUtil(context: Context) {
         editor.apply()
     }
 
+    fun addUserId(userId : Int) {
+        val editor = preferences.edit()
+        editor.putInt("userId", userId)
+        editor.apply()
+    }
+
+    fun getUserId() : Int {
+        return preferences.getInt("userId", -1)
+    }
+
+    fun addId(id : String) {
+        val editor = preferences.edit()
+        editor.putString("id", id)
+        editor.apply()
+    }
+
+    fun getId() : String {
+        return preferences.getString("id","-1") ?: "-1"
+    }
+
     fun addUserCookie(cookies: HashSet<String>) {
         val editor = preferences.edit()
         editor.putStringSet(COOKIES_KEY_NAME, cookies)

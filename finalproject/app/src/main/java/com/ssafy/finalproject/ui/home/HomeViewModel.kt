@@ -22,7 +22,6 @@ class HomeViewModel : ViewModel() {
             }.onSuccess {  res ->
                 if(res.isSuccessful){
                     _bookList.value = res.body()
-                    Log.d(TAG, "_bookList: $bookList")
                 }else {
                     _bookList.value = emptyList()
                     Log.d(TAG, "_bookList fail: ${res.errorBody()?.string().toString()}")

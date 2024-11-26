@@ -54,22 +54,16 @@ public class RecommendRestController {
 	        BookRecommendRequest request = new BookRecommendRequest();
 	        request.setAge(selected.getAge());
 	        request.setSex(selected.getSex());
-	        logger.debug("request sex : {}",selected.getSex());
 	        List<Category> interest = cService.selectInterestByUserId(userId);
 	        request.setInterests(interest);
-	        logger.debug("request : {}",request);
 			String recommendBooksString = gptService.getBookRecommendations(request);
 			List<BookRecommendation> recommendBooks = BookParser.parseBookRecommendations(recommendBooksString);
-			logger.debug("result : {}", recommendBooksString);
-			logger.debug("books : {}",Arrays.toString(recommendBooks.toArray()));
 			return searchGoogleBooks(recommendBooks);
 			
 		} catch (Exception e) {
 			logger.debug("error : {}", e.getMessage());
 			return new ArrayList<>();
 		}
-
-		
 	}
 	
 	public List<GoogleBook> searchGoogleBooks(List<BookRecommendation> recommendBooks) {

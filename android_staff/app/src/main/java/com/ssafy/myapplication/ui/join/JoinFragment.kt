@@ -54,6 +54,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(
         val nickname = binding.inputLayoutNickName.editText?.text.toString()
 
         val staff = Staff(
+            staffId = -1,
             id = id,
             nickname = nickname,
             pwd = pwd
@@ -74,7 +75,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(
         viewModel.isJoinSuccess.observe(viewLifecycleOwner) {
             if (it) {
                 showToast("회원 가입에 성공하였습니다.")
-                findNavController().navigate(R.id.action_joinFragment_to_loginFragment)
+                findNavController().popBackStack()
             } else {
                 showToast("회원 가입에 실패하였습니다. 다시 시도해주세요.")
             }

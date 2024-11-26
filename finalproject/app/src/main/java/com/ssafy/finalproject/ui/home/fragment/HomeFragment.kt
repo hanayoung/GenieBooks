@@ -1,4 +1,4 @@
-package com.ssafy.finalproject.ui.home.fragments
+package com.ssafy.finalproject.ui.home.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
