@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.databinding.FragmentMyPageBinding
@@ -27,6 +26,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
             binding.tvWaitingCnt.text = it.inCompleteCnt.toString()
             binding.tvDoneCnt.text = it.completeCnt.toString()
         }
+        viewModel.getCustomerInfo()
     }
 
     private fun initView() {

@@ -16,6 +16,10 @@ class MyPageViewModel: ViewModel() {
     private var _myPageInfo : MutableLiveData<LoginInfoResponse> = MutableLiveData()
     val myPageInfo : LiveData<LoginInfoResponse> get() = _myPageInfo
     init {
+        getCustomerInfo()
+    }
+
+    fun getCustomerInfo() {
         viewModelScope.launch {
             runCatching {
                 val id = ApplicationClass.sharedPreferencesUtil.getId()
