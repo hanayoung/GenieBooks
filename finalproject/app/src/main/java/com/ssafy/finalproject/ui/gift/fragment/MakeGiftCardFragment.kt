@@ -5,27 +5,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.dotlottie.dlplayer.Mode
 import com.lottiefiles.dotlottie.core.model.Config
 import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.lottiefiles.dotlottie.core.util.DotLottieEventListener
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseFragment
-import com.ssafy.finalproject.data.model.dto.GiftCard
 import com.ssafy.finalproject.data.model.dto.GiftCardRequest
 import com.ssafy.finalproject.data.model.dto.OrderDetail
 import com.ssafy.finalproject.data.remote.RetrofitUtil
@@ -38,7 +35,6 @@ import com.ssafy.finalproject.util.setOnSingleClickListener
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import java.util.Date
 
 private const val TAG = "MakeGiftCardFragment"
 
@@ -80,7 +76,8 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
         super.onViewCreated(view, savedInstanceState)
         registerObserver()
 
-        binding.btnAddImg.setOnClickListener {
+        binding.loadingAnimation.setAnimationFromUrl("https://lottie.host/08a40997-5214-4dba-bcb9-adbc1644e484/U6XysFV5N7.json")
+          binding.btnAddImg.setOnClickListener {
             // 갤러리 연결
             val intent = Intent().also { intent ->
                 intent.type = "image/"
@@ -101,14 +98,9 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
             // 서버로 선물카드 전송 + 구매 목록 전송
             if (isImageSelected) {
-                binding.cardView.visibility = View.GONE
+                binding.loadingAnimation.playAnimation()
                 binding.loadingAnimation.visibility = View.VISIBLE
-                loadAnimation()
-                if (binding.loadingAnimation.width > 0 && binding.loadingAnimation.height > 0) {
 
-                } else {
-                    Log.e("DotLottie", "View dimensions are zero")
-                }
                 binding.btnSendGift.isEnabled = false
 
                 val timeStamp = System.currentTimeMillis()
@@ -118,17 +110,6 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
             }
         }
     }
-
-    private fun loadAnimation() {
-        binding.loadingAnimation.post {
-            val config = Config.Builder()
-                .autoplay(true)
-                .source(DotLottieSource.Asset("gift_card_loading.lottie"))
-                .build()
-            binding.loadingAnimation.load(config)
-        }
-    }
-
 
     private fun checkPermission() {
         /** permission check **/

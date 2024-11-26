@@ -28,17 +28,7 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         binding.loadingAnimation.visibility = View.VISIBLE
-
-        val loadingAnimationConfig = Config.Builder()
-            .autoplay(true)
-            .speed(1f)
-            .loop(true)
-            .source(DotLottieSource.Asset("loading.lottie"))
-            .useFrameInterpolation(true)
-            .playMode(Mode.FORWARD)
-            .build()
-
-        binding.loadingAnimation.load(loadingAnimationConfig)
+        binding.loadingAnimation.playAnimation()
 
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -71,6 +61,7 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>(
         viewModel.bookList.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
+                binding.loadingAnimation.pauseAnimation()
                 binding.loadingAnimation.visibility = View.GONE
             }
         }

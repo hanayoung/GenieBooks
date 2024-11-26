@@ -80,4 +80,12 @@
 		FROM customer
 		WHERE c_id = #{userId}
 	</select>
+	
+	<select id="getAgeAndSex" parameterType="int" resultType="Customer">
+		SELECT
+		    age,
+		    sex
+		FROM customer
+		WHERE c_id = #{userId}
+	</select>
 </mapper>

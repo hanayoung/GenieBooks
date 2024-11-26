@@ -35,13 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                loadAnimation()
-            }
-        })
-
+        binding.loadingAnimation.playAnimation()
         binding.iconCalendar.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_attendanceFragment)
         }
@@ -58,9 +52,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
         initAdapter()
 
+
         viewModel.bookList.observe(viewLifecycleOwner) { it ->
             if(it.isNotEmpty()){
                 binding.loadingAnimation.visibility = View.GONE
+                binding.loadingAnimation.pauseAnimation()
                 bookVPAdapter.submitList(it)
                 it[0].volumeInfo?.let { book ->
                     binding.tvTitle.text = book.title
@@ -79,14 +75,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 binding.bookVP.visibility = View.VISIBLE
             }
         }
-    }
-
-    private fun loadAnimation() {
-        val config = Config.Builder()
-            .autoplay(true)
-            .source(DotLottieSource.Asset("loading.lottie"))
-            .build()
-        binding.loadingAnimation.load(config)
     }
 
     private fun initAdapter() {

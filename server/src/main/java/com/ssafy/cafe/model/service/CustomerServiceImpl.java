@@ -95,4 +95,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public String getFcmTokenbyUserId(int userId) {
 		return customerDao.getFcmTokenbyUserId(userId);
 	}
+
+	@Override
+	public Customer getAgeAndSex(int userId) {
+		return customerDao.getAgeAndSex(userId);
+	}
 }

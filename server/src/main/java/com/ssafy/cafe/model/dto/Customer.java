@@ -16,6 +16,10 @@ public class Customer {
 	public Customer() {
 	}
 
+	public Customer(Integer age, Sex sex) {
+		this.age = age;
+		this.sex = sex;
+	}
 	public Customer(String id, String pwd, String fcmToken) {
 		this.id = id;
 		this.pwd = pwd;

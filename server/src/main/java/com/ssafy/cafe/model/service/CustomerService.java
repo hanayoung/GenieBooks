@@ -52,5 +52,7 @@ public interface CustomerService {
     
     public String getFcmTokenbyUserId(int userId);
     
+    public Customer getAgeAndSex(int userId); 
+    
     
 }
