@@ -81,6 +81,7 @@ public class StaffServiceImpl implements StaffService {
 				detailOrder.setRepImgUrl(book.getVolumeInfo().getImageLinks().getThumbnail());
 				detailOrder.setRepBookTitle(book.getVolumeInfo().getTitle());
 			}
+            logger.debug("detail Order : {}",detailOrder);
 			orderInfos.add(detailOrder);
 		}
 		return orderInfos;
@@ -103,17 +104,17 @@ public class StaffServiceImpl implements StaffService {
 	                URI uri = UriComponentsBuilder
 	                        .fromUriString(Constants.GOOGLE_BOOK_API_URL)
 	                        .queryParam("q","isbn:"+isbn)
-	                        .queryParam("maxResults", 40)
+	                        .queryParam("maxResults", 1)
 	                        .encode()
 	                        .build()
 	                        .toUri();
 	                ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
 
-	                if(response == null || response.getBody().getItems() == null) {
+	                if(response == null || response.getBody() == null || response.getBody().getItems() == null) {
 	                    uri = UriComponentsBuilder
 	                            .fromUriString(Constants.GOOGLE_BOOK_API_URL)
 	                            .queryParam("q",String.format("ISBN:\"%d\"", isbn))
-	                            .queryParam("maxResults", 40)
+	                            .queryParam("maxResults", 1)
 	                            .encode()
 	                            .build()
 	                            .toUri();
@@ -121,6 +122,7 @@ public class StaffServiceImpl implements StaffService {
 	                }
 
 	                book = response.getBody().getItems().get(0);
+	                logger.debug("isbn : {}",book);
 	        }catch (Exception e) {
 	                logger.debug("exception occur : {}",e.getMessage());
 	        }

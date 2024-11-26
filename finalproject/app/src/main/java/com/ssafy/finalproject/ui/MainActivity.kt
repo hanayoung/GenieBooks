@@ -108,8 +108,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         initBeacon()
         checkPermissionBeacon()
         checkPermission()
-
-        Log.d(TAG, "onCreate: ${ApplicationClass.sharedPreferencesUtil.getFcmToken()}")
     }
 
     override fun onResume() {
@@ -224,7 +222,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     }
                 }
                 if (isEmpty()) {
-                    Log.d(TAG, "didRangeBeaconsInRegion: 비컨을 찾을 수 없습니다.")
+//                    Log.d(TAG, "didRangeBeaconsInRegion: 비컨을 찾을 수 없습니다.")
                 }
             }
         }
@@ -334,23 +332,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun init() {
-        initFCM()
+//        initFCM()
         createNotificationChannel(channel_id, "smart_store")
-    }
-
-    private fun initFCM() {
-        // FCM 토큰 수신
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.d(TAG, "FCM 토큰 얻기에 실패하였습니다.", task.exception)
-                return@OnCompleteListener
-            }
-            // token log 남기기
-            Log.d(TAG, "token: ${task.result ?: "task.result is null"}")
-            if (task.result != null) {
-                uploadToken(task.result!!)
-            }
-        })
     }
 
     // Notification 수신을 위한 체널 추가
@@ -369,29 +352,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         // Notification Channel ID
         const val channel_id = "smart_store_channel"
 
-        // ratrofit  수업 후 network 에 업로드 할 수 있도록 구성
-        fun uploadToken(token: String) {
-            // 새로운 토큰 수신 시 서버로 전송
-            firebaseTokenService.uploadToken(token).enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
-                        val res = response.body()
-                        Log.d(TAG, "onResponse: $res")
-                    } else {
-                        Log.d(TAG, "onResponse: Error Code ${response.code()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, t.message ?: "토큰 정보 등록 중 통신오류")
-                }
-            })
-        }
+       // ratrofit  수업 후 network 에 업로드 할 수 있도록 구성
+//        fun uploadToken(token: String) {
+//            // 새로운 토큰 수신 시 서버로 전송
+//            firebaseTokenService.uploadToken(token).enqueue(object : Callback<String> {
+//                override fun onResponse(call: Call<String>, response: Response<String>) {
+//                    if (response.isSuccessful) {
+//                        val res = response.body()
+//                        Log.d(TAG, "onResponse: $res")
+//                    } else {
+//                        Log.d(TAG, "onResponse: Error Code ${response.code()}")
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<String>, t: Throwable) {
+//                    Log.d(TAG, t.message ?: "토큰 정보 등록 중 통신오류")
+//                }
+//            })
+//        }
 
         private const val BEACON_UUID = "e2c56db5-dffb-48d2-b060-d0f5a71096e0" // 우리반 모두 동일값
         private const val BEACON_MAJOR = "40011" // 우리반 모두 동일값
         private const val BEACON_MINOR = "43424" // 우리반 모두 동일값
         private const val BLUETOOTH_ADDRESS = "C3:00:00:1C:5E:7F"
-        private const val BEACON_DISTANCE = 5.0 // 거리
+        private const val BEACON_DISTANCE = 10.0 // 거리
     }
 }

@@ -15,7 +15,6 @@ class HomeViewModel : ViewModel() {
     val bookList : LiveData<List<GoogleBook>>
         get() = _bookList
 
-
     init {
         viewModelScope.launch {
             runCatching {
@@ -33,6 +32,4 @@ class HomeViewModel : ViewModel() {
             }
         }
     }
-
-
 }

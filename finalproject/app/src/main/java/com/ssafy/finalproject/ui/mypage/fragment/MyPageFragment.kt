@@ -49,5 +49,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(
         binding.tvLogout.setOnClickListener {
             findNavController().navigate(R.id.action_myPageFragment_to_signOutDialog)
         }
+
+        binding.tvNoti.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_notificationListFragment)
+        }
+
+        binding.btnNoti.setOnClickListener {
+            findNavController().navigate(R.id.action_myPageFragment_to_notificationListFragment)
+        }
     }
 }

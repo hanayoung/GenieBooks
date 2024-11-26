@@ -54,7 +54,6 @@
         android:text="아니요"
         android:textColor="@color/text"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btn_pos"
         app:layout_constraintDimensionRatio="1:0.39"
         app:layout_constraintEnd_toEndOf="parent"

@@ -24,6 +24,7 @@ import com.ssafy.cafe.model.dto.Staff;
 import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.model.service.CustomerService;
 import com.ssafy.cafe.model.service.FirebaseCloudMessageService;
+import com.ssafy.cafe.model.service.FirebaseCloudMessageServiceWithData;
 import com.ssafy.cafe.model.service.StaffService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,6 +43,9 @@ public class StaffRestController {
     
     @Autowired
     FirebaseCloudMessageService service;
+    
+    @Autowired
+    FirebaseCloudMessageServiceWithData serviceWithData;
     
     @Autowired
     CustomerService cService;
@@ -97,7 +101,7 @@ public class StaffRestController {
     @Operation(summary = "픽업 대기 중인 목록 반환")
     public List<Order> getAllOrders() {
     	List<Order> orders = sService.selectAllOrders();
-        logger.debug("orders in controller : {}",orders);
+        logger.debug("staffs in controller : {}",orders);
         return orders;
     }
     
@@ -108,7 +112,7 @@ public class StaffRestController {
     	int userId = payload.get("userId");
     	Boolean result = sService.updateOrderStateDone(orderId);
         String fcmToken = cService.getFcmTokenbyUserId(userId);
-        service.sendMessageTo(fcmToken,"픽업 준비 완료", "도서가 준비되었습니다");
+        serviceWithData.sendDataMessageTo(fcmToken,"픽업 준비 완료", "도서가 준비되었습니다");
         return result;
     }
 
@@ -119,7 +123,7 @@ public class StaffRestController {
         int userId = payload.get("userId");
         Boolean result = sService.updateOrderStatePickup(orderId);
         String fcmToken = cService.getFcmTokenbyUserId(userId);
-        service.sendMessageTo(fcmToken,"수령 완료", "수령이 완료되었습니다. 즐거운 시간 되세요🥰");
+        serviceWithData.sendDataMessageTo(fcmToken,"수령 완료", "수령이 완료되었습니다. 즐거운 시간 되세요🥰");
         oService.updatePickupTime(orderId);
         return result;
     }

@@ -85,7 +85,9 @@ public class GoogleBookServiceImpl implements GoogleBookService {
 
 					response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
 				}
-				recommendBookList.addAll(response.getBody().getItems());
+				if(response != null && response.getBody() != null && response.getBody().getItems() != null) {
+					recommendBookList.addAll(response.getBody().getItems());
+				}
 			}
 		} catch (Exception e) {
 			logger.debug("exception occur : {}", e.getMessage());

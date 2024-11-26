@@ -14,29 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.cafe.model.service.CustomerService;
 import com.ssafy.cafe.model.service.FirebaseCloudMessageService;
+import com.ssafy.cafe.model.service.FirebaseCloudMessageServiceWithData;
 
 @RestController
 @RequestMapping("/rest/token")
 @CrossOrigin("*")
 public class TokenController {
 	private static final Logger logger = LoggerFactory.getLogger(TokenController.class);
+	
     @Autowired
     FirebaseCloudMessageService service;
-
+    
+    @Autowired
+    FirebaseCloudMessageServiceWithData serviceWithData;
+    
     @Autowired
     CustomerService cService;
     
-    @PostMapping("/sendMessageTo")
-    public void sendMessageTo(String token, String title, String body) throws IOException {
+    @PostMapping("/sendDataMessageTo")
+    public void sendDataMessageTo(String token, String title, String body) throws IOException {
         logger.info("sendMessageTo : token:{}, title:{}, body:{}", token, title, body);
-        service.sendMessageTo(token, title, body);
+        serviceWithData.sendDataMessageTo(token, title, body);
     }
     
-    @PostMapping("/token")
-    public String registToken(String token, int userId) {
-    	cService.uploadToken(token, userId);
-//        logger.info("registToken : token:{}", token);
-//        service.addToken(token);
-        return "'"+token+"'" ;
-    }
 }

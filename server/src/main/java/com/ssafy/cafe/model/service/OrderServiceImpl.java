@@ -69,6 +69,7 @@ public class OrderServiceImpl implements OrderService {
             	detailOrder.setRepImgUrl(book.getVolumeInfo().getImageLinks().getThumbnail());
             	detailOrder.setRepBookTitle(book.getVolumeInfo().getTitle());
             }
+            logger.debug("detail Order : {}",detailOrder);
             orderInfos.add(detailOrder);
         }
         return orderInfos;
@@ -99,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
                 URI uri = UriComponentsBuilder
                         .fromUriString(Constants.GOOGLE_BOOK_API_URL)
                         .queryParam("q","isbn:"+isbn)
-                        .queryParam("maxResults", 40)
+                        .queryParam("maxResults", 2)
                         .encode()
                         .build()
                         .toUri();
@@ -109,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
                     uri = UriComponentsBuilder
                             .fromUriString(Constants.GOOGLE_BOOK_API_URL)
                             .queryParam("q",String.format("ISBN:\"%d\"", isbn))
-                            .queryParam("maxResults", 40)
+                            .queryParam("maxResults", 2)
                             .encode()
                             .build()
                             .toUri();
