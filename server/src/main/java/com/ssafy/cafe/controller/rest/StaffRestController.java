@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.cafe.model.dto.Customer;
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.Staff;
-import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.model.service.CustomerService;
 import com.ssafy.cafe.model.service.FirebaseCloudMessageService;
 import com.ssafy.cafe.model.service.FirebaseCloudMessageServiceWithData;
@@ -56,9 +54,9 @@ public class StaffRestController {
     @PostMapping("/signup")
     @Operation(summary = "사용자 정보를 추가한다. 성공하면 true를 리턴한다. ")
     public Boolean insert(@RequestBody Staff staff) {
-    	logger.debug("staff.insert", staff);
     	int result = 0;
     	try {
+            staff.setSId(null);
     		result = sService.join(staff);
     	}catch(Exception e) {
     		result = -1;
@@ -83,8 +81,7 @@ public class StaffRestController {
     public Staff login(@RequestBody Staff staff, HttpServletResponse response) throws UnsupportedEncodingException {
     	Staff selected = sService.login(staff.getId(), staff.getPwd());
         if (selected != null) {
-          Cookie cookie = new Cookie("loginId", URLEncoder.encode(selected.getId(), "utf-8"));
-//            Cookie cookie = new Cookie("loginId", selected.getId());
+            Cookie cookie = new Cookie("loginId", URLEncoder.encode(selected.getId(), "utf-8"));
             cookie.setMaxAge(60*60*24*30); //30일
             response.addCookie(cookie);
         }

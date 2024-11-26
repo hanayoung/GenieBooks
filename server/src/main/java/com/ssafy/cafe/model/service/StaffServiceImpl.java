@@ -12,16 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.ssafy.cafe.model.dao.CustomerDao;
 import com.ssafy.cafe.model.dao.OrderDao;
 import com.ssafy.cafe.model.dao.StaffDao;
-import com.ssafy.cafe.model.dao.UserDao;
-import com.ssafy.cafe.model.dto.Customer;
 import com.ssafy.cafe.model.dto.GoogleBook;
 import com.ssafy.cafe.model.dto.GoogleBookResponse;
 import com.ssafy.cafe.model.dto.Order;
 import com.ssafy.cafe.model.dto.Staff;
-import com.ssafy.cafe.model.dto.User;
 import com.ssafy.cafe.util.Constants;
 
 /**

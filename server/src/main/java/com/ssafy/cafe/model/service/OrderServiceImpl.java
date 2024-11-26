@@ -2,10 +2,8 @@ package com.ssafy.cafe.model.service;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import com.ssafy.cafe.controller.rest.CommentRestController;
 import com.ssafy.cafe.model.dao.*;
 import com.ssafy.cafe.model.dto.*;
 import com.ssafy.cafe.util.Constants;

@@ -10,6 +10,10 @@
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary</item>
+
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:statusBarColor">#B4AEC2</item>
     </style>
 
     <style name="Theme.FinalProject" parent="Base.Theme.FinalProject" />

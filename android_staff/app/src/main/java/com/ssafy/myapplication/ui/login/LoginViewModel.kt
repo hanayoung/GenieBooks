@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.myapplication.base.ApplicationClass
 import com.ssafy.myapplication.data.model.Staff
 import com.ssafy.myapplication.data.remote.RetrofitUtil.Companion.staffService
 import kotlinx.coroutines.launch
@@ -25,7 +26,12 @@ class LoginViewModel: ViewModel() {
             }.onSuccess {
                 _loginUser.value = it
                 _isLoginSuccess.value = true
-                Log.d(TAG, "login: $it")
+                it?.let {
+                    ApplicationClass.sharedPreferencesUtil.apply {
+                        addUserId(it.staffId)
+                        addId(it.id)
+                    }
+                }
             }.onFailure {
                 _isLoginSuccess.value = false
                 Log.d(TAG, "login: ${it.message}")

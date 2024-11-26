@@ -3,6 +3,7 @@ package com.ssafy.finalproject.ui.mypage.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
@@ -24,6 +25,9 @@ class NotificationListFragment : BaseFragment<FragmentNotificationListBinding>(
         initAdapter()
         initObserver()
 
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
     private fun initAdapter() {
         notificationListRVAdapter = NotificationRVAdapter()

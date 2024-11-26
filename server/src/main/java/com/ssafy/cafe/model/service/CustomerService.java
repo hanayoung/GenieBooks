@@ -1,9 +1,7 @@
 package com.ssafy.cafe.model.service;
 
-import com.ssafy.cafe.model.dto.Attendance;
 import com.ssafy.cafe.model.dto.Category;
 import com.ssafy.cafe.model.dto.Customer;
-import com.ssafy.cafe.model.dto.User;
 
 import java.util.List;
 

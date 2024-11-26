@@ -1,20 +1,12 @@
-package com.ssafy.finalproject.ui.home.fragments
+package com.ssafy.finalproject.ui.home.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
-import android.view.animation.AnimationUtils.loadAnimation
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.dotlottie.dlplayer.Mode
-import com.lottiefiles.dotlottie.core.loader.DotLottieResult
-import com.lottiefiles.dotlottie.core.model.Config
-import com.lottiefiles.dotlottie.core.util.DotLottieEventListener
-import com.lottiefiles.dotlottie.core.util.DotLottieSource
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.BaseFragment
 import com.ssafy.finalproject.data.model.dto.GoogleBook

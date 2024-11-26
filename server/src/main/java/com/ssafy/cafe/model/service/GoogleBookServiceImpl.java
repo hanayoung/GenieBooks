@@ -76,7 +76,7 @@ public class GoogleBookServiceImpl implements GoogleBookService {
 		try {
 			for (Long isbn : isbnList) {
 				URI uri = UriComponentsBuilder.fromUriString(Constants.GOOGLE_BOOK_API_URL)
-						.queryParam("q", "isbn:" + isbn).queryParam("maxResults", 40).encode().build().toUri();
+						.queryParam("q", "isbn:" + isbn).encode().build().toUri();
 				ResponseEntity<GoogleBookResponse> response = restTemplate.getForEntity(uri, GoogleBookResponse.class);
 
 				if (response == null || response.getBody() == null || response.getBody().getItems() == null) {
@@ -88,6 +88,7 @@ public class GoogleBookServiceImpl implements GoogleBookService {
 				if(response != null && response.getBody() != null && response.getBody().getItems() != null) {
 					recommendBookList.addAll(response.getBody().getItems());
 				}
+				logger.debug("new book : {}",response.getBody().getItems());
 			}
 		} catch (Exception e) {
 			logger.debug("exception occur : {}", e.getMessage());

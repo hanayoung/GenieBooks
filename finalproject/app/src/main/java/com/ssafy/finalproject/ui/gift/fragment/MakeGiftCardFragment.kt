@@ -105,6 +105,7 @@ class MakeGiftCardFragment : BaseFragment<FragmentMakeGiftCardBinding>(
 
                 val timeStamp = System.currentTimeMillis()
                 viewModel.uploadImage(userId, timeStamp)
+                showToast("선물카드를 제작중입니다. 잠시만 기다려주세요☘️")
             } else {
                 showToast("사진을 선택해주세요.")
             }

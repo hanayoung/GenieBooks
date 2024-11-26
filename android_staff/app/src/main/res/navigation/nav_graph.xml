@@ -2,29 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.ssafy.myapplication.ui.login.LoginFragment"
-        android:label="LoginFragment" >
-        <action
-            android:id="@+id/action_loginFragment_to_joinFragment"
-            app:destination="@id/joinFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/joinFragment"
-        android:name="com.ssafy.myapplication.ui.join.JoinFragment"
-        android:label="JoinFragment" >
-        <action
-            android:id="@+id/action_joinFragment_to_loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/loginFragment" />
-    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ssafy.myapplication.ui.home.HomeFragment"

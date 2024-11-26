@@ -19,20 +19,16 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.finalproject.R
 import com.ssafy.finalproject.base.ApplicationClass
 import com.ssafy.finalproject.base.BaseActivity
 import com.ssafy.finalproject.data.remote.RetrofitUtil
-import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.firebaseTokenService
 import com.ssafy.finalproject.data.remote.RetrofitUtil.Companion.giftCardService
 import com.ssafy.finalproject.databinding.ActivityMainBinding
-import com.ssafy.finalproject.ui.home.fragments.HomeFragmentDirections
+import com.ssafy.finalproject.ui.home.fragment.HomeFragmentDirections
 import com.ssafy.finalproject.util.PermissionChecker
 import kotlinx.coroutines.launch
 import org.altbeacon.beacon.Beacon
@@ -42,9 +38,6 @@ import org.altbeacon.beacon.Identifier
 import org.altbeacon.beacon.MonitorNotifier
 import org.altbeacon.beacon.RangeNotifier
 import org.altbeacon.beacon.Region
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 private const val TAG = "MainActivity_싸피"
 
@@ -171,7 +164,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private fun requestEnableBLE() {
         val callBLEEnableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         requestBLEActivity.launch(callBLEEnableIntent)
-        Log.d(TAG, "requestEnableBLE: ")
     }
 
     private val requestBLEActivity: ActivityResultLauncher<Intent> = registerForActivityResult(

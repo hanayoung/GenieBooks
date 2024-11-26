@@ -25,7 +25,7 @@ public class Staff {
 	public Integer getSId() {
 		return sId;
 	}
-	public void setS_id(Integer sId) {
+	public void setSId(Integer sId) {
 		this.sId = sId;
 	}
 	public String getId() {

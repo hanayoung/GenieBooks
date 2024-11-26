@@ -36,7 +36,6 @@ public class AttendanceRestController {
             return new ArrayList<>();
         } else {
             List<Attendance> attendances = aService.selectAttendance(selected.getCId());
-            logger.debug("orders in controller : {}",attendances);
             List<Date> dates = attendances.stream().map(Attendance::getAttendDate)
                     .collect(Collectors.toList());
             return dates;
@@ -54,7 +53,6 @@ public class AttendanceRestController {
         } else {
             if(aService.checkDate(selected.getCId()) == false){
                 Boolean attendance = aService.addAttendance(selected.getCId());
-                logger.debug("attendance in controller : {}",attendance);
                 return attendance;
             }else{
                 return false; // 이미 출석체크가 되어있는 경우
