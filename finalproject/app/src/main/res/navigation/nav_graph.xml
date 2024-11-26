@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_myGiftCardFragment"
             app:destination="@id/myGiftCardFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recommendFragment"
+            app:destination="@id/recommendFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -52,6 +55,12 @@
         <action
             android:id="@+id/action_myPageFragment_to_signOutDialog"
             app:destination="@id/signOutDialog" />
+        <action
+            android:id="@+id/action_myPageFragment_to_attendanceFragment"
+            app:destination="@id/attendanceFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_recommendFragment"
+            app:destination="@id/recommendFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryDetailFragment"
@@ -96,7 +105,7 @@
     <fragment
         android:id="@+id/shoppingCartFragment"
         android:name="com.ssafy.finalproject.ui.shoppingcart.ShoppingCartFragment"
-        android:label="ShoppingCartFragment" >
+        android:label="ShoppingCartFragment">
         <action
             android:id="@+id/action_shoppingCartFragment_to_giftCardCheckDialog"
             app:destination="@id/giftCardCheckDialog" />
@@ -105,17 +114,17 @@
         android:id="@+id/makeGiftCardFragment"
         android:name="com.ssafy.finalproject.ui.gift.fragment.MakeGiftCardFragment"
         android:label="fragment_gift_card"
-        tools:layout="@layout/fragment_make_gift_card" >
+        tools:layout="@layout/fragment_make_gift_card">
         <action
             android:id="@+id/action_makeGiftCardFragment_to_homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/giftCardListFragment"
         android:name="com.ssafy.finalproject.ui.gift.fragment.GiftCardListFragment"
         android:label="fragment_gift_card_list"
-        tools:layout="@layout/fragment_gift_card_list" >
+        tools:layout="@layout/fragment_gift_card_list">
         <action
             android:id="@+id/action_giftCardListFragment_to_myGiftCardFragment"
             app:destination="@id/myGiftCardFragment" />
@@ -161,7 +170,7 @@
     <dialog
         android:id="@+id/giftCardCheckDialog"
         android:name="com.ssafy.finalproject.ui.dialog.GiftCardCheckDialog"
-        android:label="GiftCardCheckDialog" >
+        android:label="GiftCardCheckDialog">
         <action
             android:id="@+id/action_giftCardCheckDialog_to_makeGiftCardFragment"
             app:destination="@id/makeGiftCardFragment" />
@@ -172,12 +181,11 @@
     <dialog
         android:id="@+id/signOutDialog"
         android:name="com.ssafy.finalproject.ui.dialog.SignOutDialog"
-        android:label="SignOutDialog" >
-    </dialog>
+        android:label="SignOutDialog"></dialog>
     <dialog
         android:id="@+id/QRCreateDialog"
         android:name="com.ssafy.finalproject.ui.dialog.QRCreateDialog"
-        android:label="QRCreateDialog" >
+        android:label="QRCreateDialog">
         <argument
             android:name="orderId"
             app:argType="integer" />
@@ -186,9 +194,17 @@
         android:id="@+id/myGiftCardFragment"
         android:name="com.ssafy.finalproject.ui.gift.fragment.MyGiftCardFragment"
         android:label="fragment_my_gift_card"
-        tools:layout="@layout/fragment_my_gift_card" >
+        tools:layout="@layout/fragment_my_gift_card">
         <argument
             android:name="data"
             app:argType="com.ssafy.finalproject.data.model.dto.GiftCard" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendFragment"
+        android:name="com.ssafy.finalproject.ui.recommend.RecommendFragment"
+        android:label="RecommendFragment">
+        <action
+            android:id="@+id/action_recommendFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
     </fragment>
 </navigation>
