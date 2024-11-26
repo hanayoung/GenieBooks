@@ -53,7 +53,7 @@ class OrderDetailViewModel: ViewModel() {
     }
 
     fun setIsDone() {
-        _orderDetail.value?.isDone = true
+        _orderDetail.value?.done = true
     }
 
 }

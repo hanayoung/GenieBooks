@@ -1,4 +1,3 @@
-drop database if exists ssafy_pennant;
 create database ssafy_pennant;
 use ssafy_pennant;
 
@@ -9,7 +8,8 @@ create table customer(
     pwd char(50) not null,
     age integer not null default 1,
 	sex char(50) not null,
-    point integer not null default 0
+    point integer not null default 0,
+    fcm_token varchar(255)
 );                                                 
 
 create table interest(
@@ -30,10 +30,10 @@ create table p_customer(
     o_id integer auto_increment primary key,
     c_id integer not null,
     o_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    p_date TIMESTAMP,
     is_pickup boolean not null default false,
     is_done boolean not null default false,
-    payment integer not null default 0
+    payment integer not null default 0,
+    p_date TIMESTAMP
 );                               
 
 create table p_book(
@@ -52,9 +52,9 @@ create table gift(
 	g_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     recipient_id int not null default 0,
     sender_id int not null,
-    sender_name varchar(50),
+    sender_name varchar(50) NOT NULL,
     constraint foreign key (sender_id) references customer(c_id) on delete cascade
-);
+); 
 
 create table recommend(
 	id integer auto_increment primary key,
@@ -67,9 +67,3 @@ create table attendance(
     attend_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     constraint foreign key (c_id) references customer(c_id) on delete cascade
 );
-
-ALTER TABLE customer ADD COLUMN fcm_token varchar(255) NOT NULL;
-
-ALTER TABLE p_customer ADD COLUMN is_pickup boolean NOT NULL default false;
-
-ALTER TABLE p_customer ADD COLUMN pickup_date TIMESTAMP;

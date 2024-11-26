@@ -47,7 +47,11 @@ class OrderListFragment : BaseFragment<FragmentOrderListBinding>(
 
     private fun initObserver() {
         viewModel.orderList.observe(viewLifecycleOwner) {
-            orderListRVAdapter.submitList(it)
+            val list = it.filter { order ->
+                order.pickup == false
+            }
+            orderListRVAdapter.submitList(list)
+            // 비어있을 시 뭐라도 띄우기 빈 거라고
         }
     }
 }

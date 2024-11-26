@@ -42,10 +42,10 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(
                     "application/json".toMediaTypeOrNull(),
                     jsonObject.toString()
                 )
-                if(it.isPickup == false && it.isDone == true) {
+                if(it.pickup == false && it.done == true) {
                     // 수령완료되었습니다로 알림 보내기
                     viewModel.updateOrderStatePickup(requestBody)
-                }else if(it.isPickup == false && it.isDone == false) {
+                }else if(it.pickup == false && it.done == false) {
                     viewModel.updateOrderStateDone(requestBody)
                     viewModel.setIsDone()
                     binding.floatingActionButton.setImageResource(R.drawable.icon_box)
@@ -74,7 +74,7 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>(
             binding.tvOrder.text = getString(R.string.order_detail_info, CommonUtils.dateformatYMDHM(it.orderTime), it.id)
             binding.tvPrice.text = CommonUtils.makeComma(it.payment)
 
-            if(it.isDone == true) {
+            if(it.done == true) {
                 binding.floatingActionButton.setImageResource(R.drawable.icon_box)
             } // 준비 완료 상태
         }

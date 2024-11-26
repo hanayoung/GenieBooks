@@ -73,6 +73,7 @@ class OrderListRVAdapter: ListAdapter<Order, OrderListRVAdapter.ViewHolder>(IdCo
         val screenHeight = displayMetrics.heightPixels
         val itemHeight = (screenHeight * 0.2).toInt()
         binding.root.layoutParams.height = itemHeight
+
         return ViewHolder(binding)
 
     }
