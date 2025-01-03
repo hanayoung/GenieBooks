@@ -90,7 +90,7 @@ public class FirebaseCloudMessageService {
 
         Response response = client.newCall(request).execute();
 
-        System.out.println(response.body().string());
+        logger.debug("response body : {}",response.body().string());
     }
 
 

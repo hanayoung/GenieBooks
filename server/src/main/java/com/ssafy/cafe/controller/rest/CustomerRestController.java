@@ -104,7 +104,7 @@ public class CustomerRestController {
                 try {
                     if("loginId".equals(cookie.getName())){
                         idInCookie = URLDecoder.decode(cookie.getValue(), "utf-8");
-                        System.out.println("value : "+URLDecoder.decode(cookie.getValue(), "utf-8"));
+                        logger.debug("value : {} utf-8",URLDecoder.decode(cookie.getValue()));
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();

@@ -105,8 +105,8 @@ public class FirebaseCloudMessageServiceWithData {
 
         Response response = client.newCall(request).execute();
 
-        System.out.println(response.body().string());
-//        logger.info("message : {}", message);
+        logger.info("message : {}", client);
+        logger.debug("response body :{}",response.body().string());
     }
 
 
